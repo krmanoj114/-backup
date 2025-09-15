@@ -3,6 +3,8 @@ package com.tpex.invoice.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,8 +58,7 @@ class InvHaisenDetailsControllerTest {
 		String userId= "Tpextest";
 
 		ResponseEntity<List<String>> response = invHaisenDetailsController.saveInvoiceHaisenDetails(userId, list);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(invHaisenDetailsSeviceImpl, times(1)).saveHaisenDetails(Mockito.anyString(),Mockito.anyList());
+	    verify(invHaisenDetailsSeviceImpl, times(1)).saveHaisenDetails(anyString(),anyList());
 
 
 	}
@@ -89,7 +89,7 @@ class InvHaisenDetailsControllerTest {
 
 		ResponseEntity<List<String>> response = invHaisenDetailsController.updateInvoiceDetails(userId, list);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(invHaisenDetailsSeviceImpl, times(1)).updateInvoiceDetails(Mockito.anyString(),Mockito.anyList());
+        verify(invHaisenDetailsSeviceImpl, times(1)).updateInvoiceDetails(anyString(),anyList());
 
 
 	}

@@ -213,7 +213,7 @@ public class InsInvDtlsEntity {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Timestamp indDeclrDt;
 
-	private LocalDateTime getIndDeclrDt() {
+	public LocalDateTime getIndDeclrDt() {
 		return DateUtil.convertSqlDateToLocalDateTimeOfEntityAttribute(indDeclrDt);
 	}
 
@@ -224,7 +224,7 @@ public class InsInvDtlsEntity {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Timestamp indExchDt;
 
-	private LocalDateTime getIndExchDt() {
+	public LocalDateTime getIndExchDt() {
 		return DateUtil.convertSqlDateToLocalDateTimeOfEntityAttribute(indExchDt);
 	}
 
@@ -440,7 +440,7 @@ public class InsInvDtlsEntity {
 
 	@Column(name = "ETWC_FLG")
 	private String indEtwcFlag;
-	
+
 	@Column(name = "CMP_CD")
 	private String companyCode;
 }

@@ -23,6 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tpex.entity.TpexConfigEntity;
 import com.tpex.invoice.dto.CertificateOriginReportDTO;
+import com.tpex.invoice.serviceimpl.CertificateOriginReportServiceImpl;
 import com.tpex.jasperreport.service.JasperReportService;
 import com.tpex.repository.CertificateOriginReportRepository;
 import com.tpex.repository.TpexConfigRepository;
@@ -325,9 +326,7 @@ class CertificateOriginReportServiceImplTest {
 		config.put(ConstantUtils.LOGIN_USER_ID, "TestUser");
 		String fileFormat = "pdf";
 		String fileName = "KR22102669" + "_" + "COO" + "." + fileFormat;
-		StringBuilder sb = new StringBuilder().append(String.valueOf(config.get("reportDirectory"))).append("/")
-				.append(fileName);
-		jasperReportService.getJasperReportDownloadOfflineV1(expected, fileFormat, reportName, parameters, config, 0, sb, fileName);
+		jasperReportService.getJasperReportDownloadOfflineV1(expected, fileFormat, reportName, parameters, config, 0, fileName);
 			TpexConfigEntity tpexConfig = new TpexConfigEntity();
 		tpexConfig.setId(33);
 		tpexConfig.setName("reportTypesJsonForInquiryScreen");

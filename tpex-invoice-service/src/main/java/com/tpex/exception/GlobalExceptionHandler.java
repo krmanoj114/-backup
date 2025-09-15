@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
 
 import com.tpex.exception.model.ErrorInfo;
+import com.tpex.util.ConstantUtils;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,9 +25,9 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	public ResponseEntity<ErrorInfo> handleMultipartException(HttpServletRequest request, Exception ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(), "Exception: " + ex.getMessage(),
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ConstantUtils.EXCEPTION + ex.getMessage(),
 				HttpStatus.BAD_REQUEST.value());
-		return new ResponseEntity<ErrorInfo>(error, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -36,24 +37,24 @@ public class GlobalExceptionHandler {
 		ErrorInfo error = new ErrorInfo(request.getRequestURI(),
 				"HTTP request method not supported for this operation." + ex.getMessage(),
 				HttpStatus.METHOD_NOT_ALLOWED.value());
-		return new ResponseEntity<ErrorInfo>(error, HttpStatus.METHOD_NOT_ALLOWED);
+		return new ResponseEntity<>(error, HttpStatus.METHOD_NOT_ALLOWED);
 	}
 
 	@ExceptionHandler(IOException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public ResponseEntity<ErrorInfo> handleIOException(HttpServletRequest request, Exception ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(), "Exception: " + ex.getMessage(),
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ConstantUtils.EXCEPTION + ex.getMessage(),
 				HttpStatus.INTERNAL_SERVER_ERROR.value());
-		return new ResponseEntity<ErrorInfo>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorInfo> handleGeneralError(HttpServletRequest request, HttpServletResponse response,
 			Exception ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(), "Exception: " + ex.getMessage(),
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ConstantUtils.EXCEPTION + ex.getMessage(),
 				HttpStatus.INTERNAL_SERVER_ERROR.value());
-		return new ResponseEntity<ErrorInfo>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	/**
@@ -74,23 +75,26 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InvalidInputParametersException.class)
 	public ResponseEntity<ErrorInfo> handleGeneralError(HttpServletRequest request, HttpServletResponse response,
 			InvalidInputParametersException ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(),ex.getMessage(),
-				HttpStatus.BAD_REQUEST.value(), ex.getErrorMessageParams(),ex.getErrorMessageParamsArray());
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ex.getMessage(), HttpStatus.BAD_REQUEST.value(),
+				ex.getErrorMessageParams(), ex.getErrorMessageParamsArray());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(InvalidFileException.class)
 	public ResponseEntity<ErrorInfo> handleFileExceptions(HttpServletRequest request, HttpServletResponse response,
 			InvalidFileException ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ex.getMessage(), HttpStatus.BAD_REQUEST.value(), ex.getErrorMessageParams());
-		return new ResponseEntity<ErrorInfo>(error, HttpStatus.BAD_REQUEST);
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ex.getMessage(), HttpStatus.BAD_REQUEST.value(),
+				ex.getErrorMessageParams());
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorInfo> handleValidationExceptions(HttpServletRequest request, MethodArgumentNotValidException ex) {
-		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ex.getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST.value());
+	public ResponseEntity<ErrorInfo> handleValidationExceptions(HttpServletRequest request,
+			MethodArgumentNotValidException ex) {
+		ErrorInfo error = new ErrorInfo(request.getRequestURI(), ex.getAllErrors().get(0).getDefaultMessage(),
+				HttpStatus.BAD_REQUEST.value());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 }

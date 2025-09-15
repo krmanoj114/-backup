@@ -32,6 +32,7 @@ import com.tpex.invoice.dto.RenbanGroupCodeMasterRequestDto;
 import com.tpex.invoice.dto.RenbanGroupCodeMasterResponseDto;
 import com.tpex.invoice.dto.RenbanGroupCodeMasterResponseFinalDto;
 import com.tpex.invoice.dto.RenbancodeMasterDeleteDto;
+import com.tpex.invoice.serviceimpl.RenbanGroupCodeMasterServiceImpl;
 import com.tpex.repository.NoemRenbanBookDtlRepository;
 import com.tpex.repository.NoemRenbanSetupMstRepository;
 import com.tpex.util.ConstantUtils;
@@ -310,14 +311,14 @@ class RenbanGroupCodeMasterServiceImplTest {
 		idEntity.setContDestCd("709B");
 		idEntity.setContGrpCode("Y");
 		idEntity.setContVanningMnth("202212");
-		idEntity.setEtd1(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,"2022-12-14"));
+		idEntity.setEtd1(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,"2022-12-14"));
 		NoemRenbanBookDtlEntity entity = new NoemRenbanBookDtlEntity();
 		entity.setId(idEntity);
 		entity.setUpdatedBy("Test User");
 
 		renbanCodes.add(entity);
 		String destCode="709B";
-		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,"2022-12-14");
+		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,"2022-12-14");
 
 		Mockito.lenient().when(noemRenbanBookDtlRepository.findByIdContDestCdAndIdEtd1(destCode ,effFrom)).thenReturn(renbanCodes);
 
@@ -337,7 +338,7 @@ class RenbanGroupCodeMasterServiceImplTest {
 
 		List<NoemRenbanBookDtlEntity> renbanCodes= new ArrayList<>();
 		String destCode="709B";
-		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,"2005-07-01");
+		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,"2005-07-01");
 
 		Mockito.lenient().when(noemRenbanBookDtlRepository.findByIdContDestCdAndIdEtd1(destCode ,effFrom)).thenReturn(renbanCodes);
 
@@ -355,8 +356,8 @@ class RenbanGroupCodeMasterServiceImplTest {
 
 		List<NoemRenbanBookDtlEntity> renbanCodes= new ArrayList<>();
 		String destCode="301B";
-		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,"2005-06-01");
-		Date effTo=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,"2007-03-21");
+		Date effFrom=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,"2005-06-01");
+		Date effTo=DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,"2007-03-21");
 
 		Mockito.when(noemRenbanSetupMstRepository.existsByIdContDstCdAndIdEffFromDtAndEffToDt(destCode, effFrom, effTo)).thenReturn(true);
 		Mockito.lenient().when(noemRenbanBookDtlRepository.findByIdContDestCdAndIdEtd1(destCode ,effFrom)).thenReturn(renbanCodes);

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,14 +18,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.tpex.commonfiles.ApiResponseMessage;
-import com.tpex.dto.CodeMasterRequestDTO;
 import com.tpex.dto.SearchInvHaisenDetailResponse;
 import com.tpex.exception.MyResourceNotFoundException;
 import com.tpex.invoice.dto.OrderType;
@@ -31,16 +31,20 @@ import com.tpex.invoice.dto.SearchByInvNoResponseDto;
 import com.tpex.invoice.dto.SearchInvHaisenDetailRequestDto;
 import com.tpex.invoice.dto.SearchInvHaisenDetailResponseDto;
 import com.tpex.invoice.dto.UpdateInvDetailsRequestDTO;
-import com.tpex.invoice.serviceImpl.InvSearchServiceImpl;
+import com.tpex.invoice.serviceimpl.InvSearchServiceImpl;
 import com.tpex.repository.NoemHaisenDtlsRepository;
 import com.tpex.util.ConstantUtils;
 import com.tpex.validator.SearchInvHaisenDetailRequestDtoValidation;
 
 @Import(SearchInvHaisenDetailRequestDtoValidation.class)
-
+@SuppressWarnings("squid:S5778")
 @ExtendWith(MockitoExtension.class)
 class InvoiceSearchControllerTest {
 
+	private static final String ETA_DATE = "19/06/2022";
+	private static final String KR22102701 = "KR22102701";
+	private static final String sDate = "14/11/2004";
+	private static final String eta = "08/12/2004";
 	@InjectMocks
 	InvSearchController invSearchController;
 	@Mock
@@ -54,24 +58,24 @@ class InvoiceSearchControllerTest {
 	@Test
 	void searchByInvoiceNoTest() throws Exception {
 
-		when(invSearchServiceImpl.searchByInvNo("KR22102701")).thenReturn(searchByInvNoDumy());
-		ResponseEntity<SearchByInvNoResponseDto> response = invSearchController.getByInvoiceNo("KR22102701");
+		when(invSearchServiceImpl.searchByInvNo(KR22102701)).thenReturn(searchByInvNoDumy());
+		ResponseEntity<SearchByInvNoResponseDto> response = invSearchController.getByInvoiceNo(KR22102701);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertEquals("19/06/2022", response.getBody().getEtaDate());
+		assertEquals(ETA_DATE, response.getBody().getEtaDate());
 	}
 
 	@Test
 	void searchByInvoiceNoNullTest() throws Exception {
-		when(invSearchServiceImpl.searchByInvNo("KR22102701")).thenReturn(null);
+		when(invSearchServiceImpl.searchByInvNo(KR22102701)).thenReturn(null);
 		Assertions.assertThrows(MyResourceNotFoundException.class,
-				() -> invSearchController.getByInvoiceNo("KR22102701"));
+				() -> invSearchController.getByInvoiceNo(KR22102701));
 	}
 
 	SearchByInvNoResponseDto searchByInvNoDumy() {
 		SearchByInvNoResponseDto dumyObj = new SearchByInvNoResponseDto();
 		dumyObj.setInvDate("12/05/2022");
 		dumyObj.setEtdDate("17/06/2022");
-		dumyObj.setEtaDate("19/06/2022");
+		dumyObj.setEtaDate(ETA_DATE);
 		return dumyObj;
 	}
 
@@ -105,16 +109,6 @@ class InvoiceSearchControllerTest {
 				() -> invSearchController.fetchHaisenDetails(getSearchHaisenValue()));
 	}
 
-	/**
-	 * Test case for mandatory field etdFrom not entered
-	 * 
-	 * @throws Exception
-	 */
-	@Test
-	void fetchHaisenDetailsEtdFromNull() throws Exception {
-	//	Assertions.assertThrows(MethodArgumentNotValidException.class,
-	//			() -> invSearchController.fetchHaisenDetails(getSearchHaisenEtdFromNotEntered()));
-	}
 
 	/**
 	 * Test case for input wrong buyer details
@@ -155,8 +149,8 @@ class InvoiceSearchControllerTest {
 
 	// Request method for all field
 	SearchInvHaisenDetailRequestDto getSearchHaisenValue() throws Exception {
-		String sDate1 = "14/11/2004";
-		String etdTodate = "08/12/2004";
+		String sDate1 = sDate;
+		String etdTodate = eta;
 		java.util.Date date = format.parse(sDate1);
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto = new SearchInvHaisenDetailRequestDto();
@@ -177,13 +171,12 @@ class InvoiceSearchControllerTest {
 		orderType.setRegular(true);
 		orderType.setCpoOrspo(true);
 		searchInvHaisenDetailRequestDto.setOrderType(orderType);
-		// searchInvHaisenDetailRequestDto.setEtdFrom(null);
 		return searchInvHaisenDetailRequestDto;
 	}
 
 //Request method for Wrong buyer value
 	SearchInvHaisenDetailRequestDto getSearchHaisenWrongBuyerValue() throws Exception {
-		String sDate1 = "14/11/2004";
+		String sDate1 = sDate;
 		java.util.Date date = format.parse(sDate1);
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto = new SearchInvHaisenDetailRequestDto();
@@ -198,7 +191,7 @@ class InvoiceSearchControllerTest {
 
 //Request method for both regular and cpo/spo uncheck
 	SearchInvHaisenDetailRequestDto getSearchHaisenBothRegularCopUncheck() throws Exception {
-		String sDate1 = "14/11/2004";
+		String sDate1 = sDate;
 		java.util.Date date = format.parse(sDate1);
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto = new SearchInvHaisenDetailRequestDto();
@@ -213,7 +206,7 @@ class InvoiceSearchControllerTest {
 	// Request method for etd date greather than eta date
 	SearchInvHaisenDetailRequestDto getSearchHaisenEtdGreaterthanEta() throws Exception {
 		String etdFrom = "14/11/2023";
-		String etdTodate = "08/12/2004";
+		String etdTodate = eta;
 		java.util.Date date = format.parse(etdFrom);
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto = new SearchInvHaisenDetailRequestDto();
@@ -242,12 +235,12 @@ class InvoiceSearchControllerTest {
 		searchInvHaisenDetailResponseDto.setBuyer("TSM");
 		searchInvHaisenDetailResponseDto.setPortOfDischarge("LCH-LAEM CHABANG");
 		searchInvHaisenDetailResponseDto.setPortOfLoading("LCH-LAEM CHABANG");
-		searchInvHaisenDetailResponseDto.setEtd("14/11/2004");
-		searchInvHaisenDetailResponseDto.setEta("08/12/2004");
+		searchInvHaisenDetailResponseDto.setEtd(sDate);
+		searchInvHaisenDetailResponseDto.setEta(eta);
 		searchInvHaisenDetailResponseDto.setOceanVessel("DAINTY RIVER");
 		searchInvHaisenDetailResponseDto.setOceanVoyage("137W");
 		list.add(searchInvHaisenDetailResponseDto);
-		resp.setSearchInvHaisenDetailResponse(list);
+		resp.setListInvHaisenDetailResponse(list);
 		return resp;
 	}
 	
@@ -281,6 +274,6 @@ class InvoiceSearchControllerTest {
 		ResponseEntity<ApiResponseMessage> updateInvoiceSearchResponseAndSave = invSearchController.updateInvoiceSearchResponseAndSave(updateRequest);
 		assertThat(updateInvoiceSearchResponseAndSave.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertEquals(ConstantUtils.INFO_IN_1002, updateInvoiceSearchResponseAndSave.getBody().getStatusMessage());
-		verify(invSearchServiceImpl, times(1)).updateInvDetailsByInvNo(Mockito.any(UpdateInvDetailsRequestDTO.class));
+		verify(invSearchServiceImpl, times(1)).updateInvDetailsByInvNo(any(UpdateInvDetailsRequestDTO.class));
 	}
 }

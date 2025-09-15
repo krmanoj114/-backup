@@ -2,17 +2,20 @@ package com.tpex.repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.Tuple;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tpex.entity.InsInvDtlsEntity;
-
+@SuppressWarnings("squid:S107")
 @Repository
 public interface InsInvDetailsRepository extends JpaRepository<InsInvDtlsEntity, String> {
 
@@ -63,4 +66,84 @@ public interface InsInvDetailsRepository extends JpaRepository<InsInvDtlsEntity,
 	@Query(value = "SELECT BUYER,BUYER_NM,BUYER_ADDR1,BUYER_ADDR2,BUYER_ADDR3,BUYER_ADDR4 FROM  TB_R_INV_INVOICE_H WHERE INV_NO=:envNo ", nativeQuery = true)
 	Tuple getBuyerCode(@Param("envNo") String envNo);
 
+	Optional<InsInvDtlsEntity> findByIndInvNoAndCompanyCode(String invNo, String companyCode);
+	
+	@Query(value = "select INVP.INV_NO AS INV_NO, INVP.MOD_NO AS MOD_NO, INVP.LOT_NO AS LOT_NO, INVP.PART_NO AS PART_NO, INVP.BOX_NO AS BOX_NO, "
+			+ " case "
+			+ "   when INVDTLS.INV_PATTERN = 'P' "
+			+ "    then ifnull((select PART_PRC from tb_m_part_price  "
+			+ "         where CF_CD = INVP.CF_CD  "
+			+ "            and DST_CD = INVDTLS.DEST_CD "
+			+ "            and PART_NO = INVP.PART_NO "
+			+ "            and CURR_CD = INVDTLS.CURRENCY "
+			+ "            and EFF_FR_MTH <= INVDTLS.PACKING_MONTH "
+			+ "            and (EFF_TO_MTH IS NULL OR EFF_TO_MTH >= INVDTLS.PACKING_MONTH)), 0) "
+			+ "    else ifnull((select PART_PRC from tb_m_lot_part_price  "
+			+ "         where CF_CD = INVP.CF_CD  "
+			+ "            and DST_CD = INVDTLS.DEST_CD "
+			+ "            and PART_NO = INVP.PART_NO "
+			+ "            and LOT_CD = substring(INVP.LOT_NO, 1, 2) "
+			+ "            and CURR_CD = INVDTLS.CURRENCY "
+			+ "            and EFF_FR_MTH <= INVDTLS.PACKING_MONTH "
+			+ "            and (EFF_TO_MTH IS NULL OR EFF_TO_MTH >= INVDTLS.PACKING_MONTH)), 0) "
+			+ " end AS PART_PRICE "
+			+ " from  "
+			+ " (select distinct "
+			+ "    INVH.INV_NO AS INV_NO, "
+			+ "    INVH.FINAL_DST AS DEST_CD,  "
+			+ "    INVH.LOT_PTTRN AS INV_PATTERN,  "
+			+ "    INVH.PAY_CRNCY AS CURRENCY,  "
+			+ "    case "
+			+ "    when INVM.PCK_MTH = '******' "
+			+ "    then INVH.ETD "
+			+ "    else INVM.PCK_MTH "
+			+ "    end as PACKING_MONTH "
+			+ "    from tb_r_inv_invoice_h as INVH  "
+			+ "    inner join tb_r_inv_module_d as INVM on INVM.INV_NO = INVH.INV_NO "
+			+ "    where INVH.INV_NO = :invNo "
+			+ "    and INVH.CMP_CD = :cmpCd "
+			+ " ) AS INVDTLS "
+			+ " inner join tb_r_inv_part_d as INVP on INVP.INV_NO = INVDTLS.INV_NO;", nativeQuery = true)
+	List<Map<String, Object>> getInvPartsForPartPriceUpdate(@Param("invNo") String invNo, @Param("cmpCd") String cmpCd);
+	
+	@Query(value = "select INVP.INV_NO AS INV_NO, INVP.MOD_NO AS MOD_NO, INVP.LOT_NO AS LOT_NO, INVP.PART_NO AS PART_NO, INVP.BOX_NO AS BOX_NO, "
+			+ " case "
+			+ "   when INVDTLS.INV_PATTERN = 'P' "
+			+ "    then (select PART_NM from tb_m_part_price  "
+			+ "         where CF_CD = INVP.CF_CD  "
+			+ "            and DST_CD = INVDTLS.DEST_CD "
+			+ "            and PART_NO = INVP.PART_NO "
+			+ "            and CURR_CD = INVDTLS.CURRENCY "
+			+ "            and EFF_FR_MTH <= INVDTLS.PACKING_MONTH "
+			+ "            and (EFF_TO_MTH IS NULL OR EFF_TO_MTH >= INVDTLS.PACKING_MONTH)) "
+			+ "    else (select PART_NM from tb_m_lot_part_price  "
+			+ "         where CF_CD = INVP.CF_CD  "
+			+ "            and DST_CD = INVDTLS.DEST_CD "
+			+ "            and PART_NO = INVP.PART_NO "
+			+ "            and LOT_CD = substring(INVP.LOT_NO, 1, 2) "
+			+ "            and CURR_CD = INVDTLS.CURRENCY "
+			+ "            and EFF_FR_MTH <= INVDTLS.PACKING_MONTH "
+			+ "            and (EFF_TO_MTH IS NULL OR EFF_TO_MTH >= INVDTLS.PACKING_MONTH)) "
+			+ " end AS PART_NAME "
+			+ " from  "
+			+ " (select distinct "
+			+ "    INVH.INV_NO AS INV_NO, "
+			+ "    INVH.FINAL_DST AS DEST_CD,  "
+			+ "    INVH.LOT_PTTRN AS INV_PATTERN,  "
+			+ "    INVH.PAY_CRNCY AS CURRENCY,  "
+			+ "    case "
+			+ "    when INVM.PCK_MTH = '******' "
+			+ "    then INVH.ETD "
+			+ "    else INVM.PCK_MTH "
+			+ "    end as PACKING_MONTH "
+			+ "    from tb_r_inv_invoice_h as INVH  "
+			+ "    inner join tb_r_inv_module_d as INVM on INVM.INV_NO = INVH.INV_NO "
+			+ "    where INVH.INV_NO = :invNo "
+			+ "    and INVH.CMP_CD = :cmpCd "
+			+ " ) AS INVDTLS "
+			+ " inner join tb_r_inv_part_d as INVP on INVP.INV_NO = INVDTLS.INV_NO;", nativeQuery = true)
+	List<Map<String, Object>> getInvPartsForPartNameUpdate(@Param("invNo") String invNo, @Param("cmpCd") String cmpCd);
+ 
+	@Procedure(procedureName = "ReCalculateInvoicePrivilage", outputParameterName = "result")
+	String reCalculateInvoicePrivilage(@Param("invoiceNumber") String invoiceNumber, @Param("companyCode") String companyCode, @Param("userId") String userId);
 }

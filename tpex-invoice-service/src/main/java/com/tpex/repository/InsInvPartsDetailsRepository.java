@@ -1,6 +1,5 @@
 package com.tpex.repository;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Tuple;
@@ -14,6 +13,7 @@ import com.tpex.entity.InsInvPartsDetailsEntity;
 import com.tpex.entity.InsInvPartsDetailsIdEntity;
 
 @Repository
+@SuppressWarnings("squid:S2479")
 public interface InsInvPartsDetailsRepository extends JpaRepository<InsInvPartsDetailsEntity, InsInvPartsDetailsIdEntity> {
 
 	@Query(value = "SELECT DISTINCT ORD_NO,CF_CD,SERIES FROM TB_R_INV_PART_D WHERE INV_NO=:envNo", nativeQuery = true)
@@ -174,5 +174,19 @@ public interface InsInvPartsDetailsRepository extends JpaRepository<InsInvPartsD
 			@Query(value = "SELECT COUNT(*) FROM TB_R_INV_PART_D WHERE IMP_CD=:impCode AND CF_CD=:cfCode AND PART_NO=:partNo AND date_format(INV_DT,'%Y%m')>=:effFromDate and date_format(INV_DT,'%Y%m')<=:effToDate", nativeQuery = true)
 			int countInvoiceGeneratedForPartPrice(@Param("impCode") String impCode, @Param("cfCode") String cfCode, 
 					@Param("partNo") String partNo, @Param("effFromDate") String effFromDate, @Param("effToDate") String effToDate);
+			
+			List<InsInvPartsDetailsEntity> findByIdInpInvNo(String invNo);
+		
+			@Query(value = "CALL GetReCalculateInvoice (:invoiceNumber, :partNumber, :privilege, :companyCode);", nativeQuery = true) 
+			List<Object[]> getInvPartDetails(String invoiceNumber, String partNumber, String privilege,
+					String companyCode);
+			
+			List<InsInvPartsDetailsEntity> findByIdInpInvNoAndIdInpPartNo(String invNo, String partNo);
+			
+			@Query(value = "select round(sum(TOTAL_WT), 3) from (select SUM(UNIT_PER_BOX * NET_WT) as TOTAL_WT from tb_r_inv_part_d where INV_NO = :invNo group by INV_NO, MOD_NO, PART_NO) AS X;", nativeQuery = true)
+			String getInvPartsSumForPxP(@Param("invNo") String invNo);
+			
+			@Query(value = "select round(sum(TOTAL_WT), 3) from (select SUM(UNIT_PER_BOX * NET_WT) as TOTAL_WT from tb_r_inv_part_d where INV_NO = :invNo group by INV_NO, MOD_NO, PART_NO, LOT_NO) AS X;", nativeQuery = true)
+			String getInvPartsSumForLot(@Param("invNo") String invNo);
 	}
 

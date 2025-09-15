@@ -1,15 +1,13 @@
 package com.tpex.invoice.controller;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tpex.commonfiles.ApiResponseMessage;
 import com.tpex.dto.SearchInvHaisenDetailResponse;
 import com.tpex.exception.MyResourceNotFoundException;
@@ -63,12 +62,13 @@ public class InvSearchController {
 	 * 
 	 * @param searchInvHaisenDetailRequestDto
 	 * @return SearchInvHaisenDetailResponse
+	 * @throws ParseException 
 	 * @throws Exception
 	 */
 
 	@PostMapping(value = "/searchInvoice")
 	public ResponseEntity<SearchInvHaisenDetailResponse> fetchHaisenDetails(
-			@Valid @RequestBody SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto) throws Exception {
+			@Valid @RequestBody SearchInvHaisenDetailRequestDto searchInvHaisenDetailRequestDto) throws ParseException  {
 
 		LocalDate etd = null;
 		LocalDate eta = null;
@@ -102,10 +102,8 @@ public class InvSearchController {
 		if (eta != null && etd != null && etd.compareTo(eta) > 0) {
 			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3007);
 		}
-		if (buyer != null && !"".equalsIgnoreCase(buyer)) {
-			int count = noemHaisenDtlsRepository.getDetailsByBuyer(buyer);
-			if (count == 0)
-				throw new MyResourceNotFoundException(ConstantUtils.INFO_CM_3001);
+		if (buyer != null && !"".equalsIgnoreCase(buyer) && noemHaisenDtlsRepository.getDetailsByBuyer(buyer) == 0) {
+			throw new MyResourceNotFoundException(ConstantUtils.INFO_CM_3001);
 		}
 		SearchInvHaisenDetailResponse response = invSearchService.fetchHaisenDetail(searchInvHaisenDetailRequestDto,
 				regular, cpo, spo);
@@ -125,7 +123,7 @@ public class InvSearchController {
 	 */
 	@GetMapping(value = "/searchByInvoiceNo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SearchByInvNoResponseDto> getByInvoiceNo(@Valid @RequestParam(required = true) String envNo)
-			throws Exception {
+			{
 		String[] invoiceNoWithImporterCode = envNo.split("-");
 		SearchByInvNoResponseDto response = invSearchService.searchByInvNo(invoiceNoWithImporterCode[0]);
 		if (response == null) {
@@ -140,12 +138,13 @@ public class InvSearchController {
 	 * @author Mohd.Javed
 	 * @param envNo
 	 * @return
+	 * @throws JsonProcessingException 
 	 * @throws Exception
 	 */
 	@GetMapping("/getInvDtlsByHaisenNo")
 	public ResponseEntity<InvoiceDetailsResponseWrapper> getInvDtls(
-			@Valid @RequestParam(required = true) String haisenNo, @RequestParam(required = true) String haisenYear)
-			throws Exception {
+			@Valid @RequestParam(required = true) String haisenNo, @RequestParam(required = true) String haisenYear) throws JsonProcessingException
+			 {
 //    update
 		InvoiceDetailsResponseWrapper response = invSearchService.getInvoiceDetails(haisenNo, haisenYear);
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -159,7 +158,7 @@ public class InvSearchController {
 	 * @throws Exception
 	 */
 	@PutMapping("/updateInvDetailsByInvNo")
-	public ResponseEntity<ApiResponseMessage> updateInvoiceSearchResponseAndSave(@Valid @RequestBody UpdateInvDetailsRequestDTO updateRequest) throws Exception{
+	public ResponseEntity<ApiResponseMessage> updateInvoiceSearchResponseAndSave(@Valid @RequestBody UpdateInvDetailsRequestDTO updateRequest) {
 			
 		List<UpdateInvDetailsRequestDTO>  list=new ArrayList<>();
 		list.add(updateRequest);
@@ -168,9 +167,9 @@ public class InvSearchController {
 			
 			invSearchService.updateInvDetailsByInvNo(updateRequest);
 		} catch (Exception e) {
-			return new ResponseEntity<ApiResponseMessage>(new ApiResponseMessage(HttpStatus.EXPECTATION_FAILED, ConstantUtils.ERR_IN_1004), HttpStatus.EXPECTATION_FAILED);
+			return new ResponseEntity<>(new ApiResponseMessage(HttpStatus.EXPECTATION_FAILED, ConstantUtils.ERR_IN_1004), HttpStatus.EXPECTATION_FAILED);
 		}
-		return new ResponseEntity<ApiResponseMessage>(new ApiResponseMessage(HttpStatus.OK, ConstantUtils.INFO_IN_1002), HttpStatus.OK);	
+		return new ResponseEntity<>(new ApiResponseMessage(HttpStatus.OK, ConstantUtils.INFO_IN_1002), HttpStatus.OK);	
 	}
 	
 }

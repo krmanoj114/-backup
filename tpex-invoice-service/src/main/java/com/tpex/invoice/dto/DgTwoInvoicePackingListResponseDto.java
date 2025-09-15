@@ -9,38 +9,38 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DgTwoInvoicePackingListResponseDto implements Serializable{/**
-	 * 
-	 */
+public class DgTwoInvoicePackingListResponseDto implements Serializable {
+	/**
+	* 
+	*/
 	private static final long serialVersionUID = 1L;
 
-	private String INS_CNSG_NAME;
-	private String INS_CNSG_ADD1;
-	private String INS_CNSG_ADD2;
-	private String INS_CNSG_ADD3;
-	private String INS_CNSG_ADD4;
-	private String INS_INV_NO;
-	private String INS_INV_DT;
-	private String INS_PART_NO;
-	private Integer INS_UNIT_PER_BOX;
-	private Integer INS_SUM_TOT_UNIT;
-	private String INS_ICO_FLG;
-	private Double INS_PART_PRICE;
-	private String INS_PART_NAME;
-	private Double INS_PART_WT;
-	private Double INS_GROSS_WT;
-	private Double INS_MEASUREMENT;
-	private String INS_SHIPMARK_4;
-	private String INS_SHIPMARK_5;
-	private String SHIP_MARK_GP;
-	private String CASE_MOD;
-	private String INS_CF_CD;
-	private String INS_SRS_NAME;
-	private Integer INS_NO_OF_CASES;
-	private Integer INS_NO_OF_BOXES;
-	private String INS_CONT_SNO;
-	private String INS_ISO_CONT_NO;
-	private String INS_TPT_CD;
-	
+	private String insCnsgName;
+	private String insCnsgAdd1;
+	private String insCnsgAdd2;
+	private String insCnsgAdd3;
+	private String insCnsgAdd4;
+	private String insInvNo;
+	private String insInvDt;
+	private String insPartNo;
+	private Integer insUnitPerBox;
+	private Integer insSumTotUnit;
+	private String insIcoFlg;
+	private Double insPartPrice;
+	private String insPartName;
+	private Double insPartWt;
+	private Double insGrossWt;
+	private Double insMeasurement;
+	private String insShipmark4;
+	private String insShipmark5;
+	private String shipMarkGp;
+	private String caseMod;
+	private String insCfCd;
+	private String insSrsName;
+	private Integer insNoOfCase;
+	private Integer insNoOfBoxes;
+	private String insContSno;
+	private String insIsoContNo;
+	private String insTptCd;
 
 }

@@ -34,6 +34,7 @@ import com.tpex.entity.OemShippingCtrlMstEntity;
 import com.tpex.entity.OemShippingCtrlMstIdEntity;
 import com.tpex.exception.InvalidInputParametersException;
 import com.tpex.invoice.dto.OemShippingCtrlMstDto;
+import com.tpex.invoice.serviceimpl.InvShippingCtrlMstServiceImpl;
 import com.tpex.repository.CarFamilyDestinationMasterRepository;
 import com.tpex.repository.CarFamilyMastRepository;
 import com.tpex.repository.InsProdGrpMstRepository;
@@ -45,7 +46,7 @@ import com.tpex.util.ConstantProperties;
 import com.tpex.util.TpexConfigurationUtil;
 
 @ExtendWith(MockitoExtension.class)
-public class InvShippingCtrlMstServiceImplTest {
+ class InvShippingCtrlMstServiceImplTest {
 
 	@InjectMocks
 	private InvShippingCtrlMstServiceImpl invShippingCtrlMstServiceImpl;

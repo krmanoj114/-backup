@@ -1,8 +1,7 @@
 package com.tpex.invoice.controller;
 
-import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.util.StringUtil;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tpex.dto.NoemHaisenDetailDTO;
 import com.tpex.exception.InvalidInputParametersException;
 import com.tpex.invoice.dto.InvoiceDetailsResponseDto;
@@ -42,13 +42,15 @@ public class InvHaisenDetailsController {
 	 * @author akshatha.m.e
 	 * @param NoemHaisenDetailDTO
 	 * @return Success Message
+	 * @throws ParseException 
+	 * @throws JsonProcessingException 
 	 * @throws Exception
 	 */
 
 	@PostMapping("/saveInvHaisenDetails")
-	public ResponseEntity<List<String>> saveInvoiceHaisenDetails(@RequestParam String userId, @RequestBody List<NoemHaisenDetailDTO> inputRequest) throws Exception {
+	public ResponseEntity<List<String>> saveInvoiceHaisenDetails(@RequestParam String userId, @RequestBody List<NoemHaisenDetailDTO> inputRequest) throws ParseException, JsonProcessingException  {
 
-		List<String> message = new LinkedList<>();
+		List<String> message;
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -82,9 +84,9 @@ public class InvHaisenDetailsController {
 	
 	
 	@PutMapping("/updateInvoiceDetails")
-	public ResponseEntity<List<String>> updateInvoiceDetails(@RequestParam String userId,@RequestBody List<InvoiceDetailsResponseDto> invoiceDetailsResponseDto) throws Exception{
+	public ResponseEntity<List<String>> updateInvoiceDetails(@RequestParam String userId,@RequestBody List<InvoiceDetailsResponseDto> invoiceDetailsResponseDto) throws ParseException, JsonProcessingException {
 
-		List<String> message = new LinkedList<>();
+		List<String> message;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 

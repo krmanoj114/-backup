@@ -1,0 +1,1054 @@
+{
+    "batchId": "BINF009",
+    "fileInfo": {
+        "inputFileNames": [
+            {
+                "beginWith": "GBF3LG37",
+                "company": "TMT"
+            },
+            {
+                "beginWith": "GBFCLG37",
+                "company": "STM"
+            },
+            {
+                "beginWith": "GBF4LG37",
+                "company": "TMMIN"
+            }
+        ],
+        "inputFileFolder" : "/home/TMAP/DSD/shared/batch/BINF009/input",
+		"processingFolder" : "/home/TMAP/DSD/shared/batch/BINF009/input/tmp",
+		"archiveFolderName" : "/home/TMAP/DSD/shared/batch/BINF009/archive"
+    },
+    "fileStructure": {
+        "gatewayHeader": {
+            "recordLength": "200",
+            "tokens": [
+                {
+                    "name": "beginningOfRecord",
+                    "desc": "Beginning of Record",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "1",
+                    "endDigit": "2",
+                    "fixValue": "##"
+                },
+                {
+                    "name": "recordId",
+                    "desc": "RecordId",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "3",
+                    "endDigit": "3",
+                    "fixValue": "H"
+                },
+                {
+                    "name": "separator",
+                    "desc": "Separator",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "4",
+                    "endDigit": "5",
+                    "fixValue": "##"
+                },
+                {
+                    "name": "divisionClassificationInGW",
+                    "desc": "Division classification in GW",
+                    "dataType": "Char",
+                    "length": "6",
+                    "startDigit": "6",
+                    "endDigit": "11"
+                },
+                {
+                    "name": "fileName",
+                    "desc": "File Name",
+                    "dataType": "Char",
+                    "length": "26",
+                    "startDigit": "12",
+                    "endDigit": "37"
+                },
+                {
+                    "name": "fileSequenceNo",
+                    "desc": "File Sequence No.",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "38",
+                    "endDigit": "41",
+                    "format": "9999"
+                },
+                {
+                    "name": "dummy",
+                    "desc": "Dummy",
+                    "dataType": "Char",
+                    "length": "159",
+                    "startDigit": "42",
+                    "endDigit": "200"
+                }
+            ]
+        },
+        "fileHeader": {
+            "recordLength": "21",
+            "tokens": [
+                {
+                    "name": "recordId",
+                    "desc": "Beginning of Record",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "1",
+                    "endDigit": "2",
+                    "fixValue": "H ",
+                    "notTrim": "Y"
+                },
+                {
+                    "name": "dataId",
+                    "desc": "Record Id",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "3",
+                    "endDigit": "6",
+                    "fixValue": "GP8A"
+                }
+            ]
+        },
+        "packSpecDetails": {
+            "recordLength": "520",
+            "tokens": [
+                {
+                    "name": "Data Id",
+                    "desc": "Data Id",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "1",
+                    "endDigit": "2",
+                    "mandatory": "N",
+                    "fixValue": "D ",
+					"notTrim": "Y"
+                },
+                {
+                    "name": "Exporter Code",
+                    "desc": "Exporter Code",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "3",
+                    "endDigit": "6",
+                    "mandatory": "Y"
+                },
+                {
+                    "name": "Supplier Plant",
+                    "desc": "Supplier Plant",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "7",
+                    "endDigit": "7",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Supplier Shipping Dock",
+                    "desc": "Supplier Shipping Dock",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "8",
+                    "endDigit": "10",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Module Importer Code",
+                    "desc": "Module Importer Code",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "11",
+                    "endDigit": "14",
+                    "mandatory": "Y"
+                },
+                {
+                    "name": "Module Receiving Plant",
+                    "desc": "Module Receiving Plant",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "15",
+                    "endDigit": "15",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part No.",
+                    "desc": "Part No.",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "16",
+                    "endDigit": "27",
+                    "mandatory": "Y"
+                },
+                {
+                    "name": "Car Family Code",
+                    "desc": "Car Family Code",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "28",
+                    "endDigit": "31",
+                    "mandatory": "Y"
+                },
+                {
+                    "name": "Importer Line Code",
+                    "desc": "Importer Line Code",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "32",
+                    "endDigit": "32",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Re-Export Code",
+                    "desc": "Re-Export Code",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "33",
+                    "endDigit": "33",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Lot Code",
+                    "desc": "Lot Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "34",
+                    "endDigit": "35",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Lot - Case No./Case suffix",
+                    "desc": "Lot - Case No./Case suffix",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "36",
+                    "endDigit": "38",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Module Code",
+                    "desc": "Module Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "39",
+                    "endDigit": "40",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Order Type",
+                    "desc": "Order Type",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "41",
+                    "endDigit": "41",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box No.",
+                    "desc": "Box No.",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "42",
+                    "endDigit": "44",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "T/C From (Order Vanning Date)",
+                    "desc": "T/C From (Order Vanning Date)",
+                    "dataType": "Date",
+                    "length": "8",
+                    "startDigit": "45",
+                    "endDigit": "52",
+                    "mandatory": "Y",
+                    "format": "yyyyMMdd"
+                },
+                {
+                    "name": "AICO Flag",
+                    "desc": "AICO Flag",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "53",
+                    "endDigit": "53",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "T/C To (Order Vanning Date)",
+                    "desc": "T/C To (Order Vanning Date)",
+                    "dataType": "Date",
+                    "length": "8",
+                    "startDigit": "54",
+                    "endDigit": "61",
+                    "mandatory": "Y",
+                    "format": "yyyyMMdd"
+                },
+                {
+                    "name": "Packing Plant",
+                    "desc": "Packing Plant",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "62",
+                    "endDigit": "62",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Packing Quantity By Box",
+                    "desc": "Packing Quantity By Box",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "63",
+                    "endDigit": "67",
+                    "mandatory": "Y"
+                },
+                {
+                    "name": "Box Gross Weight",
+                    "desc": "Box Gross Weight",
+                    "dataType": "Number",
+                    "length": "8",
+                    "startDigit": "68",
+                    "endDigit": "75",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box M3",
+                    "desc": "Box M3",
+                    "dataType": "Number",
+                    "length": "6",
+                    "startDigit": "76",
+                    "endDigit": "81",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Importer Dock Code",
+                    "desc": "Importer Dock Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "82",
+                    "endDigit": "83",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Name2",
+                    "desc": "Part Name2",
+                    "dataType": "Char",
+                    "length": "20",
+                    "startDigit": "84",
+                    "endDigit": "103",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Address",
+                    "desc": "Address",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "104",
+                    "endDigit": "113",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Code",
+                    "desc": "Box Material Code",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "114",
+                    "endDigit": "118",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Part No",
+                    "desc": "Box Material Part No",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "119",
+                    "endDigit": "130",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Source Code",
+                    "desc": "Box Material Source Code",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "131",
+                    "endDigit": "131",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Dock Code",
+                    "desc": "Box Material Dock Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "132",
+                    "endDigit": "133",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Address",
+                    "desc": "Box Material Address",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "134",
+                    "endDigit": "143",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Box Material Quantity",
+                    "desc": "Box Material Quantity",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "144",
+                    "endDigit": "148",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 1",
+                    "desc": "Part Material Code 1",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "149",
+                    "endDigit": "153",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 1",
+                    "desc": "Part Material Part No 1",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "154",
+                    "endDigit": "165",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 1",
+                    "desc": "Part Material Source Code 1",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "166",
+                    "endDigit": "166",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 1",
+                    "desc": "Part Material Dock Code 1",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "167",
+                    "endDigit": "168",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 1",
+                    "desc": "Part Material Address 1",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "169",
+                    "endDigit": "178",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 1",
+                    "desc": "Part Material Quantity 1",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "179",
+                    "endDigit": "183",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 2",
+                    "desc": "Part Material Code 2",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "184",
+                    "endDigit": "188",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 2",
+                    "desc": "Part Material Part No 2",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "189",
+                    "endDigit": "200",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 2",
+                    "desc": "Part Material Source Code 2",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "201",
+                    "endDigit": "201",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 2",
+                    "desc": "Part Material Dock Code 2",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "202",
+                    "endDigit": "203",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 2",
+                    "desc": "Part Material Address 2",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "204",
+                    "endDigit": "213",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 2",
+                    "desc": "Part Material Quantity 2",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "214",
+                    "endDigit": "218",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 3",
+                    "desc": "Part Material Code 3",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "219",
+                    "endDigit": "223",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 3",
+                    "desc": "Part Material Part No 3",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "224",
+                    "endDigit": "235",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 3",
+                    "desc": "Part Material Source Code 3",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "236",
+                    "endDigit": "236",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 3",
+                    "desc": "Part Material Dock Code 3",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "237",
+                    "endDigit": "238",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 3",
+                    "desc": "Part Material Address 3",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "239",
+                    "endDigit": "248",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 3",
+                    "desc": "Part Material Quantity 3",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "249",
+                    "endDigit": "253",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 4",
+                    "desc": "Part Material Code 4",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "254",
+                    "endDigit": "258",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 4",
+                    "desc": "Part Material Part No 4",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "259",
+                    "endDigit": "270",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 4",
+                    "desc": "Part Material Source Code 4",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "271",
+                    "endDigit": "271",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 4",
+                    "desc": "Part Material Dock Code 4",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "272",
+                    "endDigit": "273",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 4",
+                    "desc": "Part Material Address 4",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "274",
+                    "endDigit": "283",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 4",
+                    "desc": "Part Material Quantity 4",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "284",
+                    "endDigit": "288",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 5",
+                    "desc": "Part Material Code 5",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "289",
+                    "endDigit": "293",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 5",
+                    "desc": "Part Material Part No 5",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "294",
+                    "endDigit": "305",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 5",
+                    "desc": "Part Material Source Code 5",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "306",
+                    "endDigit": "306",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 5",
+                    "desc": "Part Material Dock Code 5",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "307",
+                    "endDigit": "308",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 5",
+                    "desc": "Part Material Address 5",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "309",
+                    "endDigit": "318",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 5",
+                    "desc": "Part Material Quantity 5",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "319",
+                    "endDigit": "323",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 6",
+                    "desc": "Part Material Code 6",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "324",
+                    "endDigit": "328",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 6",
+                    "desc": "Part Material Part No 6",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "329",
+                    "endDigit": "340",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 6",
+                    "desc": "Part Material Source Code 6",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "341",
+                    "endDigit": "341",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 6",
+                    "desc": "Part Material Dock Code 6",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "342",
+                    "endDigit": "343",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 6",
+                    "desc": "Part Material Address 6",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "344",
+                    "endDigit": "353",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 6",
+                    "desc": "Part Material Quantity 6",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "354",
+                    "endDigit": "358",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 7",
+                    "desc": "Part Material Code 7",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "359",
+                    "endDigit": "363",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 7",
+                    "desc": "Part Material Part No 7",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "364",
+                    "endDigit": "375",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 7",
+                    "desc": "Part Material Source Code 7",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "376",
+                    "endDigit": "376",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 7",
+                    "desc": "Part Material Dock Code 7",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "377",
+                    "endDigit": "378",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 7",
+                    "desc": "Part Material Address 7",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "379",
+                    "endDigit": "388",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 7",
+                    "desc": "Part Material Quantity 7",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "389",
+                    "endDigit": "393",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 8",
+                    "desc": "Part Material Code 8",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "394",
+                    "endDigit": "398",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 8",
+                    "desc": "Part Material Part No 8",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "399",
+                    "endDigit": "410",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 8",
+                    "desc": "Part Material Source Code 8",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "411",
+                    "endDigit": "411",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 8",
+                    "desc": "Part Material Dock Code 8",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "412",
+                    "endDigit": "413",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 8",
+                    "desc": "Part Material Address 8",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "414",
+                    "endDigit": "423",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 8",
+                    "desc": "Part Material Quantity 8",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "424",
+                    "endDigit": "428",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Code 9",
+                    "desc": "Part Material Code 9",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "429",
+                    "endDigit": "433",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Part No 9",
+                    "desc": "Part Material Part No 9",
+                    "dataType": "Char",
+                    "length": "12",
+                    "startDigit": "434",
+                    "endDigit": "445",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Source Code 9",
+                    "desc": "Part Material Source Code 9",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "446",
+                    "endDigit": "446",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Dock Code 9",
+                    "desc": "Part Material Dock Code 9",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "447",
+                    "endDigit": "448",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Address 9",
+                    "desc": "Part Material Address 9",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "449",
+                    "endDigit": "458",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Part Material Quantity 9",
+                    "desc": "Part Material Quantity 9",
+                    "dataType": "Number",
+                    "length": "5",
+                    "startDigit": "459",
+                    "endDigit": "463",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Label Output Control",
+                    "desc": "Label Output Control",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "464",
+                    "endDigit": "466",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Packing Zone Code",
+                    "desc": "Packing Zone Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "467",
+                    "endDigit": "468",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Stacking Zone Code",
+                    "desc": "Stacking Zone Code",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "469",
+                    "endDigit": "470",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Kanban No.",
+                    "desc": "Kanban No.",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "471",
+                    "endDigit": "474",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Seppen No. Kara",
+                    "desc": "For TMC Sys - Seppen No. Kara",
+                    "dataType": "Char",
+                    "length": "9",
+                    "startDigit": "475",
+                    "endDigit": "483",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Box",
+                    "desc": "For TMC Sys - Box",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "484",
+                    "endDigit": "486",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Kumishikiri",
+                    "desc": "For TMC Sys - Kumishikiri",
+                    "dataType": "Char",
+                    "length": "5",
+                    "startDigit": "487",
+                    "endDigit": "491",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Patto",
+                    "desc": "For TMC Sys - Patto",
+                    "dataType": "Char",
+                    "length": "3",
+                    "startDigit": "492",
+                    "endDigit": "494",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - V-Line(p)",
+                    "desc": "For TMC Sys - V-Line(p)",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "495",
+                    "endDigit": "496",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Container Shitei Kubun",
+                    "desc": "For TMC Sys - Container Shitei Kubun",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "497",
+                    "endDigit": "497",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Bekkon Kubun",
+                    "desc": "For TMC Sys - Bekkon Kubun",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "498",
+                    "endDigit": "498",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Bunkatsu Hakosu",
+                    "desc": "For TMC Sys - Bunkatsu Hakosu",
+                    "dataType": "Char",
+                    "length": "1",
+                    "startDigit": "499",
+                    "endDigit": "499",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Kanri Code",
+                    "desc": "For TMC Sys - Kanri Code",
+                    "dataType": "Char",
+                    "length": "4",
+                    "startDigit": "500",
+                    "endDigit": "503",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "For TMC Sys - Genchi Jyoho Bulk",
+                    "desc": "For TMC Sys - Genchi Jyoho Bulk",
+                    "dataType": "Char",
+                    "length": "10",
+                    "startDigit": "504",
+                    "endDigit": "513",
+                    "mandatory": "N"
+                },
+                {
+                    "name": "Dummy",
+                    "desc": "Dummy",
+                    "dataType": "Char",
+                    "length": "7",
+                    "startDigit": "514",
+                    "endDigit": "520",
+                    "mandatory": "N"
+                }
+            ]
+        },
+		"fileFooter": {
+            "recordLength": "21",
+            "tokens": [
+                {
+                    "name": "Record Id",
+                    "desc": "Record Id",
+                    "dataType": "Char",
+                    "length": "2",
+                    "startDigit": "1",
+                    "endDigit": "2",
+                    "fixValue": "T ",
+					"notTrim": "Y"
+                },
+                {
+                    "name": "Record Count",
+                    "desc": "Record Count",
+                    "dataType": "Number",
+                    "length": "8",
+                    "startDigit": "3",
+                    "endDigit": "10",
+                    "format": "00000000"
+                },
+                {
+                    "name": "Dummy",
+                    "desc": "Dummy",
+                    "dataType": "Char",
+                    "length": "11",
+                    "startDigit": "11",
+                    "endDigit": "21"
+                }
+            ]
+        }
+    }
+}

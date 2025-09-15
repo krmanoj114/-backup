@@ -8,21 +8,21 @@ import org.springframework.validation.Validator;
 import com.tpex.invoice.dto.SearchInvHaisenDetailRequestDto;
 
 @Component
-public class SearchInvHaisenDetailRequestDtoValidation implements Validator{
+public class SearchInvHaisenDetailRequestDtoValidation implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
+
 		return SearchInvHaisenDetailRequestDto.class.isAssignableFrom(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 		SearchInvHaisenDetailRequestDto request = (SearchInvHaisenDetailRequestDto) target;
-		if(request.isHasParameter()) {
+		if (request.isHasParameter()) {
 			ValidationUtils.rejectIfEmpty(errors, "parameters", "parameters.required", "Mandatory field not entered");
 		}
-		
+
 	}
 
 }

@@ -1,0 +1,29 @@
+{
+	"batchId" : "BINF016",
+	"fileInfo" : {
+		"outputFileNames" : [
+			{
+				"company"  : "TMT",
+				"fileName" : "DA90020_YYYYMMDDHHMISS_D",
+				"outputFolder" : "/home/TMAP/DSD/shared/batch/BINF016/TMT",
+				"ftp" : [
+					{
+						"ipaddress" :"10.254.7.55",
+						"port" :"22",
+						"user" :"uusdavd",
+						"password" :"uusdavd",
+						"targetDirectory" :"/home/TMAP/DAV/shared/TPEX-DEV/remote",
+						"targetFileName" :""
+
+					}
+				],
+				"archiveFolder" : "/home/TMAP/DSD/shared/batch/BINF016/archive"
+			}			
+		]
+	},
+	"lineSeparator": {
+		"data" : "",
+		"header" : "#",
+		"trailer" : "#"
+	}
+}

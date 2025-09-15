@@ -6,15 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrokerDetailsDTO implements Serializable{
-	
+public class BrokerDetailsDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private String brokerCode;
-	
+
 	private String brokerName;
-	
+
 }

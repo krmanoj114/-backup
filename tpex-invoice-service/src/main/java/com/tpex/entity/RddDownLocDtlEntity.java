@@ -18,9 +18,8 @@ import lombok.Data;
 @Data
 @Table(name = "TB_R_REPORT_DOWN_D")
 @Entity
-public class RddDownLocDtlEntity implements Serializable{
+public class RddDownLocDtlEntity implements Serializable {
 
-	
 	/**
 	 * 
 	 */
@@ -40,19 +39,19 @@ public class RddDownLocDtlEntity implements Serializable{
 
 	@Column(name = "CREATE_BY")
 	private String createBy;
-	
-	//@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+
+	// @Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name = "CREATE_DATE")
-	private java.sql.Timestamp  createDate;
+	private java.sql.Timestamp createDate;
 
 	@Column(name = "UPDATE_BY")
 	private String updateBy;
-	
-	//@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+
+	// @Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@Column(name = "UPDATE_DATE")
-	private java.sql.Timestamp  updateDate;
+	private java.sql.Timestamp updateDate;
 
 	@Column(name = "CMP_CD")
 	private String companyCode;
@@ -64,15 +63,5 @@ public class RddDownLocDtlEntity implements Serializable{
 	public LocalDateTime getUpdateDate() {
 		return DateUtil.convertSqlDateToLocalDateTimeOfEntityAttribute(updateDate);
 	}
-	 
-
-
-
-
-
-
-
-
-
 
 }

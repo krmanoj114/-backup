@@ -26,5 +26,5 @@ public class OemPortMstEntity implements Serializable{
 	@Column(name = "UPD_DT")
 	private Date updDt;
 	@Column(name = "CMP_CD")
-	private Date companyCode;
+	private String companyCode;
 }

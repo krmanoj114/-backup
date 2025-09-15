@@ -3,6 +3,7 @@ package com.tpex.invoice.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyList;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -253,7 +254,7 @@ class RenbanGroupCodeMasterControllerTest {
 		
 		List<RenbancodeMasterDeleteDto> asList = Arrays.asList(dto1,dto2);
 		
-		Mockito.doNothing().when(renbanGroupCodeMasterService).deleteRenbanGroupCodeMasterDetails(Mockito.anyList());
+		Mockito.doNothing().when(renbanGroupCodeMasterService).deleteRenbanGroupCodeMasterDetails(anyList());
 		
 		ResponseEntity<ApiResponseMessage> result = renbanGroupCodeMasterController.renbanGroupCodeMasterDetails(asList);
 		

@@ -9,16 +9,16 @@ import lombok.Data;
 @AllArgsConstructor
 public class PartDetailDataDTO {
 
-	private String INV_DT;
-	private String PART_NO;
-	private BigDecimal UNIT_BOX;
-	private BigDecimal PART_WT;
-	private String CF_CD;
-	private String DST_CD;
-	private String SHIP_MARK;
-	private String SHIP_MARK4;
-	private String SERIES;
-	private String PRT_NAME;
-	private BigDecimal SUM_TOT_UNIT;
+	private String invDt;
+	private String partNo;
+	private BigDecimal unitBox;
+	private BigDecimal partWt;
+	private String cfCd;
+	private String dstCd;
+	private String shipMark;
+	private String shipMark4;
+	private String series;
+	private String partName;
+	private BigDecimal sumTotalUnit;
 	
 }

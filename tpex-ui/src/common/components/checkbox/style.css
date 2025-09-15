@@ -1,0 +1,41 @@
+.form-check label {
+  font-size: 14px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  color: #000;
+  padding-top: 2px;
+  margin-bottom: 0px;
+}
+
+.form-check-input:checked {
+  background-color: #253eae;
+  border-color: #253eae;
+}
+
+.form-check-input[type="checkbox"] {
+  border: 2px solid #b5bac4;
+  border-radius: 4px;
+  height: 18px;
+  width: 18px;
+  margin-top: 2px;
+}
+
+.form-check {
+  padding-left: 22px;
+  margin-right: 24px;
+  min-height: auto;
+  margin-bottom: 0;
+}
+
+.form-check:last-child {
+  margin-right: 0;
+}
+
+.form-check-input:checked[type="checkbox"] {
+  border: 1px solid #253eae;
+}
+
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
+  opacity: 1;
+  margin-bottom: 0;
+}

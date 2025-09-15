@@ -29,6 +29,7 @@ import com.tpex.entity.PrivilegeMasterIdEntity;
 import com.tpex.exception.InvalidInputParametersException;
 import com.tpex.invoice.dto.MixPrivilegeDetailsListResponseDto;
 import com.tpex.invoice.dto.MixPrivilegeMasterSaveRequestDto;
+import com.tpex.invoice.serviceimpl.MixPrivilegeMasterServiceImpl;
 import com.tpex.repository.CarFamilyDestinationMasterRepository;
 import com.tpex.repository.MixPrivilegeMasterRepository;
 import com.tpex.repository.PrivilegeMasterRepository;

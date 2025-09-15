@@ -2,8 +2,6 @@ package com.tpex.repository;
 
 import java.util.List;
 
-
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tpex.entity.RddDownLocDtlEntity;
-
-
 
 @Repository
 public interface PackingListCustomBrokerRepository extends JpaRepository<RddDownLocDtlEntity, Integer> {
@@ -39,7 +35,7 @@ public interface PackingListCustomBrokerRepository extends JpaRepository<RddDown
 			+ "          INS_MEASUREMENT insMeasurement,\r\n"
 			+ "          INS_SHIPMARK_4 insShipmark4,\r\n"
 			+ "          INS_SHIPMARK_5 insShipmark5,\r\n"
-			+ "		     SUBSTR(INS_SHIPMARK_5, 1, 2)  shipMarkGp,\r\n"
+			+ "          SUBSTR(INS_SHIPMARK_5, 1, 2)  shipMarkGp,\r\n"
 			+ "          INS_SHIPMARK_5 caseMod,\r\n"
 			+ "          INS_CF_CD insCfCd,\r\n"
 			+ "          INS_SRS_NAME insSrsName,\r\n"
@@ -66,7 +62,7 @@ public interface PackingListCustomBrokerRepository extends JpaRepository<RddDown
 			+ "          INS_SHIPMARK_4 insShipmark4,\r\n"
 			+ "          INS_SHIPMARK_5 insShipmark5 ,\r\n"
 			+ "          SUBSTR(INS_SHIPMARK_5, 1, 2)  shipMarkGp,\r\n"
-			+ "		     INS_SHIPMARK_5  caseMod,\r\n"
+			+ "          INS_SHIPMARK_5  caseMod,\r\n"
 			+ "          INS_CF_CD insCfCd,\r\n"
 			+ "          INS_SRS_NAME insSrsName,\r\n"
 			+ "          INS_NO_OF_CASES insNoOfCases\r\n"

@@ -57,7 +57,7 @@ public interface PartPriceMasterRepository extends JpaRepository<PartPriceMaster
 			@Param("effFromMonth") String effFromMonth, @Param("partNo") String partNo, @Param("cmpCd") String cmpCd);
 
 
-	void deleteByIdCfCodeAndIdDestCodeAndIdCurrencyCodeAndIdPartNoAndIdEffFromMonth(String carFamilyCode,
+	void deleteByIdCfCodeAndIdDestCodeAndCurrencyCodeAndIdPartNoAndIdEffFromMonth(String carFamilyCode,
 			String impoterCode, String curreny, String partNo, String effectiveFromMonth);
 	
 	long countByIdCfCodeAndIdDestCodeAndIdPartNoAndIdEffFromMonthAndEffToMonth(String carFamilyCode,

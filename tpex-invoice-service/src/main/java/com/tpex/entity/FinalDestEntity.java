@@ -14,8 +14,8 @@ import lombok.Data;
 @Data
 @Table(name = "TB_M_FINAL_DESTINATION")
 @Entity
-public class FinalDestEntity implements Serializable{
-	
+public class FinalDestEntity implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "DST_CD")
@@ -38,5 +38,5 @@ public class FinalDestEntity implements Serializable{
 	private String countryOrg;
 	@Column(name = "CMP_CD")
 	private String cmpCd;
-	
+
 }

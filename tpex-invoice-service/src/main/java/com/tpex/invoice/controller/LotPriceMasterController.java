@@ -98,7 +98,9 @@ public class LotPriceMasterController {
 
 		List<LotPriceMasterFinalResponseDTO> listOfLotPriceMasterResponseDTOs = new ArrayList<>();
 		
-		  String effectfrom=null; String effectTo=null; String effectiveFromMonth=null;
+		  String effectfrom=null; 
+		  String effectTo=null;
+		  String effectiveFromMonth=null;
 		  String effectiveToMonth=null;
 		 
 		for(LotPriceMasterResponseDTO listOfLotPriceMasterResponse: list) {
@@ -163,7 +165,7 @@ public class LotPriceMasterController {
 	 */
 
 	@PutMapping("/UpdateLotPartPricePopupDetails")
-	public ResponseEntity<?> updateLotPriceAndPartPriceDetails(@Valid @RequestBody LotPartPriceUpdateRequestDTO request) throws Exception{
+	public ResponseEntity<ApiResponseMessage> updateLotPriceAndPartPriceDetails(@Valid @RequestBody LotPartPriceUpdateRequestDTO request) throws ParseException{
 
 		try {
 			List<LotPriceUpdateRequestDTO> dtoList=request.getData();

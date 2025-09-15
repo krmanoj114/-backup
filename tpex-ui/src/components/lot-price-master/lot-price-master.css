@@ -1,0 +1,53 @@
+@media (min-width: 992px) {
+    .modal-lg, .modal-xl {
+    --bs-modal-width: 1010px;
+    }
+}
+.modal-body {
+    padding: 10px 20px 20px;
+}
+.modal-body .grid-table {
+    margin: 0;
+}
+.modal-header {
+    background: #F2F9FF;
+    padding: 0;
+}
+.modal-header .modal-title {
+    color: #253EAE;
+    font-size: 20px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    line-height: 20px;
+    padding-left: 8px;
+}
+.modal-header .btn-close {
+    color: #B5BAC4;
+    width: 16px;
+    height: 16px;
+    background:url('../../assets/images/icons/close.svg') no-repeat 0px 8px;
+    opacity: 1;
+}
+.modal-header .btn-close:hover {
+    background:url('../../assets/images/icons/close-hover.svg') no-repeat 0px 8px;
+    opacity: 1;
+}
+.modal-header .btn-close:focus {
+    box-shadow: none;
+}
+.modal-body .label-text {
+  font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  font-size: 16px;
+  color: #5E5E5E;
+  padding-right: 0;
+}
+.modal-body .field-text {
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 16px;
+    color: #000000;
+}
+.modalTable-backdrop {
+    z-index: 299;
+}
+.modal-table {
+    z-index: 399;
+}

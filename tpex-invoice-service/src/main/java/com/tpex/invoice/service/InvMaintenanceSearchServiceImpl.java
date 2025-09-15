@@ -1,6 +1,5 @@
 package com.tpex.invoice.service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +27,11 @@ public class InvMaintenanceSearchServiceImpl implements InvMaintenanceSearchServ
 	 */
 	@Override
 	public List<InvoiceMaintenanceDTO> fetchOrderTypeAndInvoiceNumber() {
-		List<InsInvDtlsEntity> listOfInvoiceEntity = invoiceMaintenanceRepository.findByIndCancelFlagEqualsAndIndPlsSndDtNotNullOrderByIndInvNo(ConstantUtils.FLAG);
+		List<InsInvDtlsEntity> listOfInvoiceEntity = invoiceMaintenanceRepository
+				.findByIndCancelFlagEqualsAndIndPlsSndDtNotNullOrderByIndInvNo(ConstantUtils.FLAG);
 		return listOfInvoiceEntity.stream()
-				.map(e -> new InvoiceMaintenanceDTO(e.getIndOrdTyp(), e.getIndInvNo()+ "-" + e.getIndFinalDst())).collect(Collectors.toList());
+				.map(e -> new InvoiceMaintenanceDTO(e.getIndOrdTyp(), e.getIndInvNo() + "-" + e.getIndFinalDst()))
+				.collect(Collectors.toList());
 	}
 
 }

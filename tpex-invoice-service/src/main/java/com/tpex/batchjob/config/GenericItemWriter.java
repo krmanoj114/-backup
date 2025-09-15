@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 public class GenericItemWriter {
 
 	@Autowired
-    private EntityManagerFactory entityManagerFactory;
-	
-    @SuppressWarnings("rawtypes")
+	private EntityManagerFactory entityManagerFactory;
+
+	@SuppressWarnings("rawtypes")
 	public JpaItemWriter jpaWriter() {
-        JpaItemWriter iwriter = new JpaItemWriter();
-        iwriter.setEntityManagerFactory(this.entityManagerFactory);
-        return iwriter;
-    }
-    
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+		JpaItemWriter iwriter = new JpaItemWriter();
+		iwriter.setEntityManagerFactory(this.entityManagerFactory);
+		return iwriter;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RepositoryItemWriter repositoryWriter(CrudRepository repository, String methodName) {
 		RepositoryItemWriter iwriter = new RepositoryItemWriter();
 		iwriter.setRepository(repository);

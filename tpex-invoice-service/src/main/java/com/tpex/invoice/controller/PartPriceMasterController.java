@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -80,10 +81,24 @@ public class PartPriceMasterController {
 			errorMessageParams.put("count", deleteRequest.getData().size());
 			return new ResponseEntity<>(new ApiResponseMessage(HttpStatus.OK, ConstantUtils.INFO_CM_3002, errorMessageParams), HttpStatus.OK);
 		} else {
+			
+			Integer deletedNumbers = deleteRequest.getData().size() - partPriceMasterDtoList.size();
+			
+			if(deletedNumbers > 0) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("deletedRecords", deleteRequest.getData().size() - partPriceMasterDtoList.size());
 			errorMessageParams.put("notDeletedRecord", partPriceMasterDtoList.size());
 			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3021, errorMessageParams);
+			}
+			else
+			{
+				Map<String, Object> errorMessageParams = new HashMap<>();
+				List<String> partNumbers = partPriceMasterDtoList.stream().map(PartPriceMasterDto:: getPartNo).collect(Collectors.toList());
+				errorMessageParams.put("Part No.", partNumbers);
+				throw new MyResourceNotFoundException(ConstantUtils.ERR_IN_3023, errorMessageParams );
+			}
+
+
 		}
 	}
 	

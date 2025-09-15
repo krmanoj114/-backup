@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvVinListResponseDTO {
-	private String INV_NO;
-	private String INV_DT;
-	private String NAME;
-	private String ADD_1;
-	private String ADD_2;
-	private String ADD_3;
-	private String ADD_4;
-	private String LOT_NO;
-	private String INV_VIN_NO;
+	private String invNo;
+	private String invDt;
+	private String name;
+	private String add1;
+	private String add2;
+	private String add3;
+	private String add4;
+	private String lotNo;
+	private String invVinNo;
 }

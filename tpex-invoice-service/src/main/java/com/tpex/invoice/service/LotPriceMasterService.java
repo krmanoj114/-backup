@@ -21,6 +21,6 @@ public interface LotPriceMasterService {
 
 	List<PartPricePopupDetailsDto> getPartPricePopupDetails(@Valid LotPartPriceMasterRequestDTO request) throws ParseException;
 
-	LotPartWarningsDto updateLotPartDetails(@Valid LotPartPriceUpdateRequestDTO request) throws ParseException, Exception;
+	LotPartWarningsDto updateLotPartDetails(@Valid LotPartPriceUpdateRequestDTO request) throws ParseException;
 
 }

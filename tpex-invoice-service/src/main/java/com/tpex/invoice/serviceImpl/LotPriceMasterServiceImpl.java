@@ -1,4 +1,4 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -41,6 +41,7 @@ import com.tpex.util.ConstantProperties;
 import com.tpex.util.ConstantUtils;
 
 @Service
+@SuppressWarnings("squid:S3776")
 public class LotPriceMasterServiceImpl implements LotPriceMasterService {
 
 	@Autowired
@@ -152,7 +153,7 @@ public class LotPriceMasterServiceImpl implements LotPriceMasterService {
 
 	@Override
 	@Transactional(rollbackFor = Throwable.class)
-	public LotPartWarningsDto updateLotPartDetails(@Valid LotPartPriceUpdateRequestDTO request) throws Exception {
+	public LotPartWarningsDto updateLotPartDetails(@Valid LotPartPriceUpdateRequestDTO request) throws ParseException {
 
 		Double lotPrice;
 		String eFM = request.getEffectiveFromMonth();

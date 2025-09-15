@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.tpex.entity.RddDownLocDtlEntity;
 
 @Repository
+@SuppressWarnings("squid:S2479")
 public interface CertificateOriginReportRepository extends JpaRepository<RddDownLocDtlEntity, Integer> {
 	
 	@Query(value = "SELECT TMAPTH_INV_FLG\r\n"

@@ -82,4 +82,14 @@ public interface InvGenWorkPlanMstRepository extends JpaRepository<InvGenWorkPla
 	@Query(value = "SELECT count(*) FROM TB_M_INV_WORK_PLAN WHERE ETD1 BETWEEN :etd1fromDate AND :etd1ToDate", nativeQuery = true)
 	int findCountByEtd1Between(@Param("etd1fromDate") Date invoiceFromDate, @Param("etd1ToDate") Date etd1ToDate);
     
+	@Query(value = "SELECT * FROM TB_M_INV_WORK_PLAN WHERE ETD1 >= :etd1fromDate", nativeQuery = true)
+	List<InvGenWorkPlanMstEntity> findByGreaterthanEqualToEtdFrom(@Param("etd1fromDate") Date etd1fromDate);
+    
+	@Query(value = "SELECT * FROM TB_M_INV_WORK_PLAN WHERE ISSUE_INVOICE_DATE >= :invoiceFromDate", nativeQuery = true)
+	List<InvGenWorkPlanMstEntity> findByGreaterthanEqualToInvoiceDateFrom(@Param("invoiceFromDate") Date invoiceFromDate);
+    
+	@Query(value = "SELECT * FROM TB_M_INV_WORK_PLAN WHERE ISSUE_INVOICE_DATE >= :invoiceFromDate AND ETD1 >= :etd1fromDate", nativeQuery = true)
+	List<InvGenWorkPlanMstEntity> findByGreaterThanEqualToIssueInvoiceDateAndEtd1(
+			@Param("invoiceFromDate") Date invoiceFromDate,@Param("etd1fromDate") Date etd1fromDate);
+    
 }

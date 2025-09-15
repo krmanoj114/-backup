@@ -12,6 +12,7 @@ import com.tpex.entity.OemLotPartPrcMstEntity;
 
 import io.lettuce.core.dynamic.annotation.Param;
 
+@SuppressWarnings("squid:S107")
 @Repository
 public interface LotPartPriceMasterRepository extends JpaRepository<OemLotPartPrcMstEntity, String>{
 

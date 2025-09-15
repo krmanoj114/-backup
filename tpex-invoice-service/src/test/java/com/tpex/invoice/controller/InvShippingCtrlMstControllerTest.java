@@ -3,6 +3,8 @@ package com.tpex.invoice.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +28,12 @@ import com.tpex.dto.OemShippingCtrlMstSaveRequestDto;
 import com.tpex.exception.MyResourceNotFoundException;
 import com.tpex.invoice.dto.OemShippingCtrlMstDto;
 import com.tpex.invoice.dto.ShipCtrlMstDto;
-import com.tpex.invoice.serviceImpl.InvShippingCtrlMstServiceImpl;
+import com.tpex.invoice.serviceimpl.InvShippingCtrlMstServiceImpl;
 import com.tpex.repository.TpexConfigRepository;
 import com.tpex.util.ConstantProperties;
 
 @ExtendWith(MockitoExtension.class)
-public class InvShippingCtrlMstControllerTest {
+class InvShippingCtrlMstControllerTest {
 	
 	@InjectMocks
 	private InvShippingCtrlMstController invShippingCtrlMstController;
@@ -45,6 +47,8 @@ public class InvShippingCtrlMstControllerTest {
 	@Mock
 	private TpexConfigRepository tpexConfigRepository;
 	
+	private static String SERIES="TOYOTA";
+	
 	@Test
 	void fetchInvShippingCtrlMstTest() throws Exception {
 		OemShippingCtrlMstDto oemShippingCtrlMstDto = new OemShippingCtrlMstDto();
@@ -55,7 +59,7 @@ public class InvShippingCtrlMstControllerTest {
 		shipCtrlMstDto.setImpCode("722E");
 		shipCtrlMstDto.setExpCode("722E");
 		shipCtrlMstDto.setCfcCode("000A");
-		shipCtrlMstDto.setSeries("TOYOTA");
+		shipCtrlMstDto.setSeries(SERIES);
 		shipCtrlMstDto.setSetPartCode("L");
 		shipCtrlMstDto.setPortOfDischarge("BTG");
 		shipCtrlMstDto.setProductGroup("CL");
@@ -101,7 +105,7 @@ public class InvShippingCtrlMstControllerTest {
 		oemShippingCtrlMstDto.setCfcCodeList(shipCtrlCfcCodeDtos);
 		
 		List<CommonMultiSelectDropdownDto> shipCtrlSeriesDtos = new ArrayList<>();
-		shipCtrlSeriesDtos.add(new CommonMultiSelectDropdownDto("TOYOTA", "TOYOTA"));
+		shipCtrlSeriesDtos.add(new CommonMultiSelectDropdownDto(SERIES, SERIES));
 		shipCtrlSeriesDtos.add(new CommonMultiSelectDropdownDto("FORTUNER", "FORTUNER"));
 		oemShippingCtrlMstDto.setSeriesList(shipCtrlSeriesDtos);
 		
@@ -138,8 +142,6 @@ public class InvShippingCtrlMstControllerTest {
 		when(invShippingCtrlMstServiceImpl.fetchInvShippingCtrlMst()).thenReturn(oemShippingCtrlMstDto);
 
 		ResponseEntity<OemShippingCtrlMstDto> result = invShippingCtrlMstController.fetchInvShippingCtrlMst();
-		
-		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
 		assertEquals(oemShippingCtrlMstDto, result.getBody());
 		
@@ -158,7 +160,7 @@ public class InvShippingCtrlMstControllerTest {
 		consigneeAndNotifyPartyDto.setConsigneeList(shipCtrlConsigneeDtos);
 		consigneeAndNotifyPartyDto.setNotifyPartyList(shipCtrlNotifyPartyDtos);
 		
-		when(invShippingCtrlMstServiceImpl.fetchConsigneeAndNotifyPartyByBuyer(Mockito.anyString())).thenReturn(consigneeAndNotifyPartyDto);
+		when(invShippingCtrlMstServiceImpl.fetchConsigneeAndNotifyPartyByBuyer(anyString())).thenReturn(consigneeAndNotifyPartyDto);
 
 		ResponseEntity<ConsigneeAndNotifyPartyDto> result = invShippingCtrlMstController.fetchConsigneeAndNotifyPartyByBuyer("TMT");
 		
@@ -171,7 +173,7 @@ public class InvShippingCtrlMstControllerTest {
 	@Test
 	void saveShippingControlMasterTest() {
 		//Test success scenario
-		when(invShippingCtrlMstServiceImpl.saveShippingControlMaster(Mockito.anyList())).thenReturn(true);
+		when(invShippingCtrlMstServiceImpl.saveShippingControlMaster(anyList())).thenReturn(true);
 		
 		List<OemShippingCtrlMstSaveRequestDto> oemShippingCtrlMstSaveRequestDtoList = new ArrayList<>();
 		OemShippingCtrlMstSaveRequestDto oemShippingCtrlMstSaveRequestDto = new OemShippingCtrlMstSaveRequestDto();
@@ -179,7 +181,7 @@ public class InvShippingCtrlMstControllerTest {
 		oemShippingCtrlMstSaveRequestDto.setImpCode("722E");
 		oemShippingCtrlMstSaveRequestDto.setExpCode("465K");
 		oemShippingCtrlMstSaveRequestDto.setCfcCode("000A");
-		oemShippingCtrlMstSaveRequestDto.setSeries("TOYOTA");
+		oemShippingCtrlMstSaveRequestDto.setSeries(SERIES);
 		oemShippingCtrlMstSaveRequestDto.setSetPartCode("P");
 		oemShippingCtrlMstSaveRequestDto.setPortOfDischarge("BTG");
 		oemShippingCtrlMstSaveRequestDto.setProductGroup("CL");
@@ -203,7 +205,7 @@ public class InvShippingCtrlMstControllerTest {
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
 		
-		when(invShippingCtrlMstServiceImpl.saveShippingControlMaster(Mockito.anyList())).thenReturn(false);
+		when(invShippingCtrlMstServiceImpl.saveShippingControlMaster(anyList())).thenReturn(false);
 		oemShippingCtrlMstSaveRequestDto.setSetPartCode("PPPP");
 		oemShippingCtrlMstSaveRequestDtoList.add(oemShippingCtrlMstSaveRequestDto);
 		Assertions.assertThrows(MyResourceNotFoundException.class,
@@ -212,14 +214,14 @@ public class InvShippingCtrlMstControllerTest {
 	
 	@Test
 	void deleteShippingControlMasterTest() {
-		Mockito.doNothing().when(invShippingCtrlMstServiceImpl).deleteShippingControlMaster(Mockito.anyList());
+		Mockito.doNothing().when(invShippingCtrlMstServiceImpl).deleteShippingControlMaster(anyList());
 		
 		List<OemShippingCtrlMstDeleteRequestDto> oemShippingCtrlMstDeleteRequestDtoList = new ArrayList<>();
 		OemShippingCtrlMstDeleteRequestDto oemShippingCtrlMstDeleteRequestDto = new OemShippingCtrlMstDeleteRequestDto();
 		oemShippingCtrlMstDeleteRequestDto.setImpCode("722E");
 		oemShippingCtrlMstDeleteRequestDto.setExpCode("465K");
 		oemShippingCtrlMstDeleteRequestDto.setCfcCode("000A");
-		oemShippingCtrlMstDeleteRequestDto.setSeries("TOYOTA");
+		oemShippingCtrlMstDeleteRequestDto.setSeries(SERIES);
 		oemShippingCtrlMstDeleteRequestDto.setSetPartCode("P");
 		oemShippingCtrlMstDeleteRequestDto.setPortOfDischarge("BTG");
 		

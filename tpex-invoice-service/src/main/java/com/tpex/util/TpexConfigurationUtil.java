@@ -1,6 +1,7 @@
 package com.tpex.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,43 +17,47 @@ import com.tpex.json.dto.ColumnsDTO;
 import com.tpex.repository.TpexConfigRepository;
 
 import net.sf.jasperreports.engine.JRParameter;
+
 @Component
 public class TpexConfigurationUtil {
 
 	@Autowired
-	TpexConfigRepository  tpexConfigRepository;
+	TpexConfigRepository tpexConfigRepository;
 
 	public String getFilePath(String filename) {
 		String filePath = "";
 		TpexConfigEntity tpexConfigEntity = tpexConfigRepository.findByName(filename);
 		filePath = tpexConfigEntity.getValue();
-		if(StringUtils.isBlank(filePath)) {
+		if (StringUtils.isBlank(filePath)) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("filename", filename);
-			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3017, errorMessageParams); 
+			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3017, errorMessageParams);
 		}
 		return filePath;
 	}
-	
-	public ColumnsDTO readDataFromJson(String filename) throws Exception {
+
+	public ColumnsDTO readDataFromJson(String filename) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		File file = null;
 		String filePath = getFilePath(filename);
 		file = ResourceUtils.getFile(filePath);
-		if(!file.exists()) {
+		if (!file.exists()) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("filePath", filePath);
 			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3018, errorMessageParams);
 		}
 		return objectMapper.readValue(file, ColumnsDTO.class);
 	}
-	
+
 	public Map<String, Object> getReportDynamicPrameters() {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put(JRParameter.IS_IGNORE_PAGINATION, Boolean.TRUE);
-		parameters.put("headingFontSize", Integer.parseInt(tpexConfigRepository.findByName("jasper.report.headingFontSize").getValue()));
-		parameters.put("detailFontSize", Integer.parseInt(tpexConfigRepository.findByName("jasper.report.detailFontSize").getValue()));
-		parameters.put("headingFontColor", tpexConfigRepository.findByName("jasper.report.headingFontColor").getValue());
+		parameters.put("headingFontSize",
+				Integer.parseInt(tpexConfigRepository.findByName("jasper.report.headingFontSize").getValue()));
+		parameters.put("detailFontSize",
+				Integer.parseInt(tpexConfigRepository.findByName("jasper.report.detailFontSize").getValue()));
+		parameters.put("headingFontColor",
+				tpexConfigRepository.findByName("jasper.report.headingFontColor").getValue());
 		parameters.put("detailFontColor", tpexConfigRepository.findByName("jasper.report.detailFontColor").getValue());
 		parameters.put("headingBGColor", tpexConfigRepository.findByName("jasper.report.headingBGColor").getValue());
 		parameters.put("detailBGColor", tpexConfigRepository.findByName("jasper.report.detailBGColor").getValue());

@@ -11,8 +11,12 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.tpex.exception.MyResourceNotFoundException;
 
 public class DownlaodExcelTemplate {
+
+	private DownlaodExcelTemplate() {
+	}
 
 	public static ByteArrayInputStream downloadTemplateAsExcel(List<String> headers, String sheetName) {
 
@@ -26,7 +30,7 @@ public class DownlaodExcelTemplate {
 			workbook.write(out);
 			return new ByteArrayInputStream(out.toByteArray());
 		} catch (IOException e) {
-			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+			throw new MyResourceNotFoundException("fail to import data to Excel file: " + e.getMessage());
 		}
 	}
 

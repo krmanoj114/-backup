@@ -16,6 +16,7 @@ public class ReturnablePackingMasterImporterDTO{
 	private List<ReturnablePackingMasterDetailsDTO> returnablePackingMasterDetails; 
 	private List<CommonMultiSelectDropdownDto> packingPlantList;
 	private List<CommonMultiSelectDropdownDto> importerCodeList;
+	private String rrackType;
 	
 
 }

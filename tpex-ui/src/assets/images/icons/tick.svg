@@ -1,0 +1,13 @@
+<svg id="tick" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_140187" data-name="Rectangle 140187" width="9" height="9" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <circle id="Ellipse_25" data-name="Ellipse 25" cx="8" cy="8" r="8" fill="#05d05d"/>
+  <g id="Mask_Group_204" data-name="Mask Group 204" transform="translate(3.5 3.5)" clip-path="url(#clip-path)">
+    <g id="checked" transform="translate(0 1.106)">
+      <path id="Path_83633" data-name="Path 83633" d="M9,6.605c-.022.02-.044.038-.065.058L3.17,12.424c-.027.027-.049.058-.1.114a.64.64,0,0,0-.066-.1Q1.541,10.966.072,9.5A.924.924,0,0,0,0,9.436V9.418l.752-.751C.779,8.64.8,8.608.824,8.578L3.075,10.83C4.767,9.13,6.45,7.443,8.138,5.75c.2.192.376.371.558.548.1.1.2.193.3.289C9,6.593,9,6.6,9,6.605Z" transform="translate(0 -5.75)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

@@ -11,14 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PackingListCustomBrokerDto implements Serializable{
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	
-	
-
-	public PackingListCustomBrokerDto(Object object, Object object2, Object object3, Object object4, Object object5,
-			Object object6, Object object7, Object object8, Object object9, Object object10, Object object11,
-			Object object12, Object object13, Object object14, Object object15) {
-
-	}
 	private String insCnsgName;
 	private String insCnsgAdd1;
 	private String insCnsgAdd2;
@@ -42,7 +37,6 @@ public class PackingListCustomBrokerDto implements Serializable{
 	private String insCfCd;
 	private String insSrsName;
 	private Double insNoOfCases;
-	
 
 }
 

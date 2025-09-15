@@ -7,10 +7,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.batch.support.annotation.Classifier;
-
-import com.fasterxml.jackson.core.sym.Name;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,14 +19,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "TB_M_LOT_SIZE")
 @IdClass(OemLotSizeMstIDEntity.class)
 public class OemLotSizeMstEntity {
-	
+
 	@Id
 	@Column(name = "MOD_IMP_CD")
 	private String lotModImp;
 	@Id
 	@Column(name = "CF_CD")
 	private String carFamilyCode;
-	
+
 	@Column(name = "LOT_SIZE")
 	private Double lotSizeCode;
 	@Id
@@ -39,7 +35,7 @@ public class OemLotSizeMstEntity {
 	@Id
 	@Column(name = "PART_NO")
 	private String partNumber;
-	
+
 	@Column(name = "CMP_CD")
 	private String companyCode;
 

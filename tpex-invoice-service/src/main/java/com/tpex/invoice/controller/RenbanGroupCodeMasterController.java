@@ -82,8 +82,8 @@ public class RenbanGroupCodeMasterController {
 
 	@PutMapping(value = "/updateRenbanCodeMaster")
 	public ResponseEntity<ApiResponseMessage> updateRenbanCodeMaster(
-			@RequestBody List<RenbanGroupCodeMasterSaveRequestDto> renbanGroupCodeMasterSaveRequestDtoList)
-			throws Exception {
+			@RequestBody List<RenbanGroupCodeMasterSaveRequestDto> renbanGroupCodeMasterSaveRequestDtoList) throws ParseException
+			 {
 
 		renbanGroupCodeMasterService.updateRenbanCodeMaster(renbanGroupCodeMasterSaveRequestDtoList);
 		return new ResponseEntity<>(new ApiResponseMessage(HttpStatus.OK, ConstantUtils.INFO_CM_3003), HttpStatus.OK);

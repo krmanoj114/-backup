@@ -11,10 +11,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tpex.util.ConstantUtils;
 import com.tpex.util.DateUtil;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReturnablePackingMasterIdEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,10 +27,11 @@ public class ReturnablePackingMasterIdEntity implements Serializable {
 
 	@Column(name = "MOD_TYP")
 	private String modType;
-	
+
 	@Column(name = "VAN_FROM")
-	@JsonFormat(pattern=ConstantUtils.DEFAULT_DATE_FORMATE)
+	@JsonFormat(pattern = ConstantUtils.DEFAULT_DATE_FORMATE)
 	private Date vanFrom;
+
 	public LocalDate getVanFrom() {
 		return DateUtil.convertSqlDateToLocalDateOfEntityAttribute(vanFrom);
 	}

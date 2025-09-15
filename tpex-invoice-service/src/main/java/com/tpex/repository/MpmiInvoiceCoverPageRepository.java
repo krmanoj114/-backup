@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.Tuple;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+@SuppressWarnings("squid:S2479")
 public interface MpmiInvoiceCoverPageRepository extends JpaRepository<RddDownLocDtlEntity, Integer>{
 	
 	@Query(value = "SELECT  DISTINCT ORD_NO FROM TB_R_INV_PART_D   WHERE  INV_NO  = :invNumber ORDER BY ORD_NO", nativeQuery = true)

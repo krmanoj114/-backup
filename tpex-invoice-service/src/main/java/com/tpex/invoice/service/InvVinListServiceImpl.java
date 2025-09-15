@@ -1,6 +1,6 @@
 package com.tpex.invoice.service;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +20,8 @@ import com.tpex.jasperreport.service.JasperReportService;
 import com.tpex.repository.InvVinListRepository;
 import com.tpex.repository.TpexConfigRepository;
 
+import net.sf.jasperreports.engine.JRException;
+
 @Service
 @Transactional
 public class InvVinListServiceImpl implements InvVinListService {
@@ -38,7 +40,7 @@ public class InvVinListServiceImpl implements InvVinListService {
 
 	@Override
 	public Object getInvVinListReportDownload(String cmpCd, String invNumber, String userId, String reportName,
-			String reportFormat) throws Exception {
+			String reportFormat) throws FileNotFoundException, JRException {
 
 		Map<String, Object> parameters = new HashMap<>();
 		Object jasperResponse = null;
@@ -58,8 +60,6 @@ public class InvVinListServiceImpl implements InvVinListService {
 		String fileFormat = StringUtils.isNotBlank(reportFormat) && "xlsx".equalsIgnoreCase(reportFormat) ? reportFormat
 				: "pdf";
 		String fileName = invNumber + "_" + "VIN" + "." + fileFormat;
-		StringBuilder sb = new StringBuilder().append(String.valueOf(config.get("reportDirectory"))).append("/")
-				.append(fileName);
 
 		List<InvVinListResponseDTO> invVinListResponseDTOList = getVinListData(cmpCd, invNumber);
 
@@ -67,18 +67,18 @@ public class InvVinListServiceImpl implements InvVinListService {
 			jasperResponse = jasperReportService.getJasperReportDownloadOnline(invVinListResponseDTOList, fileFormat,
 					reportName, fileName, parameters, config);
 		} else {
-			jasperResponse = jasperReportService.getJasperReportDownloadOfflineV1(invVinListResponseDTOList, fileFormat, reportName, parameters, config, 0, sb, fileName);
+			jasperResponse = jasperReportService.getJasperReportDownloadOfflineV1(invVinListResponseDTOList, fileFormat,
+					reportName, parameters, config, 0, fileName);
 
 		}
 		return jasperResponse;
 	}
 
 	public List<InvVinListResponseDTO> getVinListData(String cmpCd, String invNumber) {
-		List<InvVinListResponseDTO> invVinListResponseDTOList = new ArrayList<>();
+		List<InvVinListResponseDTO> invVinListResponseDTOList = null;
 		Tuple invCompDetail = null;
 		String tmapthInvFlg = invVinListRepository.getTmapthInvFlg(invNumber);
 		String compCode = invVinListRepository.getCompCode(invNumber);
-		System.out.println(compCode);
 
 		if ("Y".equalsIgnoreCase(tmapthInvFlg)) {
 			invCompDetail = invVinListRepository.getInvCompDetailWhenFlgY(cmpCd, compCode);
@@ -96,19 +96,13 @@ public class InvVinListServiceImpl implements InvVinListService {
 				: invCompDetail.get(3, String.class);
 		String invCompDetail5 = invCompDetail == null || invCompDetail.get(4, String.class) == null ? ""
 				: invCompDetail.get(4, String.class);
-		// invCompDetail1, invCompDetail2, invCompDetail3, invCompDetail4,
-		// invCompDetail5,
 		List<Tuple> partDetailList = invVinListRepository.getPartDetailData(invNumber);
-
-		InvVinListResponseDTO invVinListResponseDTO = new InvVinListResponseDTO();
 
 		invVinListResponseDTOList = partDetailList.stream()
 				.map(t -> new InvVinListResponseDTO(t.get(0, String.class), t.get(1, String.class), invCompDetail1,
 						invCompDetail2, invCompDetail3, invCompDetail4, invCompDetail5, t.get(2, String.class),
 						t.get(3, String.class)))
 				.collect(Collectors.toList());
-
-		System.out.println(invVinListResponseDTOList);
 
 		return invVinListResponseDTOList;
 	}

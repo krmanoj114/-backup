@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class DownloadInvoiceReportsRequestDTO implements Serializable{
+public class DownloadInvoiceReportsRequestDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,9 +16,9 @@ public class DownloadInvoiceReportsRequestDTO implements Serializable{
 	private String invoiceNumber;
 
 	private String etd;
-	
+
 	private String etdTo;
-		
+
 	private String bookingNo;
 
 	private String[] destinations;
@@ -28,4 +28,5 @@ public class DownloadInvoiceReportsRequestDTO implements Serializable{
 	private String reportName;
 	private String reportFormate;
 	private String cmpCd;
+	private String invoiceType;
 }

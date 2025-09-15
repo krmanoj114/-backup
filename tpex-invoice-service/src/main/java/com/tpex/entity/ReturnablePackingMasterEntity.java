@@ -9,6 +9,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tpex.util.ConstantUtils;
 import com.tpex.util.DateUtil;
@@ -18,6 +20,7 @@ import lombok.Data;
 @Data
 @Table(name = "TB_M_RRACK_MOD_TYPE")
 @Entity
+@DynamicInsert
 public class ReturnablePackingMasterEntity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

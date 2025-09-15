@@ -15,6 +15,7 @@ import com.tpex.entity.NoemHaisenDtlsEntity;
 import com.tpex.entity.NoemHaisenDtlsIdEntity;
 
 @Repository
+@SuppressWarnings({"squid:S2479","squid:S107"})
 public interface NoemHaisenDtlsRepository extends JpaRepository<NoemHaisenDtlsEntity, NoemHaisenDtlsIdEntity> {
 
 	@Query(value = "SELECT DISTINCT a.HAISEN_YEAR_MTH,a.HAISEN_NO,a.ETD,a.ETA,a.BUYER,a.VSSL_NM_OCEAN,a.VOY_NO,a.NO_OF_20FT,a.NO_OF_40FT,a.CONT_EFF,a.SHIP_CO_NM,a.DEP_PORT,a.DST_PORT \r\n"

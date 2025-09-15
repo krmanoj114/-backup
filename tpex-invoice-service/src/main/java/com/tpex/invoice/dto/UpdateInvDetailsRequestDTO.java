@@ -1,8 +1,6 @@
 package com.tpex.invoice.dto;
 
-
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,25 +11,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateInvDetailsRequestDTO implements Serializable{
-
+public class UpdateInvDetailsRequestDTO implements Serializable {
 
 	/**
-
+	 * 
 	 * Updating Invoice Details, tablename= INS_INV_DTLS
-
-	 * @author R.1.Reddy 
-
+	 * 
+	 * @author R.1.Reddy
+	 * 
 	 * @Tepex-137
-
+	 * 
 	 */
 
 	private static final long serialVersionUID = 1L;
-
 
 	@NotNull(message = ConstantUtils.ERR_CM_3001)
 
@@ -40,10 +35,10 @@ public class UpdateInvDetailsRequestDTO implements Serializable{
 	private String invNo;
 
 	private String scAuthorize;
-	
+
 	/** The freight. */
 	private String freight;
-	
+
 	/** The insurance. */
 	private String insurance;
 
@@ -59,19 +54,11 @@ public class UpdateInvDetailsRequestDTO implements Serializable{
 
 	private String paymentTermObj;
 
-
-	/*
-
-	 * @Tepex-306
-
-	 */
-
 	@NotNull(message = ConstantUtils.ERR_CM_3001)
 
 	@NotEmpty(message = ConstantUtils.ERR_CM_3001)
 
 	private String custCode;
-
 
 	@NotNull(message = ConstantUtils.ERR_CM_3001)
 
@@ -79,15 +66,8 @@ public class UpdateInvDetailsRequestDTO implements Serializable{
 
 	private String consineeName;
 
-
 	private String notifyPartyName;
 
-	/*
-	 * @author akshatha.m.e
-
-	 * @Tepex-307
-
-	 */
 	@NotNull(message = ConstantUtils.ERR_CM_3001)
 	@NotEmpty(message = ConstantUtils.ERR_CM_3001)
 	private String indMark1;
@@ -128,7 +108,4 @@ public class UpdateInvDetailsRequestDTO implements Serializable{
 
 	private String indGoodsDesc6;
 
-
 }
-
-

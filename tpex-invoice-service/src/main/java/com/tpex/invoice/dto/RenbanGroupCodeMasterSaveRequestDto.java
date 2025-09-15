@@ -18,7 +18,7 @@ public class RenbanGroupCodeMasterSaveRequestDto implements Serializable {
 	private String etdFromDate;
 	private String etdToDate;
     
-	List<GroupCodeDetailsDto> goupdIdDetails;
+	private List<GroupCodeDetailsDto> goupdIdDetails;
 	
 	private String updateBy;
 	private String updateDt;

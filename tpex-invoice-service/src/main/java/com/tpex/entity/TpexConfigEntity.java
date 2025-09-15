@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Table(name = "TB_M_TPEX_CONFIG")
 @Entity
-public class TpexConfigEntity implements Serializable{
+public class TpexConfigEntity implements Serializable {
 
 	/**
 	 * 
@@ -28,9 +28,8 @@ public class TpexConfigEntity implements Serializable{
 
 	@Column(name = "VALUE")
 	private String value;
-	
+
 	@Column(name = "CMP_CD")
 	private String companyCode;
-	
 
 }

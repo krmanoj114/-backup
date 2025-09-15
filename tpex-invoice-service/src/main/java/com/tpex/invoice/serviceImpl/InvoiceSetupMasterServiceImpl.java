@@ -1,4 +1,4 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -67,22 +67,15 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 
 		List<CarFamilyDestinationMasterEntity> carFamilyDestMasterEntityList = carFamilyDestinationMasterRepository.findDistinctByIdDestinationCodeIn(importerCodeList);
 		
-		List<CommonMultiSelectDropdownDto> cfcList = new ArrayList<>();
-		carFamilyDestMasterEntityList.stream().distinct().map(t -> cfcList.add(new CommonMultiSelectDropdownDto(t.getId().getCarFmlyCode(), t.getId().getCarFmlyCode()))).collect(Collectors.toList());
+		List<CommonMultiSelectDropdownDto> cfcList = carFamilyDestMasterEntityList.stream().distinct().map(t -> new CommonMultiSelectDropdownDto(t.getId().getCarFmlyCode(), t.getId().getCarFmlyCode())).collect(Collectors.toList());
 		invoiceSetupListResponseDto.setCfcList(cfcList.stream().distinct().collect(Collectors.toList()));
 		
-		List<CommonMultiSelectDropdownDto> reExporterList = new ArrayList<>();
-		carFamilyDestMasterEntityList.stream().map(t -> reExporterList.add(new CommonMultiSelectDropdownDto(t.getId().getReExporterCode(), t.getId().getReExporterCode()))).collect(Collectors.toList());
-		
+		List<CommonMultiSelectDropdownDto> reExporterList = carFamilyDestMasterEntityList.stream().map(t -> new CommonMultiSelectDropdownDto(t.getId().getReExporterCode(), t.getId().getReExporterCode())).collect(Collectors.toList());
 		invoiceSetupListResponseDto.setReExpCodeList(reExporterList.stream().distinct().collect(Collectors.toList()));
 		
 		List<ExporterCodeMasterEntity> exporterEntityList= exporterCodeMasterRepository.findAll();
-		List<CommonMultiSelectDropdownDto> exporterList = new ArrayList<>();
-		exporterEntityList.stream().distinct().map(t -> exporterList.add(new CommonMultiSelectDropdownDto(t.getExpCode(), t.getExpCode()))).collect(Collectors.toList());
 		
-		exporterEntityList.stream().distinct().map(t -> exporterList.add(new CommonMultiSelectDropdownDto(t.getExpCode(), t.getExpCode()))).collect(Collectors.toList());
-
-		
+		List<CommonMultiSelectDropdownDto> exporterList = exporterEntityList.stream().distinct().map(t -> new CommonMultiSelectDropdownDto(t.getExpCode(), t.getExpCode())).collect(Collectors.toList());
 		invoiceSetupListResponseDto.setExporterCodeList(exporterList.stream().distinct().collect(Collectors.toList()));
 		
 		ArrayList<String> lineCodes = new ArrayList<> (Arrays.asList(lineCode));
@@ -199,6 +192,13 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 			List<InvoiceSetupDetailEntity> invoiceSetupDetailEntityList, boolean dupKeyFlag) {
 		for(InvoiceSetupMasterDto invoiceSetupMasterDto : invoiceSetupMasterSaveRequestDto.getInvSetupMasterList()) {
 			
+			LocalDate fromDate = LocalDate.parse(invoiceSetupMasterDto.getVanDateFrom(), formatter);
+			LocalDate toDate = LocalDate.parse(invoiceSetupMasterDto.getVanDateTo() , formatter);
+			
+			if (fromDate.compareTo(toDate) > 0) {
+				throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3027);
+			}
+			
 			if(dupKeyFlag) {
 				validateInvoiceSetupRequest(invoiceSetupMasterSaveRequestDto, invSetupId, invoiceSetupMasterDto);
 			}
@@ -247,7 +247,7 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 
 		//Validate that only single ExporterCode selected by user
 		List<String> expList = Arrays.asList(invoiceSetupMasterDto.getExporterCode().split(","));
-		if(expList.size() == 1) {
+		if(expList.size() == 1 && !expList.get(0).equals("")) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("exporterCode", invoiceSetupMasterDto.getExporterCode());
 			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1053, errorMessageParams);
@@ -255,7 +255,7 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 		
 		//Validate that only single ReExpCode selected by user
 		List<String> reExpList = Arrays.asList(invoiceSetupMasterDto.getReExpCode().split(","));
-		if(reExpList.size() == 1) {
+		if(reExpList.size() == 1 && !reExpList.get(0).equals("")) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("reExpCode", invoiceSetupMasterDto.getReExpCode());
 			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1054, errorMessageParams);
@@ -263,7 +263,7 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 		
 		//Validate that only single LineCode selected by user
 		List<String> lineCodeList = Arrays.asList(invoiceSetupMasterDto.getLineCode().split(","));
-		if(lineCodeList.size() == 1) {
+		if(lineCodeList.size() == 1 && !lineCodeList.get(0).equals("")) {
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put("lineCode", invoiceSetupMasterDto.getLineCode());
 			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1055, errorMessageParams);
@@ -279,30 +279,30 @@ public class InvoiceSetupMasterServiceImpl implements InvoiceSetupMasterService{
 			ArrayList<String> dupKeyList = getDuplicateKeyKist(invoiceSetupMasterSaveRequestDto, invoiceSetupMasterDto);
 			Map<String, Object> errorMessageParams = new HashMap<>();
 			errorMessageParams.put(ConstantUtils.KEY_COLUMNS, dupKeyList);
-			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3022, errorMessageParams);
+			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3026, errorMessageParams);
 		}
 		
 		for(String cfc : cfcList) {
 			//Validate that 1 “CFC” should not be in more then 1 record, under the same key
-			InvoiceSetupDetailEntity invoiceDetailEntity5 = invoiceSetupDetailRepository.findByCarFamilyCodeContainingAndEffFromAndEffToAndInvSetupId(cfc,
+			List<InvoiceSetupDetailEntity> invoiceDetailEntity5 = invoiceSetupDetailRepository.findByCarFamilyCodeContainingAndEffFromAndEffToAndInvSetupId(cfc,
 					DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, invoiceSetupMasterDto.getVanDateFrom()),
 					DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, invoiceSetupMasterDto.getVanDateTo()),
 					invSetupId);
 			
-			if(invoiceDetailEntity5 != null) {
+			if(!invoiceDetailEntity5.isEmpty() && invoiceDetailEntity5.get(0) != null) {
 				ArrayList<String> dupKeyList = getDuplicateKeyKist(invoiceSetupMasterSaveRequestDto, invoiceSetupMasterDto);
 				Map<String, Object> errorMessageParams = new HashMap<>();
 				errorMessageParams.put(ConstantUtils.KEY_COLUMNS, dupKeyList);
-				throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3022, errorMessageParams);
+				throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3026, errorMessageParams);
 			}
 			
 			//Van Dates From : <Van Date From> and Van Date To : <Van Date To> already exists in existing records.
-			InvoiceSetupDetailEntity invoiceDetailEntity6 = invoiceSetupDetailRepository.findByCarFamilyCodeContainingAndEffFromLessThanAndEffToGreaterThanAndInvSetupId(cfc,
+			List<InvoiceSetupDetailEntity> invoiceDetailEntity6 = invoiceSetupDetailRepository.findByCarFamilyCodeContainingAndEffFromLessThanAndEffToGreaterThanAndInvSetupId(cfc,
 					DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, invoiceSetupMasterDto.getVanDateFrom()),
 					DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, invoiceSetupMasterDto.getVanDateTo()),
 					invSetupId);
 			
-			if(invoiceDetailEntity6 != null) {
+			if(!invoiceDetailEntity6.isEmpty() && invoiceDetailEntity6.get(0) != null) {
 				Map<String, Object> errorMessageParams = new HashMap<>();
 				errorMessageParams.put("vanDateFrom", invoiceSetupMasterDto.getVanDateFrom());
 				errorMessageParams.put("vanDateTo", invoiceSetupMasterDto.getVanDateTo());

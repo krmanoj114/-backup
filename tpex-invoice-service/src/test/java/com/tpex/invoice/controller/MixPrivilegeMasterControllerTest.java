@@ -3,18 +3,15 @@ package com.tpex.invoice.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,12 +25,10 @@ import com.tpex.commonfiles.ApiResponseMessage;
 import com.tpex.invoice.dto.MixPrivilegeDetailsDto;
 import com.tpex.invoice.dto.MixPrivilegeDetailsListResponseDto;
 import com.tpex.invoice.dto.MixPrivilegeMasterSaveRequestDto;
-import com.tpex.invoice.dto.MixPrivilegeMstRequestDto;
 import com.tpex.invoice.dto.PriorityDto;
 import com.tpex.invoice.dto.ReExporterCodeDto;
-import com.tpex.invoice.serviceImpl.MixPrivilegeMasterServiceImpl;
-import com.tpex.util.ConstantUtils;
-import com.tpex.util.DateUtil;
+import com.tpex.invoice.serviceimpl.MixPrivilegeMasterServiceImpl;
+
 
 @ExtendWith(MockitoExtension.class)
 class MixPrivilegeMasterControllerTest {
@@ -73,7 +68,7 @@ class MixPrivilegeMasterControllerTest {
 		priority.add(new PriorityDto("2","AICO"));
 		response.setPriority(priority);
 
-		when(mixPrivilegeMasterServiceImpl.fetchMixPrivilegeDetails(Mockito.anyString(), Mockito.anyString())).thenReturn(response);
+		when(mixPrivilegeMasterServiceImpl.fetchMixPrivilegeDetails(anyString(), anyString())).thenReturn(response);
 
 
 		ResponseEntity<MixPrivilegeDetailsListResponseDto> result = mixPrivilegeMasterController.fetchMixPrivilegeDetails("578W","709B");
@@ -86,7 +81,7 @@ class MixPrivilegeMasterControllerTest {
 	@Test
 	void deleteMixPrivilegeMaster() throws Exception {
 
-		Mockito.lenient().doNothing().when(mixPrivilegeMasterServiceImpl).deleteMixPrivilegeMaster(Mockito.anyList());
+		Mockito.lenient().doNothing().when(mixPrivilegeMasterServiceImpl).deleteMixPrivilegeMaster(anyList());
 
 		List<Integer> mixPrivilegeMstIdList = new ArrayList<>();
 		mixPrivilegeMstIdList.add(201);
@@ -102,7 +97,7 @@ class MixPrivilegeMasterControllerTest {
 	@Test
 	void saveMixPrivilegeMaster() throws Exception {
 
-		when(mixPrivilegeMasterServiceImpl.saveMixPrivilegeMaster(Mockito.anyList(), Mockito.anyString())).thenReturn(Boolean.TRUE);
+		when(mixPrivilegeMasterServiceImpl.saveMixPrivilegeMaster(anyList(), anyString())).thenReturn(Boolean.TRUE);
 
 		List<MixPrivilegeMasterSaveRequestDto> mixPrivilegeMasterSaveRequestDtoList = new ArrayList<>();
 		MixPrivilegeMasterSaveRequestDto mixPrivilegeMasterSaveRequestDto = new MixPrivilegeMasterSaveRequestDto();
@@ -132,7 +127,7 @@ class MixPrivilegeMasterControllerTest {
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
 
-		when(mixPrivilegeMasterServiceImpl.saveMixPrivilegeMaster(Mockito.anyList(),Mockito.anyString())).thenReturn(false);
+		when(mixPrivilegeMasterServiceImpl.saveMixPrivilegeMaster(anyList(), anyString())).thenReturn(false);
 		mixPrivilegeMasterSaveRequestDto.setPrivMstId(11111);
 		mixPrivilegeMasterSaveRequestDtoList.add(mixPrivilegeMasterSaveRequestDto);
 		result = mixPrivilegeMasterController.saveMixPrivilegeMaster(mixPrivilegeMasterSaveRequestDtoList,userId);

@@ -24,10 +24,12 @@ public class ApiResponseMessageForParDetailUpdateValidation extends ApiResponseM
 	
 	private List<String> partName;
 	private List<String> partUsage;
+	private HttpStatus status;
 	
 	public ApiResponseMessageForParDetailUpdateValidation(HttpStatus statusCode,List<String> partName2, List<String> partUsage) {
 		this.partName = partName2;
 		this.partUsage = partUsage;
+		this.status =statusCode;
 	}
 	
 

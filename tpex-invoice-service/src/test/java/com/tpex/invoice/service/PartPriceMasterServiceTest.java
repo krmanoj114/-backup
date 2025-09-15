@@ -1,18 +1,14 @@
 package com.tpex.invoice.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
-
-import java.io.FileNotFoundException;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+import com.tpex.dto.*;
+import com.tpex.entity.*;
+import com.tpex.invoice.serviceimpl.PartPriceMasterServiceImpl;
+import com.tpex.jasperreport.service.JasperReportServiceImpl;
+import com.tpex.repository.*;
+import com.tpex.util.TpexConfigurationUtil;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import org.assertj.core.api.ByteArrayAssert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,39 +19,32 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.tpex.dto.CommonMultiSelectDropdownDto;
-import com.tpex.dto.FinalDestinationAndCarFamilyCodesDTO;
-import com.tpex.dto.PartPriceMasterDeleteRequestDto;
-import com.tpex.dto.PartPriceMasterDto;
-import com.tpex.dto.PartPriceMasterRequestDto;
-import com.tpex.dto.PartPriceMasterResponseDto;
-import com.tpex.entity.CarFamilyMasterEntity;
-import com.tpex.entity.OemCurrencyMstEntity;
-import com.tpex.entity.OemFnlDstMstEntity;
-import com.tpex.entity.PartMasterEntity;
-import com.tpex.entity.PartPriceMasterEntity;
-import com.tpex.entity.PartPriceMasterIdEntity;
-import com.tpex.entity.RddDownLocDtlEntity;
-import com.tpex.entity.TpexConfigEntity;
-import com.tpex.invoice.serviceImpl.PartPriceMasterServiceImpl;
-import com.tpex.jasperreport.service.JasperReportServiceImpl;
-import com.tpex.repository.CarFamilyMastRepository;
-import com.tpex.repository.InsInvPartsDetailsRepository;
-import com.tpex.repository.OemCurrencyMstRepository;
-import com.tpex.repository.OemFnlDstMstRepository;
-import com.tpex.repository.PartMasterRespository;
-import com.tpex.repository.PartPriceMasterRepository;
-import com.tpex.repository.RddDownLocDtlRepository;
-import com.tpex.repository.TpexConfigRepository;
-import com.tpex.util.TpexConfigurationUtil;
+import java.io.FileNotFoundException;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.*;
 
-import javassist.bytecode.ByteArray;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
 class PartPriceMasterServiceTest {
 	
+	private static final String EFFECTIVE_FROM_MONTH_DTO = "2023/08";
+
+	private static final String PART_NO_DTO = "17451-0M020-00";
+
+	private static final String EFFECTIVE_FROM_MONTH = "2022/02";
+
+	private static final String PART_PRICE_ID = "481W303D202202174510M02000USD";
+
+	private static final String PART_NO = "174510M02000";
+
+	private static final String PART_NAME = "GASKET, EXHAUST PIPE";
+
+	private static final String EFFECTIVE_TO_MONTH = "202202";
+
 	@Mock
 	private PartPriceMasterRepository partPriceMasterRepository;
 	
@@ -84,7 +73,7 @@ class PartPriceMasterServiceTest {
 	private InsInvPartsDetailsRepository insInvPartsDetailsRepository;
 	
 	@Mock
-	private PartMasterRespository partMasterRespository;
+	private PartMasterRepository partMasterRespository;
 	
 	@InjectMocks
 	private PartPriceMasterServiceImpl partPriceMasterServiceImpl;
@@ -96,10 +85,11 @@ class PartPriceMasterServiceTest {
     @BeforeEach 
     void init() {
     	PartPriceMasterEntity partPriceMasterEntity = new PartPriceMasterEntity();
-		partPriceMasterEntity.setId(new PartPriceMasterIdEntity("481W", "303D", "USD", "174510M02000", "202202"));
+		partPriceMasterEntity.setId(new PartPriceMasterIdEntity("481W", "303D", PART_NO, EFFECTIVE_TO_MONTH));
 		partPriceMasterEntity.setCmpCd("TMT");
-		partPriceMasterEntity.setEffToMonth("202202");
-		partPriceMasterEntity.setPartName("GASKET, EXHAUST PIPE");
+		partPriceMasterEntity.setCurrencyCode("USD");
+		partPriceMasterEntity.setEffToMonth(EFFECTIVE_TO_MONTH);
+		partPriceMasterEntity.setPartName(PART_NAME);
 		partPriceMasterEntity.setPartPrice(2.55);
 		partPriceMasterEntities.add(partPriceMasterEntity);
 		
@@ -124,24 +114,24 @@ class PartPriceMasterServiceTest {
 		Mockito.when(oemCurrencyMstRepository.findAllByCompanyCodeOrderByCrmCdAsc(Mockito.anyString())).thenReturn(currencyMstEntityList);
 		
 		List<PartPriceMasterDto> partPriceMasterList = new ArrayList<>();
-		partPriceMasterList.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2022/02", "2022/02", "17451-0M020-00", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterList.add(new PartPriceMasterDto(PART_PRICE_ID, "481W", "303D", EFFECTIVE_FROM_MONTH, EFFECTIVE_FROM_MONTH, PART_NO_DTO, PART_NAME, BigDecimal.valueOf(2.55), "USD"));
 		
 		PartPriceMasterResponseDto partPriceMasterResponseDto = new PartPriceMasterResponseDto();
 		partPriceMasterResponseDto.setCurrencyList(currencyList);
 		partPriceMasterResponseDto.setPartPriceMasterList(partPriceMasterList);
 		
 		//All param given
-		PartPriceMasterResponseDto partPriceMasterResponseDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", "17451-0M020-00", "2022/02", "TMT"));  
+		PartPriceMasterResponseDto partPriceMasterResponseDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", PART_NO_DTO, EFFECTIVE_FROM_MONTH, "TMT"));  
 		assertThat(partPriceMasterResponseDtoResult).isNotNull();
         assertEquals(partPriceMasterResponseDto, partPriceMasterResponseDtoResult);
         
         //No effective month
-        PartPriceMasterResponseDto partPriceMasterNoEffMnthResponseDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", "17451-0M020-00", "", "TMT"));
+        PartPriceMasterResponseDto partPriceMasterNoEffMnthResponseDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", PART_NO_DTO, "", "TMT"));
         assertThat(partPriceMasterNoEffMnthResponseDtoResult).isNotNull();
         assertEquals(partPriceMasterResponseDto, partPriceMasterNoEffMnthResponseDtoResult);
         
         //No part no.
-        PartPriceMasterResponseDto partPriceMasterResponseNoPartNoDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", "", "2022/02", "TMT"));
+        PartPriceMasterResponseDto partPriceMasterResponseNoPartNoDtoResult = partPriceMasterServiceImpl.partPriceMasterList(new PartPriceMasterRequestDto("481W", "303D", "", EFFECTIVE_FROM_MONTH, "TMT"));
         assertThat(partPriceMasterResponseNoPartNoDtoResult).isNotNull();
         assertEquals(partPriceMasterResponseDto, partPriceMasterResponseNoPartNoDtoResult);
 
@@ -151,10 +141,11 @@ class PartPriceMasterServiceTest {
 	void partPriceMasterListGivenAllReqParamTest() throws Exception {
 		
 		PartPriceMasterEntity partPriceMasterEntity = new PartPriceMasterEntity();
-		partPriceMasterEntity.setId(new PartPriceMasterIdEntity("481W", "303D", "USD", "174510M01000", "202202"));
+		partPriceMasterEntity.setId(new PartPriceMasterIdEntity("481W", "303D", "174510M01000", EFFECTIVE_TO_MONTH));
 		partPriceMasterEntity.setCmpCd("TMT");
+		partPriceMasterEntity.setCurrencyCode("USD");
 		partPriceMasterEntity.setEffToMonth("202203");
-		partPriceMasterEntity.setPartName("GASKET, EXHAUST PIPE");
+		partPriceMasterEntity.setPartName(PART_NAME);
 		partPriceMasterEntity.setPartPrice(2.55);
 		partPriceMasterEntities.add(partPriceMasterEntity);
 		
@@ -162,8 +153,8 @@ class PartPriceMasterServiceTest {
 		Mockito.when(oemCurrencyMstRepository.findAllByCompanyCodeOrderByCrmCdAsc(Mockito.anyString())).thenReturn(currencyMstEntityList);
 		
 		List<PartPriceMasterDto> partPriceMasterList = new ArrayList<>();
-		partPriceMasterList.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2022/02", "2022/02", "17451-0M020-00", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
-		partPriceMasterList.add(new PartPriceMasterDto("481W303D202202174510M01000USD", "481W", "303D", "2022/02", "2022/03", "17451-0M010-00", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterList.add(new PartPriceMasterDto(PART_PRICE_ID, "481W", "303D", EFFECTIVE_FROM_MONTH, EFFECTIVE_FROM_MONTH, PART_NO_DTO, PART_NAME, BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterList.add(new PartPriceMasterDto("481W303D202202174510M01000USD", "481W", "303D", EFFECTIVE_FROM_MONTH, "2022/03", "17451-0M010-00", PART_NAME, BigDecimal.valueOf(2.55), "USD"));
 		
 		PartPriceMasterResponseDto partPriceMasterResponseDto = new PartPriceMasterResponseDto();
 		partPriceMasterResponseDto.setCurrencyList(currencyList);
@@ -224,13 +215,13 @@ class PartPriceMasterServiceTest {
 		Mockito.when(tpexConfigurationUtil.getReportDynamicPrameters()).thenReturn(parameters);
 
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("outStream", new ByteArray());
+		map.put("outStream", ByteArrayAssert.class);
 		map.put("fileName", "PxP Price_481W_303D");
 		
 		Mockito.when(partPriceMasterRepository.findPartPriceMasterCount(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
 		Mockito.when(reportServiceImpl.getJasperReportDownloadOnline(Mockito.anyList(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyMap(), Mockito.anyMap())).thenReturn(map);
 
-		Map<String, Object> downloadPartPriceMasterDetailsResultMap = partPriceMasterServiceImpl.downloadPartPriceMasterDetails("481W", "303D", "17451-0M020-00", "2022/02", "TMT");
+		Map<String, Object> downloadPartPriceMasterDetailsResultMap = partPriceMasterServiceImpl.downloadPartPriceMasterDetails("481W", "303D", PART_NO_DTO, EFFECTIVE_FROM_MONTH, "TMT");
 
 		map.put("status", "online");
 		assertThat(downloadPartPriceMasterDetailsResultMap).isNotNull();
@@ -270,7 +261,7 @@ class PartPriceMasterServiceTest {
 		saveRddDownLocDtlEntity.setStatus("Success");
 		Mockito.when(reportServiceImpl.saveOfflineDownloadDetail(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(saveRddDownLocDtlEntity);
 
-		Map<String, Object> downloadPartPriceMasterDetailsResultMap = partPriceMasterServiceImpl.downloadPartPriceMasterDetails("481W", "303D", "17451-0M020-00", "2022/02", "TMT");
+		Map<String, Object> downloadPartPriceMasterDetailsResultMap = partPriceMasterServiceImpl.downloadPartPriceMasterDetails("481W", "303D", PART_NO_DTO, EFFECTIVE_FROM_MONTH, "TMT");
 
 		assertThat(downloadPartPriceMasterDetailsResultMap).isNotNull();
 		assertEquals(map, downloadPartPriceMasterDetailsResultMap);
@@ -282,11 +273,10 @@ class PartPriceMasterServiceTest {
 		
 		Mockito.when(insInvPartsDetailsRepository.countInvoiceGeneratedForPartPrice(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(0);
 
-		doNothing().when(partPriceMasterRepository).deleteByIdCfCodeAndIdDestCodeAndIdCurrencyCodeAndIdPartNoAndIdEffFromMonth(
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+		doNothing().when(partPriceMasterRepository).deleteById(Mockito.any());
 		List<PartPriceMasterDto> partPriceMasterDeleteRequestDtoList = new ArrayList<>();
 		
-		partPriceMasterDeleteRequestDtoList.add(new PartPriceMasterDto("481W303D202308", "481W", "303D", "2023/08", "2024/06", "17451-0M020-04", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterDeleteRequestDtoList.add(new PartPriceMasterDto("481W303D202308", "481W", "303D", EFFECTIVE_FROM_MONTH_DTO, "2024/06", "17451-0M020-04", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
 		
         Assertions.assertDoesNotThrow(() -> partPriceMasterServiceImpl.deletePartPriceMasterDetails(partPriceMasterDeleteRequestDtoList));
 
@@ -299,18 +289,19 @@ class PartPriceMasterServiceTest {
 		Mockito.when(partPriceMasterRepository.countByIdCfCodeAndIdDestCodeAndIdPartNo(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(0L);
 
 		List<PartPriceMasterEntity> partPriceMasterEntities = new ArrayList<>();
-		PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity("481W", "303D", "USD", "174510M02000", "202308");
+		PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity("481W", "303D", PART_NO, "202308");
 		PartPriceMasterEntity partPriceMasterEntity = new PartPriceMasterEntity();
 		partPriceMasterEntity.setId(partPriceMasterIdEntity);
 		partPriceMasterEntity.setCmpCd("TMT");
+		partPriceMasterEntity.setCurrencyCode("USD");
 		partPriceMasterEntity.setEffToMonth("202309");
-		partPriceMasterEntity.setPartName("GASKET, EXHAUST PIPE");
+		partPriceMasterEntity.setPartName(PART_NAME);
 		partPriceMasterEntity.setPartPrice(2.55);
 		partPriceMasterEntities.add(partPriceMasterEntity);
 		Mockito.when(partPriceMasterRepository.saveAll(Mockito.anyIterable())).thenReturn(partPriceMasterEntities);
 		
 		List<PartPriceMasterDto> partPriceMasterDtos = new ArrayList<>();
-		partPriceMasterDtos.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2023/08", "2023/09", "174510M02000", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterDtos.add(new PartPriceMasterDto(PART_PRICE_ID, "481W", "303D", EFFECTIVE_FROM_MONTH_DTO, "2023/09", PART_NO, PART_NAME, BigDecimal.valueOf(2.55), "USD"));
 		PartPriceMasterDeleteRequestDto partPriceMasterDeleteRequestDto = new PartPriceMasterDeleteRequestDto("TestUser", partPriceMasterDtos);
         boolean isSaved = partPriceMasterServiceImpl.savePxpPartPriceMaster(partPriceMasterDeleteRequestDto);
         assertEquals(Boolean.TRUE, isSaved);
@@ -320,14 +311,14 @@ class PartPriceMasterServiceTest {
 	void updateShippingControlMasterTest() throws ParseException {
 
 		List<PartPriceMasterEntity> partPriceMasterEntities = new ArrayList<>();
-		PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity("481W", "303D", "USD", "174510M02000", "202202");
-		PartPriceMasterEntity partPriceMasterEntity = new PartPriceMasterEntity(partPriceMasterIdEntity, "GASKET, EXHAUST PIPE", 2.55, null, null, "202309", "TMT");
+		PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity("481W", "303D", PART_NO, EFFECTIVE_TO_MONTH);
+		PartPriceMasterEntity partPriceMasterEntity = new PartPriceMasterEntity(partPriceMasterIdEntity, "USD", PART_NAME, 2.55, null, null, "202309", "TMT");
 		partPriceMasterEntities.add(partPriceMasterEntity);
 		Mockito.when(partPriceMasterRepository.findById(Mockito.any(PartPriceMasterIdEntity.class))).thenReturn(Optional.of(partPriceMasterEntity));
 		Mockito.when(partPriceMasterRepository.saveAll(Mockito.anyIterable())).thenReturn(partPriceMasterEntities);
 		
 		List<PartPriceMasterDto> partPriceMasterDtos = new ArrayList<>();
-		partPriceMasterDtos.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2023/08", "2023/09", "174510M02000", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterDtos.add(new PartPriceMasterDto(PART_PRICE_ID, "481W", "303D", EFFECTIVE_FROM_MONTH_DTO, "2023/09", PART_NO, PART_NAME, BigDecimal.valueOf(2.55), "USD"));
 		PartPriceMasterDeleteRequestDto partPriceMasterDeleteRequestDto = new PartPriceMasterDeleteRequestDto("TestUser", partPriceMasterDtos);
         boolean isSaved = partPriceMasterServiceImpl.updatePxpPartPriceMaster(partPriceMasterDeleteRequestDto);
         assertEquals(Boolean.TRUE, isSaved);
@@ -336,12 +327,12 @@ class PartPriceMasterServiceTest {
 	@Test
 	void partNameByPartNoTest() throws ParseException {
 		PartMasterEntity partMasterEntity = new PartMasterEntity();
-		partMasterEntity.setPartNo("174510M02000");
+		partMasterEntity.setPartNo(PART_NO);
 		partMasterEntity.setCmpCode("TMT");
-		partMasterEntity.setPartName("GASKET, EXHAUST PIPE");
+		partMasterEntity.setPartName(PART_NAME);
 		Mockito.when(partMasterRespository.findById(Mockito.any())).thenReturn(Optional.of(partMasterEntity));
-        String partName = partPriceMasterServiceImpl.partNameByPartNo("17451-0M020-00");
-        assertEquals("GASKET, EXHAUST PIPE", partName);
+        String partName = partPriceMasterServiceImpl.partNameByPartNo(PART_NO_DTO);
+        assertEquals(PART_NAME, partName);
 	}
 
 }

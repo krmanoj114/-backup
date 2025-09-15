@@ -18,27 +18,27 @@ public class OemShippingCtrlMstDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<CommonDropdownDto> buyerList;
-	
+
 	private List<CommonDropdownDto> impCodeList;
-	
+
 	private List<CommonDropdownDto> expCodeList;
-	
+
 	private List<CommonMultiSelectDropdownDto> cfcCodeList;
-	
+
 	private List<CommonMultiSelectDropdownDto> seriesList;
-	
+
 	private List<CommonDropdownDto> setPartCodeList;
-	
+
 	private List<CommonMultiSelectDropdownDto> portOfDischargeList;
-	
+
 	private List<CommonMultiSelectDropdownDto> productGroupList;
-	
+
 	private List<CommonDropdownDto> tradeTermList;
 
 	private List<CommonDropdownDto> certificationOfOriginReportList;
-	
+
 	private List<CommonMultiSelectDropdownDto> soldToMessrsList;
-	
+
 	private List<ShipCtrlMstDto> masterList;
-	
+
 }

@@ -1,6 +1,5 @@
 package com.tpex.repository;
 
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,19 +19,20 @@ public interface RddDownLocDtlRepository extends JpaRepository<RddDownLocDtlEnti
 	List<String> getStatus();
 
 	@Query(value = "SELECT * FROM TB_R_REPORT_DOWN_D RDD WHERE DATE(RDD.create_date) = STR_TO_DATE(:requestDate,'%d/%m/%Y') AND create_by = :createBy AND report_name =:reportName AND status =:status", nativeQuery = true)
-	List<RddDownLocDtlEntity> findByStatusAndCreateDateAndReportNameAndCreateBy(@Param("status") String status, @Param("requestDate") String requestDate,
-			@Param("reportName") String reportName, @Param("createBy") String createBy);
-	
+	List<RddDownLocDtlEntity> findByStatusAndCreateDateAndReportNameAndCreateBy(@Param("status") String status,
+			@Param("requestDate") String requestDate, @Param("reportName") String reportName,
+			@Param("createBy") String createBy);
+
 	@Query(value = "SELECT *  FROM TB_R_REPORT_DOWN_D RDD WHERE DATE(RDD.create_date) = STR_TO_DATE(:requestDate,'%d/%m/%Y') AND RDD.create_by = :createBy", nativeQuery = true)
-	List<RddDownLocDtlEntity> findByCreateDateAndCreateBy(@Param("requestDate") String requestDate, @Param("createBy") String createBy);
+	List<RddDownLocDtlEntity> findByCreateDateAndCreateBy(@Param("requestDate") String requestDate,
+			@Param("createBy") String createBy);
 
-	
 	@Query(value = "SELECT * FROM TB_R_REPORT_DOWN_D RDD WHERE DATE(RDD.create_date) = STR_TO_DATE(:requestDate,'%d/%m/%Y')  AND create_by = :createBy AND (report_name =:reportName OR status =:status)", nativeQuery = true)
-	List<RddDownLocDtlEntity> findByStatusOrReportNameAndCreateByAndCreateDate(@Param("status") String status, @Param("requestDate") String requestDate,
-			@Param("reportName") String reportName, @Param("createBy") String createBy);
+	List<RddDownLocDtlEntity> findByStatusOrReportNameAndCreateByAndCreateDate(@Param("status") String status,
+			@Param("requestDate") String requestDate, @Param("reportName") String reportName,
+			@Param("createBy") String createBy);
 
-	
 	RddDownLocDtlEntity findTopByReportNameAndCreateByOrderByReportIdDesc(String reportName, String createBy);
-	
+
 	RddDownLocDtlEntity findByReportId(int reportId);
 }

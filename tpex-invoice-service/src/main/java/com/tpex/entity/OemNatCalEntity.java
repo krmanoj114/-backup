@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-@Table(name = "OEM_NAT_CAL")
+@Table(name = "	OEM_NAT_CAL")
 @Entity
 public class OemNatCalEntity implements Serializable{
 	

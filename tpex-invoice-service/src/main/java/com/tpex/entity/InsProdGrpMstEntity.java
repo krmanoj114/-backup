@@ -36,5 +36,5 @@ public class InsProdGrpMstEntity implements Serializable {
 	private Date ipgUpdDate;
 
 	@Column(name = "CMP_CD")
-	private Date companyCode;
+	private String companyCode;
 }

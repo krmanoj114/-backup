@@ -9,41 +9,41 @@
 	<queryString language="plsql">
 		<![CDATA[{ call PINS002($P{P_IO_V_PARAM}, $P{P_I_V_INVOICE_NO}, $P{P_I_V_USER_ID})}]]>
 	</queryString>
-	<field name="INS_CNSG_NAME" class="java.lang.String"/>
-	<field name="INS_CNSG_ADD1" class="java.lang.String"/>
-	<field name="INS_CNSG_ADD2" class="java.lang.String"/>
-	<field name="INS_CNSG_ADD3" class="java.lang.String"/>
-	<field name="INS_CNSG_ADD4" class="java.lang.String"/>
-	<field name="INS_INV_NO" class="java.lang.String"/>
-	<field name="INS_INV_DT" class="java.lang.String"/>
-	<field name="INS_PART_NO" class="java.lang.String"/>
-	<field name="INS_UNIT_PER_BOX" class="java.lang.Integer"/>
-	<field name="INS_SUM_TOT_UNIT" class="java.lang.Integer"/>
-	<field name="INS_ICO_FLG" class="java.lang.String"/>
-	<field name="INS_PART_PRICE" class="java.lang.Double"/>
-	<field name="INS_PART_NAME" class="java.lang.String"/>
-	<field name="INS_PART_WT" class="java.lang.Double"/>
-	<field name="INS_GROSS_WT" class="java.lang.Double"/>
-	<field name="INS_MEASUREMENT" class="java.lang.Double"/>
-	<field name="INS_SHIPMARK_4" class="java.lang.String"/>
-	<field name="INS_SHIPMARK_5" class="java.lang.String"/>
-	<field name="SHIP_MARK_GP" class="java.lang.String"/>
-	<field name="CASE_MOD" class="java.lang.String"/>
-	<field name="INS_CF_CD" class="java.lang.String"/>
-	<field name="INS_SRS_NAME" class="java.lang.String"/>
-	<field name="INS_NO_OF_CASES" class="java.lang.Integer"/>
+	<field name="cnsgName" class="java.lang.String"/>
+	<field name="cnsgAdd1" class="java.lang.String"/>
+	<field name="cnsgAdd2" class="java.lang.String"/>
+	<field name="cnsgAdd3" class="java.lang.String"/>
+	<field name="cnsgAdd4" class="java.lang.String"/>
+	<field name="invNo" class="java.lang.String"/>
+	<field name="invDt" class="java.lang.String"/>
+	<field name="partNo" class="java.lang.String"/>
+	<field name="unitPerBox" class="java.lang.Integer"/>
+	<field name="sumTotalUnit" class="java.lang.Integer"/>
+	<field name="icoFlg" class="java.lang.String"/>
+	<field name="partPrice" class="java.lang.Double"/>
+	<field name="partName" class="java.lang.String"/>
+	<field name="partWt" class="java.lang.Double"/>
+	<field name="grossWt" class="java.lang.Double"/>
+	<field name="measurement" class="java.lang.Double"/>
+	<field name="shipMark4" class="java.lang.String"/>
+	<field name="shipMark5" class="java.lang.String"/>
+	<field name="shipMarkGp" class="java.lang.String"/>
+	<field name="caseMod" class="java.lang.String"/>
+	<field name="cfCd" class="java.lang.String"/>
+	<field name="srsName" class="java.lang.String"/>
+	<field name="noOfCases" class="java.lang.Integer"/>
 	<sortField name="fmlCFGroup" type="Variable"/>
-	<sortField name="SHIP_MARK_GP"/>
-	<sortField name="INS_PART_NO"/>
+	<sortField name="shipMarkGp"/>
+	<sortField name="partNo"/>
 	<variable name="fmlNetWeight" class="java.lang.Double">
 		<variableExpression><![CDATA[/*
 Round ({PINS002.INS_SUM_TOT_UNIT} * {PINS002.INS_PART_WT},3);
 */
-$F{INS_SUM_TOT_UNIT} != null && $F{INS_PART_WT} !=null ?$F{INS_SUM_TOT_UNIT}*$F{INS_PART_WT}:0.0]]></variableExpression>
+$F{sumTotalUnit} != null && $F{partWt} !=null ?$F{sumTotalUnit}*$F{partWt}:0.0]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 Round ({PINS002.INS_SUM_TOT_UNIT} * {PINS002.INS_PART_WT},3);
 */
-$F{INS_SUM_TOT_UNIT} != null && $F{INS_PART_WT} !=null ?$F{INS_SUM_TOT_UNIT}*$F{INS_PART_WT}:0.0]]></initialValueExpression>
+$F{sumTotalUnit} != null && $F{partWt} !=null ?$F{sumTotalUnit}*$F{partWt}:0.0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlNetWeightBigDecimal" class="java.lang.Double" resetType="Group" resetGroup="SHIP_MARK_GP">
 		<variableExpression><![CDATA[BigDecimal.valueOf($V{fmlNetWeight}).setScale(3, RoundingMode.HALF_UP).doubleValue()]]></variableExpression>
@@ -54,12 +54,12 @@ $F{INS_SUM_TOT_UNIT} != null && $F{INS_PART_WT} !=null ?$F{INS_SUM_TOT_UNIT}*$F{
 Left ( {PINS002.INS_PART_NO} , 5)
 
 */
-$F{INS_PART_NO} != null && $F{INS_PART_NO}.length() >= 5?$F{INS_PART_NO}.substring(0,5):""]]></variableExpression>
+$F{partNo} != null && $F{partNo}.length() >= 5?$F{partNo}.substring(0,5):""]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 Left ( {PINS002.INS_PART_NO} , 5)
 
 */
-$F{INS_PART_NO} != null && $F{INS_PART_NO}.length() >= 5?$F{INS_PART_NO}.substring(0,5):""]]></initialValueExpression>
+$F{partNo} != null && $F{partNo}.length() >= 5?$F{partNo}.substring(0,5):""]]></initialValueExpression>
 	</variable>
 	<variable name="fmlAddress2" class="java.lang.String">
 		<variableExpression><![CDATA[/*
@@ -70,7 +70,7 @@ else
 
 
 */
-$F{INS_CNSG_ADD2} == null?"":", "+$F{INS_CNSG_ADD2}]]></variableExpression>
+$F{cnsgAdd2} == null?"":", "+$F{cnsgAdd2}]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 if IsNull ({PINS002.INS_CNSG_ADD2}) then
     ''
@@ -79,19 +79,19 @@ else
 
 
 */
-$F{INS_CNSG_ADD2} == null?"":", "+$F{INS_CNSG_ADD2}]]></initialValueExpression>
+$F{cnsgAdd2} == null?"":", "+$F{cnsgAdd2}]]></initialValueExpression>
 	</variable>
 	<variable name="fmlPartName" class="java.lang.String">
 		<variableExpression><![CDATA[/*
 Left({PINS002.INS_PART_NAME},40);
 
 */
-$F{INS_PART_NAME} != null && $F{INS_PART_NAME}.length() >= 40? $F{INS_PART_NAME}.substring(0,40): $F{INS_PART_NAME}]]></variableExpression>
+$F{partName} != null && $F{partName}.length() >= 40? $F{partName}.substring(0,40): $F{partName}]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 Left({PINS002.INS_PART_NAME},40);
 
 */
-$F{INS_PART_NAME} != null && $F{INS_PART_NAME}.length() >= 40? $F{INS_PART_NAME}.substring(0,40): $F{INS_PART_NAME}]]></initialValueExpression>
+$F{partName} != null && $F{partName}.length() >= 40? $F{partName}.substring(0,40): $F{partName}]]></initialValueExpression>
 	</variable>
 	<variable name="fmlAddress4" class="java.lang.String">
 		<variableExpression><![CDATA[/*
@@ -102,7 +102,7 @@ else
 
 
 */
-$F{INS_CNSG_ADD4} == null?"":", "+$F{INS_CNSG_ADD4}]]></variableExpression>
+$F{cnsgAdd4} == null?"":", "+$F{cnsgAdd4}]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 if IsNull ({PINS002.INS_CNSG_ADD4}) then
     ''
@@ -111,7 +111,7 @@ else
 
 
 */
-$F{INS_CNSG_ADD4} == null?"":", "+$F{INS_CNSG_ADD4}]]></initialValueExpression>
+$F{cnsgAdd4} == null?"":", "+$F{cnsgAdd4}]]></initialValueExpression>
 	</variable>
 	<variable name="fmlCFGroup" class="java.lang.String">
 		<variableExpression><![CDATA[/*
@@ -120,17 +120,17 @@ $F{INS_CNSG_ADD4} == null?"":", "+$F{INS_CNSG_ADD4}]]></initialValueExpression>
 //End changes made by Aarti for Isuue No.156 on 01-08-2005
 
 */
-($F{INS_CF_CD} == null?"":$F{INS_CF_CD})+($F{INS_SRS_NAME} == null?"":$F{INS_SRS_NAME})]]></variableExpression>
+($F{cfCd} == null?"":$F{cfCd})+($F{srsName} == null?"":$F{srsName})]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
 //Changes made by Aarti for Isuue No.156 on 01-08-2005
 {PINS002.INS_CF_CD}+{PINS002.INS_SRS_NAME}
 //End changes made by Aarti for Isuue No.156 on 01-08-2005
 
 */
-($F{INS_CF_CD} == null?"":$F{INS_CF_CD})+($F{INS_SRS_NAME} == null?"":$F{INS_SRS_NAME})]]></initialValueExpression>
+($F{cfCd} == null?"":$F{cfCd})+($F{srsName} == null?"":$F{srsName})]]></initialValueExpression>
 	</variable>
 	<variable name="fmlInsSumTotUnitShipMarkGp" class="java.lang.Integer" resetType="Group" resetGroup="SHIP_MARK_GP" calculation="Sum">
-		<variableExpression><![CDATA[$F{INS_SUM_TOT_UNIT}]]></variableExpression>
+		<variableExpression><![CDATA[$F{sumTotalUnit}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlNetWeightBigDecimalShipMarkGp" class="java.lang.Double" resetType="Group" resetGroup="SHIP_MARK_GP" calculation="Sum">
@@ -142,15 +142,15 @@ $F{INS_CNSG_ADD4} == null?"":", "+$F{INS_CNSG_ADD4}]]></initialValueExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlInsGrossWtTot" class="java.lang.Double" incrementType="Group" incrementGroup="SHIP_MARK_GP" calculation="Sum">
-		<variableExpression><![CDATA[$F{INS_GROSS_WT}]]></variableExpression>
+		<variableExpression><![CDATA[$F{grossWt}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlInsMeasurementTot" class="java.lang.Double" incrementType="Group" incrementGroup="SHIP_MARK_GP" calculation="Sum">
-		<variableExpression><![CDATA[$F{INS_MEASUREMENT}]]></variableExpression>
+		<variableExpression><![CDATA[$F{measurement}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlInsNoCasesTot" class="java.lang.Integer" incrementType="Group" incrementGroup="SHIP_MARK_GP" calculation="Sum">
-		<variableExpression><![CDATA[$F{INS_NO_OF_CASES}]]></variableExpression>
+		<variableExpression><![CDATA[$F{noOfCases}]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="fmlTest" class="java.lang.Integer" resetType="Group" resetGroup="SHIP_MARK_GP" incrementType="Group" incrementGroup="SHIP_MARK_GP">
@@ -449,7 +449,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{INS_SRS_NAME}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{srsName}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -458,7 +458,7 @@ Box]]></text>
 		</groupFooter>
 	</group>
 	<group name="SHIP_MARK_GP" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{SHIP_MARK_GP}]]></groupExpression>
+		<groupExpression><![CDATA[$F{shipMarkGp}]]></groupExpression>
 		<groupHeader>
 			<band height="23" splitType="Prevent">
 				<property name="local_mesure_unitheight" value="pixel"/>
@@ -480,7 +480,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8"/>
 						<paragraph firstLineIndent="0" leftIndent="0" rightIndent="0" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{INS_SHIPMARK_5}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{shipMark5}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="9" y="12" width="50" height="11" isPrintWhenDetailOverflows="true" uuid="7b669a12-fe3f-41fb-87e7-984b9f2f3999">
@@ -534,7 +534,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8"/>
 						<paragraph leftIndent="0" spacingBefore="2"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{CASE_MOD}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{caseMod}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -557,7 +557,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8" isBold="true"/>
 						<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{INS_NO_OF_CASES}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{noOfCases}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="9" y="12" width="433" height="12" uuid="d633af13-151c-4c6c-809d-dcab38313c26">
@@ -593,7 +593,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8" isBold="true"/>
 						<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{INS_MEASUREMENT}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{measurement}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.000" isBlankWhenNull="true">
 					<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="442" y="12" width="74" height="12" uuid="37b75c7a-a1e3-4c69-87e1-411e1e1641b6">
@@ -610,7 +610,7 @@ Box]]></text>
 						<font fontName="Courier New" size="8" isBold="true"/>
 						<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{INS_GROSS_WT}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{grossWt}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0" isBlankWhenNull="true">
 					<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="313" y="0" width="54" height="12" uuid="c7efcf0a-a944-4e01-8e01-4c036ff1e88b">
@@ -739,7 +739,7 @@ Box]]></text>
 				<textElement textAlignment="Center" markup="styled">
 					<font fontName="Courier New" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{INS_CNSG_ADD1} == null?"":$F{INS_CNSG_ADD1})+
+				<textFieldExpression><![CDATA[($F{cnsgAdd1} == null?"":$F{cnsgAdd1})+
 ($V{fmlAddress2} == null?"":$V{fmlAddress2})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
@@ -751,7 +751,7 @@ Box]]></text>
 				<textElement textAlignment="Center" markup="styled">
 					<font fontName="Courier New" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{INS_CNSG_ADD3} == null?"":$F{INS_CNSG_ADD3})+($V{fmlAddress4} == null?"":$V{fmlAddress4})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{cnsgAdd3} == null?"":$F{cnsgAdd3})+($V{fmlAddress4} == null?"":$V{fmlAddress4})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="67" width="520" height="17" uuid="4def6fd5-48d3-4465-ac1d-b7982f6d8142">
@@ -806,7 +806,7 @@ Box]]></text>
 				<textElement textAlignment="Center">
 					<font fontName="Courier New" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_CNSG_NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cnsgName}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="448" y="107" width="69" height="10" uuid="df4c67b1-cc72-4d25-9094-0e5ebb776b5a">
@@ -827,7 +827,7 @@ Box]]></text>
 					<font fontName="Courier New" size="8"/>
 					<paragraph leftIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_INV_DT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invDt}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="63" y="107" width="88" height="10" isPrintWhenDetailOverflows="true" uuid="84685256-d29f-44e7-9cec-c1160855cccf">
@@ -867,7 +867,7 @@ Box]]></text>
 					<font fontName="Courier New" size="8"/>
 					<paragraph leftIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_PART_NO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{partNo}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="442" y="0" width="74" height="12" uuid="01dc4da9-07c7-45c8-a317-81c7da9661ee">
@@ -902,7 +902,7 @@ $V{fmlNetWeightBigDecimal}]]></textFieldExpression>
 					<font fontName="Courier New" size="8"/>
 					<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_PART_WT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{partWt}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="313" y="0" width="54" height="12" uuid="aa862641-f11a-4810-bd0e-87badd68ff0f">
@@ -920,7 +920,7 @@ $V{fmlNetWeightBigDecimal}]]></textFieldExpression>
 					<font fontName="Courier New" size="8"/>
 					<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_SUM_TOT_UNIT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sumTotalUnit}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="79" y="0" width="203" height="12" backcolor="#FFFFFF" uuid="109d24b6-73d7-40de-9f6e-7169c563ed13">
@@ -958,7 +958,7 @@ $V{fmlNetWeightBigDecimal}]]></textFieldExpression>
 					<font fontName="Courier New" size="8"/>
 					<paragraph leftIndent="0" rightIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INS_UNIT_PER_BOX}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{unitPerBox}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

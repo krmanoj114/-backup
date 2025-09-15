@@ -12,8 +12,8 @@ import com.tpex.invoice.dto.InvoiceDetailsResponseDto;
  */
 public interface InvHaisenDetailsSevice{
 
-	List<String> saveHaisenDetails(String userId,List<NoemHaisenDetailDTO> dto) throws Exception;
+	List<String> saveHaisenDetails(String userId,List<NoemHaisenDetailDTO> dto) throws ParseException,JsonProcessingException;
     
-	List<String> updateInvoiceDetails(String userId, List<InvoiceDetailsResponseDto> invoiceDetailsResponseDto) throws JsonProcessingException, ParseException, Exception;
+	List<String> updateInvoiceDetails(String userId, List<InvoiceDetailsResponseDto> invoiceDetailsResponseDto) throws JsonProcessingException, ParseException ;
 
 }

@@ -19,6 +19,6 @@ public class SearchInvHaisenDetailResponse implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<SearchInvHaisenDetailResponseDto> searchInvHaisenDetailResponse;
+	private List<SearchInvHaisenDetailResponseDto> listInvHaisenDetailResponse;
 	private List<PortGrpObjDto> portGrpObj;
 }

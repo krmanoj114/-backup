@@ -1,4 +1,4 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
@@ -39,7 +39,7 @@ import com.tpex.repository.CarFamilyMastRepository;
 import com.tpex.repository.InsInvPartsDetailsRepository;
 import com.tpex.repository.OemCurrencyMstRepository;
 import com.tpex.repository.OemFnlDstMstRepository;
-import com.tpex.repository.PartMasterRespository;
+import com.tpex.repository.PartMasterRepository;
 import com.tpex.repository.PartPriceMasterRepository;
 import com.tpex.repository.TpexConfigRepository;
 import com.tpex.util.ConstantUtils;
@@ -104,7 +104,7 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 	private InsInvPartsDetailsRepository insInvPartsDetailsRepository;
 	
 	@Autowired
-	private PartMasterRespository partMasterRespository;
+	private PartMasterRepository partMasterRespository;
 
 	/** The df. */
 	DecimalFormat df = new DecimalFormat("0.00");
@@ -135,12 +135,12 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 	private PartPriceMasterResponseDto getPartPriceMasterResponse(List<PartPriceMasterEntity> partPriceMasterEntities, List<OemCurrencyMstEntity> oemCurrencyMstRepositories) {
 		return new PartPriceMasterResponseDto(partPriceMasterEntities.stream().map(m -> {
 			try {
-				return new PartPriceMasterDto(m.getId().getCfCode()+m.getId().getDestCode()+m.getId().getEffFromMonth()+m.getId().getPartNo()+m.getId().getCurrencyCode(),
+				return new PartPriceMasterDto(m.getId().getCfCode()+m.getId().getDestCode()+m.getId().getEffFromMonth()+m.getId().getPartNo()+m.getCurrencyCode(),
 						m.getId().getCfCode(), m.getId().getDestCode(),
 						DateUtil.getStringDate(m.getId().getEffFromMonth(), YYYYMM, YYYY_MM), 
 						DateUtil.getStringDate(m.getEffToMonth(), YYYYMM, YYYY_MM), 
 						String.format("%s-%s-%s", m.getId().getPartNo().substring(0,5), m.getId().getPartNo().substring(5,10), m.getId().getPartNo().substring(10)),
-						m.getPartName(), new BigDecimal(df.format(m.getPartPrice())), m.getId().getCurrencyCode());
+						m.getPartName(), new BigDecimal(df.format(m.getPartPrice())), m.getCurrencyCode());
 			} catch (ParseException e) {
 				return null;
 			}
@@ -283,12 +283,12 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 		List<PartPriceMasterDto> partPriceMasterEntityList = partPriceMasterEntities.stream().map(m -> 
 		{
 			try {
-				return new PartPriceMasterDto(m.getId().getCfCode()+m.getId().getDestCode()+m.getId().getEffFromMonth()+m.getId().getPartNo()+m.getId().getCurrencyCode(),
+				return new PartPriceMasterDto(m.getId().getCfCode()+m.getId().getDestCode()+m.getId().getEffFromMonth()+m.getId().getPartNo()+m.getCurrencyCode(),
 						m.getId().getCfCode(), m.getId().getDestCode(),
 						DateUtil.getStringDate(m.getId().getEffFromMonth(), YYYYMM, YYYY_MM), 
 						DateUtil.getStringDate(m.getEffToMonth(), YYYYMM, YYYY_MM), 
 						String.format("%s-%s-%s", m.getId().getPartNo().substring(0,5), m.getId().getPartNo().substring(5,10), m.getId().getPartNo().substring(10)),
-						m.getPartName(), new BigDecimal(df.format(m.getPartPrice())), m.getId().getCurrencyCode());
+						m.getPartName(), new BigDecimal(df.format(m.getPartPrice())), m.getCurrencyCode());
 			} catch (ParseException e) {
 				return null;
 			}
@@ -334,12 +334,11 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 			
 			try {
 				
-				partPriceMasterRepository.deleteByIdCfCodeAndIdDestCodeAndIdCurrencyCodeAndIdPartNoAndIdEffFromMonth(
+				partPriceMasterRepository.deleteById(new PartPriceMasterIdEntity(
 						partPriceMasterDeleteRequestDto.getCarFamilyCode(), 
 						partPriceMasterDeleteRequestDto.getImporterCode(), 
-						partPriceMasterDeleteRequestDto.getCurrency(), 
 						partPriceMasterDeleteRequestDto.getPartNo().replace("-", ""), 
-						DateUtil.getStringDate(partPriceMasterDeleteRequestDto.getEffectiveFromMonth(), YYYY_MM, YYYYMM));
+						DateUtil.getStringDate(partPriceMasterDeleteRequestDto.getEffectiveFromMonth(), YYYY_MM, YYYYMM)));
 			} catch (InvalidInputParametersException e) {
 				throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1045);
 			}
@@ -379,7 +378,6 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 			PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity();
 			partPriceMasterIdEntity.setCfCode(partPriceMasterDto.getCarFamilyCode());
 			partPriceMasterIdEntity.setDestCode(partPriceMasterDto.getImporterCode());
-			partPriceMasterIdEntity.setCurrencyCode(partPriceMasterDto.getCurrency());
 			partPriceMasterIdEntity.setPartNo(partNum);
 			partPriceMasterIdEntity.setEffFromMonth(effMonth);
 			
@@ -407,6 +405,7 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 			}
 			
 			//Set other fields
+			partPriceMasterEntity.setCurrencyCode(partPriceMasterDto.getCurrency());
 			partPriceMasterEntity.setPartName(partPriceMasterDto.getPartName());
 			partPriceMasterEntity.setPartPrice(partPriceMasterDto.getPartPrice().doubleValue());
 			partPriceMasterEntity.setEffToMonth(effToMonth);
@@ -426,13 +425,13 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
         String nowDate = formatter.format(Date.valueOf(LocalDate.now()));
 
 		if (effMonth.compareTo(nowDate) < 0)
-			throw new MyResourceNotFoundException(ConstantUtils.ERR_IN_1047);
+			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1047);
 		
 		if (effToMonth != null && effToMonth.compareTo(nowDate) < 0)
-			throw new MyResourceNotFoundException(ConstantUtils.ERR_IN_1048);
+			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1048);
 		
 		if (effMonth.compareTo(effToMonth) > 0)
-			throw new MyResourceNotFoundException(ConstantUtils.ERR_CM_3002);
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3002);
 	}
 	
 	@Override
@@ -461,7 +460,6 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 			PartPriceMasterIdEntity partPriceMasterIdEntity = new PartPriceMasterIdEntity();
 			partPriceMasterIdEntity.setCfCode(partPriceMasterDto.getCarFamilyCode());
 			partPriceMasterIdEntity.setDestCode(partPriceMasterDto.getImporterCode());
-			partPriceMasterIdEntity.setCurrencyCode(partPriceMasterDto.getCurrency());
 			partPriceMasterIdEntity.setPartNo(partNum);
 			partPriceMasterIdEntity.setEffFromMonth(effMonth);
 			
@@ -471,6 +469,7 @@ public class PartPriceMasterServiceImpl implements PartPriceMasterService {
 				
 				PartPriceMasterEntity partPriceMasterEntity = partPriceMasterEntityOptional.get();
 				//Set other fields
+				partPriceMasterEntity.setCurrencyCode(partPriceMasterDto.getCurrency());
 				partPriceMasterEntity.setPartName(partPriceMasterDto.getPartName());
 				partPriceMasterEntity.setPartPrice(partPriceMasterDto.getPartPrice().doubleValue());
 				partPriceMasterEntity.setEffToMonth(effToMonth);

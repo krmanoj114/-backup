@@ -1,0 +1,54 @@
+[
+    {
+        "reportTypeId":"RDLY020",
+        "reportTypeName":"Vanning Schedule List"
+    },
+	{
+        "reportTypeId":"RDLY021",
+        "reportTypeName":"Container Stuffing List"
+    },
+    {
+        "reportTypeId":"RDLY023",
+        "reportTypeName":"Module Transport Order"
+    },
+	{
+        "reportTypeId":"RDLY019",
+        "reportTypeName":"Packing Sequence List"
+    },
+    {
+        "reportTypeId":"RDLY024",
+        "reportTypeName":"Shipping Mark"
+    },
+	{
+        "reportTypeId":"RDLY022",
+        "reportTypeName":"Content List"
+    },
+	{
+        "reportTypeId":"RDLY025",
+        "reportTypeName":"Shipping Mark with Content List"
+    },
+    {
+        "reportTypeId":"RDLY026",
+        "reportTypeName":"Shipping Mark/Content List with Part Label"
+    },
+	{
+        "reportTypeId":"RDLY027",
+        "reportTypeName":"Part Label"
+    },
+    {
+        "reportTypeId":"RDLY028",
+        "reportTypeName":"Part Label with header"
+    },
+	{
+        "reportTypeId":"RDLY011",
+        "reportTypeName":"SS Line Group Box"
+    },
+	{
+        "reportTypeId":"RDLY012",
+        "reportTypeName":"SS Line Part Label"
+    },
+    {
+        "reportTypeId":"RDLY029",
+        "reportTypeName":"SS Line Content List"
+    }
+]

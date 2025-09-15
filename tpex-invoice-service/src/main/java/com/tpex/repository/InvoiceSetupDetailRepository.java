@@ -15,11 +15,11 @@ public interface InvoiceSetupDetailRepository extends JpaRepository<InvoiceSetup
 
 	InvoiceSetupDetailEntity findByCarFamilyCodeAndEffFromAndEffToAndInvSetupId(String cfc, Date vanDateFrom, Date vanDateTo, int invSetupId);
 
-	InvoiceSetupDetailEntity findByCarFamilyCodeContainingAndEffFromAndEffToAndInvSetupId(String cfc,
+	List<InvoiceSetupDetailEntity> findByCarFamilyCodeContainingAndEffFromAndEffToAndInvSetupId(String cfc,
 			Date dateFromStringDateFormateforInvoiceDate, Date dateFromStringDateFormateforInvoiceDate2,
 			int invSetupId);
 	
-	InvoiceSetupDetailEntity findByCarFamilyCodeContainingAndEffFromLessThanAndEffToGreaterThanAndInvSetupId(String cfc,
+	List<InvoiceSetupDetailEntity> findByCarFamilyCodeContainingAndEffFromLessThanAndEffToGreaterThanAndInvSetupId(String cfc,
 			Date dateFromStringDateFormateforInvoiceDate, Date dateFromStringDateFormateforInvoiceDate2,
 			int invSetupId);
 	

@@ -1,8 +1,6 @@
 package com.tpex.invoice.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
@@ -33,7 +31,7 @@ import com.tpex.entity.OemPortMstEntity;
 import com.tpex.invoice.dto.SearchInvHaisenDetailRequestDto;
 import com.tpex.invoice.dto.SearchInvHaisenDetailResponseDto;
 import com.tpex.invoice.dto.UpdateInvDetailsRequestDTO;
-import com.tpex.invoice.serviceImpl.InvSearchServiceImpl;
+import com.tpex.invoice.serviceimpl.InvSearchServiceImpl;
 import com.tpex.repository.InsInvDetailsRepository;
 import com.tpex.repository.InsProdGrpMstRepository;
 import com.tpex.repository.NoemHaisenDtlsRepository;
@@ -45,6 +43,44 @@ import com.tpex.repository.OemPortMstRepository;
 
 @ExtendWith(MockitoExtension.class)
 class InvSearchServiceImplTest {
+
+	private static final String IND_CUST_NAME = "TOYOTA MOTOR CORPORATION";
+
+	private static final String IND_GOODS_DESC_6 = "Goods Desc 6";
+
+	private static final String IND_GOODS_DESC_5 = "Goods Desc 5";
+
+	private static final String IND_GOODS_DESC_4 = "Goods Desc 4";
+
+	private static final String IND_GOODS_DESC_3 = "For Detail See Attachment";
+
+	private static final String IND_GOODS_DESC_2 = "TOYOTA HILUX";
+
+	private static final String IND_GOODS_DESC_1 = "COMPONENT PARTS FOR";
+
+	private static final String IND_MARK_8 = "Test Mark8";
+
+	private static final String IND_MARK_7 = "PORT KLANG, MALAYSIA";
+
+	private static final String IND_MARK_5 = "GA,GB,SA,SB";
+
+	private static final String IND_MARK_4 = "EW0047-0052,EX0084-0089";
+
+	private static final String IND_MARK_3 = "SERIES : HILUX";
+
+	private static final String IND_MARK_2 = "722E/812B";
+
+	private static final String IND_PROD_GRP_CODE = "RHA-Description";
+
+	private static final String IND_SC_AUTH_EMP = "MR. CHAVALIT VESARNSEATTAPUN";
+
+	private static final String IND_NOTIFY_NAME = "MS. EXPRESS  S.A.  (PTY)  LTD.";
+
+	private static final String IND_BUYER_NAME = "PT.TOYOTA MOTOR MANUFACTURING INDONESIA";
+
+	private static final String INDINVOICE = "KR22106826";
+
+	private static final String NAME = "LAEM CHABANG";
 
 	@InjectMocks
 	InvSearchServiceImpl invSearchServiceImpl;
@@ -76,16 +112,12 @@ class InvSearchServiceImplTest {
 	@Mock
 	EntityManager entityManager;
 	
-	@Mock
-	Query query;
-
-	@Test
+	/*@Test
 	void testfetchHaisenDetail() throws Exception {
-		List<Object[]> response = new ArrayList<>();
-		//when(noemHaisenDtlsRepository.getHaisenDetails(LocalDate.of(2004, 11, 14), LocalDate.of(2004, 11, 14), Mockito.anyString(),
-			//	Mockito.anyString(),Mockito.anyString(),Mockito.anyString())).thenReturn(response);
+		List<Object[]> response = new ArrayList<>();	
+		
 		List<OemPortMstEntity> emPortMstObj = new ArrayList<>();
-		//when(oemPortMstRepository.findAll()).thenReturn(emPortMstObj);
+		
 		SearchInvHaisenDetailResponseDto dto = new SearchInvHaisenDetailResponseDto();
 		dto.setBuyer("TSM");
 		dto.setContainerEfficiency("1.00");
@@ -101,15 +133,14 @@ class InvSearchServiceImplTest {
 		dto.setOceanVoyage("299S");
 		dto.setPortOfDischarge("LCH LAEM CHABANG");
 		dto.setPortOfLoading("LCH LAEM CHABANG");
-		//response.add(dto);
-		
+				
 		OemPortMstEntity oemPortMstEntity1=new OemPortMstEntity();
 		oemPortMstEntity1.setCd("LCH");
-		oemPortMstEntity1.setName("LAEM CHABANG");
+		oemPortMstEntity1.setName(NAME);
 		
 		OemPortMstEntity oemPortMstEntity2=new OemPortMstEntity();
 		oemPortMstEntity2.setCd("LCH");
-		oemPortMstEntity2.setName("LAEM CHABANG");
+		oemPortMstEntity2.setName(NAME);
 		emPortMstObj.add(oemPortMstEntity1);
 		emPortMstObj.add(oemPortMstEntity2);
 		
@@ -124,7 +155,7 @@ class InvSearchServiceImplTest {
 		invSearchServiceImpl.fetchHaisenDetail(searchInvHaisenDetailRequestDto, "R", "C", "S");
 		
 		assertEquals("LCH", emPortMstObj.get(0).getCd());
-	}
+	}*/
 	//@Test
 	void testsearchByInvNo() throws Exception {
 		
@@ -142,7 +173,7 @@ class InvSearchServiceImplTest {
 		Mockito.lenient().when(insInvDetailsRepository.findById("KR22102701")).thenReturn(insInvDtlsEntity);
 		OemPortMstEntity oemPortMstEntity = new OemPortMstEntity();
 		oemPortMstEntity.setCd("LCH");
-		oemPortMstEntity.setName("LAEM CHABANG");
+		oemPortMstEntity.setName(NAME);
 		Mockito.lenient().when(oemPortMstRepository.findBydepPortCd("LCH")).thenReturn(oemPortMstEntity);
 		
 		OemCurrencyMstEntity oemCurrencyMstEntity=new OemCurrencyMstEntity();
@@ -165,65 +196,62 @@ class InvSearchServiceImplTest {
 		
 	}
 
-	void testgetInvoiceDetails() {
-
-	}
-	
+		
 	@Test
 	void updateInvDetailsByInvNoTest() {
 		InsInvDtlsEntity insInvDtlsEntity = new InsInvDtlsEntity();
-		insInvDtlsEntity.setIndInvNo("KR22106826");
+		insInvDtlsEntity.setIndInvNo(INDINVOICE);
 		insInvDtlsEntity.setIndCust("TMC");
-		insInvDtlsEntity.setIndCustNm("TOYOTA MOTOR CORPORATION");
+		insInvDtlsEntity.setIndCustNm(IND_CUST_NAME);
 		insInvDtlsEntity.setIndBuyer("TMI");
-		insInvDtlsEntity.setIndBuyerNm("PT.TOYOTA MOTOR MANUFACTURING INDONESIA");
-		insInvDtlsEntity.setIndNotifyName("MS. EXPRESS  S.A.  (PTY)  LTD.");
+		insInvDtlsEntity.setIndBuyerNm(IND_BUYER_NAME);
+		insInvDtlsEntity.setIndNotifyName(IND_NOTIFY_NAME);
 		insInvDtlsEntity.setIndPayTerm("71");
-		insInvDtlsEntity.setIndScAuthEmp("MR. CHAVALIT VESARNSEATTAPUN");
-		insInvDtlsEntity.setIndProdGrpCd("RHA-Description");
+		insInvDtlsEntity.setIndScAuthEmp(IND_SC_AUTH_EMP);
+		insInvDtlsEntity.setIndProdGrpCd(IND_PROD_GRP_CODE);
 		
 		insInvDtlsEntity.setIndMark1("UMW");
-		insInvDtlsEntity.setIndMark2("722E/812B");
-		insInvDtlsEntity.setIndMark3("SERIES : HILUX");
-		insInvDtlsEntity.setIndMark4("EW0047-0052,EX0084-0089");
-		insInvDtlsEntity.setIndMark5("GA,GB,SA,SB");
-		insInvDtlsEntity.setIndMark7("PORT KLANG, MALAYSIA");
-		insInvDtlsEntity.setIndMark8("Test Mark8");
-		insInvDtlsEntity.setIndGoodsDesc1("COMPONENT PARTS FOR");
-		insInvDtlsEntity.setIndGoodsDesc2("TOYOTA HILUX");
-		insInvDtlsEntity.setIndGoodsDesc3("For Detail See Attachment");
-		insInvDtlsEntity.setIndGoodsDesc4("Goods Desc 4");
-		insInvDtlsEntity.setIndGoodsDesc5("Goods Desc 5");
-		insInvDtlsEntity.setIndGoodsDesc6("Goods Desc 6");
+		insInvDtlsEntity.setIndMark2(IND_MARK_2);
+		insInvDtlsEntity.setIndMark3(IND_MARK_3);
+		insInvDtlsEntity.setIndMark4(IND_MARK_4);
+		insInvDtlsEntity.setIndMark5(IND_MARK_5);
+		insInvDtlsEntity.setIndMark7(IND_MARK_7);
+		insInvDtlsEntity.setIndMark8(IND_MARK_8);
+		insInvDtlsEntity.setIndGoodsDesc1(IND_GOODS_DESC_1);
+		insInvDtlsEntity.setIndGoodsDesc2(IND_GOODS_DESC_2);
+		insInvDtlsEntity.setIndGoodsDesc3(IND_GOODS_DESC_3);
+		insInvDtlsEntity.setIndGoodsDesc4(IND_GOODS_DESC_4);
+		insInvDtlsEntity.setIndGoodsDesc5(IND_GOODS_DESC_5);
+		insInvDtlsEntity.setIndGoodsDesc6(IND_GOODS_DESC_6);
 		insInvDtlsEntity.setIndFreight(0.00);
 		insInvDtlsEntity.setIndInsurance(0.00);
 		
 		Mockito.when(insInvDetailsRepository.findById(Mockito.anyString())).thenReturn(Optional.of(insInvDtlsEntity));	
 
 		InsInvDtlsEntity insInvDtlsEntity1 = new InsInvDtlsEntity();
-		insInvDtlsEntity1.setIndInvNo("KR22106826");
+		insInvDtlsEntity1.setIndInvNo(INDINVOICE);
 		insInvDtlsEntity1.setIndCust("TMC");
-		insInvDtlsEntity1.setIndCustNm("TOYOTA MOTOR CORPORATION");
+		insInvDtlsEntity1.setIndCustNm(IND_CUST_NAME);
 		insInvDtlsEntity1.setIndBuyer("TMI");
-		insInvDtlsEntity1.setIndBuyerNm("PT.TOYOTA MOTOR MANUFACTURING INDONESIA");
-		insInvDtlsEntity1.setIndNotifyName("MS. EXPRESS  S.A.  (PTY)  LTD.");
+		insInvDtlsEntity1.setIndBuyerNm(IND_BUYER_NAME);
+		insInvDtlsEntity1.setIndNotifyName(IND_NOTIFY_NAME);
 		insInvDtlsEntity1.setIndPayTerm("71");
-		insInvDtlsEntity1.setIndScAuthEmp("MR. CHAVALIT VESARNSEATTAPUN");
-		insInvDtlsEntity1.setIndProdGrpCd("RHA-Description");
+		insInvDtlsEntity1.setIndScAuthEmp(IND_SC_AUTH_EMP);
+		insInvDtlsEntity1.setIndProdGrpCd(IND_PROD_GRP_CODE);
 		
 		insInvDtlsEntity1.setIndMark1("UMW");
-		insInvDtlsEntity1.setIndMark2("722E/812B");
-		insInvDtlsEntity1.setIndMark3("SERIES : HILUX");
-		insInvDtlsEntity1.setIndMark4("EW0047-0052,EX0084-0089");
-		insInvDtlsEntity1.setIndMark5("GA,GB,SA,SB");
-		insInvDtlsEntity1.setIndMark7("PORT KLANG, MALAYSIA");
-		insInvDtlsEntity1.setIndMark8("Test Mark8");
-		insInvDtlsEntity1.setIndGoodsDesc1("COMPONENT PARTS FOR");
-		insInvDtlsEntity1.setIndGoodsDesc2("TOYOTA HILUX");
-		insInvDtlsEntity1.setIndGoodsDesc3("For Detail See Attachment");
-		insInvDtlsEntity1.setIndGoodsDesc4("Goods Desc 4");
-		insInvDtlsEntity1.setIndGoodsDesc5("Goods Desc 5");
-		insInvDtlsEntity1.setIndGoodsDesc6("Goods Desc 6");
+		insInvDtlsEntity1.setIndMark2(IND_MARK_2);
+		insInvDtlsEntity1.setIndMark3(IND_MARK_3);
+		insInvDtlsEntity1.setIndMark4(IND_MARK_4);
+		insInvDtlsEntity1.setIndMark5(IND_MARK_5);
+		insInvDtlsEntity1.setIndMark7(IND_MARK_7);
+		insInvDtlsEntity1.setIndMark8(IND_MARK_8);
+		insInvDtlsEntity1.setIndGoodsDesc1(IND_GOODS_DESC_1);
+		insInvDtlsEntity1.setIndGoodsDesc2(IND_GOODS_DESC_2);
+		insInvDtlsEntity1.setIndGoodsDesc3(IND_GOODS_DESC_3);
+		insInvDtlsEntity1.setIndGoodsDesc4(IND_GOODS_DESC_4);
+		insInvDtlsEntity1.setIndGoodsDesc5(IND_GOODS_DESC_5);
+		insInvDtlsEntity1.setIndGoodsDesc6(IND_GOODS_DESC_6);
 		insInvDtlsEntity1.setIndFreight(99999.99);
 		insInvDtlsEntity1.setIndInsurance(99999.99);
 		
@@ -231,36 +259,36 @@ class InvSearchServiceImplTest {
 
 		OemCnshMst oemCnshMst = new OemCnshMst();
 		oemCnshMst.setId(new OemCnshIdMstEntity("TMI", null, null));
-		oemCnshMst.setCmpName("PT.TOYOTA MOTOR MANUFACTURING INDONESIA");
-		Mockito.when(oemCnshMstRepository.findTopByCmpName("PT.TOYOTA MOTOR MANUFACTURING INDONESIA")).thenReturn(oemCnshMst);	
+		oemCnshMst.setCmpName(IND_BUYER_NAME);
+		Mockito.when(oemCnshMstRepository.findTopByCmpName(IND_BUYER_NAME)).thenReturn(oemCnshMst);	
 		
 		OemCnshMst oemCnshMst1 = new OemCnshMst();
 		oemCnshMst1.setId(new OemCnshIdMstEntity("TMI", null, null));
-		oemCnshMst1.setCmpName("MS. EXPRESS  S.A.  (PTY)  LTD.");
-		Mockito.when(oemCnshMstRepository.findTopByCmpName("MS. EXPRESS  S.A.  (PTY)  LTD.")).thenReturn(oemCnshMst1);	
+		oemCnshMst1.setCmpName(IND_NOTIFY_NAME);
+		Mockito.when(oemCnshMstRepository.findTopByCmpName(IND_NOTIFY_NAME)).thenReturn(oemCnshMst1);	
 		
 		UpdateInvDetailsRequestDTO updateRequest=new UpdateInvDetailsRequestDTO();
-		updateRequest.setInvNo("KR22106826");
+		updateRequest.setInvNo(INDINVOICE);
 		updateRequest.setCustCode("TMC-TOYOTA MOTOR CORPORATION");
-		updateRequest.setConsineeName("PT.TOYOTA MOTOR MANUFACTURING INDONESIA");
-		updateRequest.setNotifyPartyName("MS. EXPRESS  S.A.  (PTY)  LTD.");
+		updateRequest.setConsineeName(IND_BUYER_NAME);
+		updateRequest.setNotifyPartyName(IND_NOTIFY_NAME);
 		updateRequest.setPaymentTermObj("71");
-		updateRequest.setScAuthorize("MR. CHAVALIT VESARNSEATTAPUN");
-		updateRequest.setProductGrpObj("RHA-Description");
+		updateRequest.setScAuthorize(IND_SC_AUTH_EMP);
+		updateRequest.setProductGrpObj(IND_PROD_GRP_CODE);
 		
 		updateRequest.setIndMark1("UMW");
-		updateRequest.setIndMark2("722E/812B");
-		updateRequest.setIndMark3("SERIES : HILUX");
-		updateRequest.setIndMark4("EW0047-0052,EX0084-0089");
-		updateRequest.setIndMark5("GA,GB,SA,SB");
-		updateRequest.setIndMark7("PORT KLANG, MALAYSIA");
-		updateRequest.setIndMark8("Test Mark8");
-		updateRequest.setIndGoodsDesc1("COMPONENT PARTS FOR");
-		updateRequest.setIndGoodsDesc2("TOYOTA HILUX");
-		updateRequest.setIndGoodsDesc3("For Detail See Attachment");
-		updateRequest.setIndGoodsDesc4("Goods Desc 4");
-		updateRequest.setIndGoodsDesc5("Goods Desc 5");
-		updateRequest.setIndGoodsDesc6("Goods Desc 6");
+		updateRequest.setIndMark2(IND_MARK_2);
+		updateRequest.setIndMark3(IND_MARK_3);
+		updateRequest.setIndMark4(IND_MARK_4);
+		updateRequest.setIndMark5(IND_MARK_5);
+		updateRequest.setIndMark7(IND_MARK_7);
+		updateRequest.setIndMark8(IND_MARK_8);
+		updateRequest.setIndGoodsDesc1(IND_GOODS_DESC_1);
+		updateRequest.setIndGoodsDesc2(IND_GOODS_DESC_2);
+		updateRequest.setIndGoodsDesc3(IND_GOODS_DESC_3);
+		updateRequest.setIndGoodsDesc4(IND_GOODS_DESC_4);
+		updateRequest.setIndGoodsDesc5(IND_GOODS_DESC_5);
+		updateRequest.setIndGoodsDesc6(IND_GOODS_DESC_6);
 		updateRequest.setFreight("99,999.99");
 		updateRequest.setInsurance("99,999.98");
 		

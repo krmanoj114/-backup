@@ -1,4 +1,4 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
 import java.sql.Date;
 import java.text.ParseException;
@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +35,12 @@ import com.tpex.util.DateUtil;
 import com.tpex.util.Util;
 
 @Service
-public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
+@SuppressWarnings("squid:S3776")
+public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService {
 
-	@Autowired 
+	private static final String PRIORITY_N = "Priority_N";
+
+	@Autowired
 	MixPrivilegeMasterRepository mixPrivilegeMasterRepository;
 
 	@Autowired
@@ -49,17 +51,18 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	LocalDate currentDate = LocalDate.now(); 
+	LocalDate currentDate = LocalDate.now();
 
-	public MixPrivilegeDetailsListResponseDto fetchMixPrivilegeDetails(String carFmlyCode,String destCode) {
+	public MixPrivilegeDetailsListResponseDto fetchMixPrivilegeDetails(String carFmlyCode, String destCode) {
 
 		MixPrivilegeDetailsListResponseDto response = new MixPrivilegeDetailsListResponseDto();
 
 		List<MixPrivilegeDetailsDto> privList = new ArrayList<>();
 
-		List<MixPrivilegeMasterEntity> mixPrivilegeMasterList = mixPrivilegeMasterRepository.findByCarFmlyCodeAndDestinationCode(carFmlyCode,destCode);
+		List<MixPrivilegeMasterEntity> mixPrivilegeMasterList = mixPrivilegeMasterRepository
+				.findByCarFmlyCodeAndDestinationCode(carFmlyCode, destCode);
 
-		for(MixPrivilegeMasterEntity entity : mixPrivilegeMasterList) {
+		for (MixPrivilegeMasterEntity entity : mixPrivilegeMasterList) {
 
 			MixPrivilegeDetailsDto dto = new MixPrivilegeDetailsDto();
 
@@ -70,14 +73,16 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 			dto.setEffTo(entity.getEffTo().format(formatter));
 
 			String reExporterCode = entity.getExporterCode();
-			String reExporterName = carFamilyDestinationMasterRepository.findReExporterName(destCode,carFmlyCode,reExporterCode);
-            
-			if(reExporterName.equalsIgnoreCase(ConstantUtils.REEXPORTERCODE_ALL)) {
-				dto.setReExporterCode(reExporterName);
-			}else {
-				dto.setReExporterCode(reExporterCode.concat("-").concat(reExporterName));
-			}
+			String reExporterName = carFamilyDestinationMasterRepository.findReExporterName(destCode, carFmlyCode,
+					reExporterCode);
 
+			if (reExporterName != null) {
+				if (reExporterName.equalsIgnoreCase(ConstantUtils.REEXPORTERCODE_ALL)) {
+					dto.setReExporterCode(reExporterName);
+				} else {
+					dto.setReExporterCode(reExporterCode.concat("-").concat(reExporterName));
+				}
+			}
 			List<String> priorityOne = Stream.of(entity.getPriorityOne().split(",")).collect(Collectors.toList());
 			dto.setPriorityOne(priorityOne);
 
@@ -93,7 +98,7 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 			List<String> priorityFive = Stream.of(entity.getPriorityFive().split(",")).collect(Collectors.toList());
 			dto.setPriorityFive(priorityFive);
 
-			if(entity.getEffTo().compareTo(currentDate) < 0)
+			if (entity.getEffTo().compareTo(currentDate) < 0)
 				dto.setFlag(true);
 
 			privList.add(dto);
@@ -101,15 +106,20 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 
 		response.setMixPrivilegeDetails(privList);
 
-		List<CarFamilyDestinationMasterEntity> carFamilyDestinationMasterEntity = carFamilyDestinationMasterRepository.findByIdCarFmlyCodeAndIdDestinationCode(carFmlyCode,destCode);
+		List<CarFamilyDestinationMasterEntity> carFamilyDestinationMasterEntity = carFamilyDestinationMasterRepository
+				.findByIdCarFmlyCodeAndIdDestinationCode(carFmlyCode, destCode);
 
-		List<ReExporterCodeDto> reExporterCodeDto = carFamilyDestinationMasterEntity.stream().map(u -> new ReExporterCodeDto(u.getId().getReExporterCode(),u.getSrsName())).collect(Collectors.toList());
+		List<ReExporterCodeDto> reExporterCodeDto = carFamilyDestinationMasterEntity.stream()
+				.map(u -> new ReExporterCodeDto(u.getId().getReExporterCode(), u.getSrsName()))
+				.collect(Collectors.toList());
 
 		response.setReExporterCode(reExporterCodeDto);
 
 		List<PrivilegeMasterEntity> privilegeList = privilegeMasterRepository.findPriorities();
 
-		List<PriorityDto> priority = privilegeList.stream().map(p->new PriorityDto(p.getId().getPrivilegeCode(),p.getId().getPrivilegeName())).collect(Collectors.toList());
+		List<PriorityDto> priority = privilegeList.stream()
+				.map(p -> new PriorityDto(p.getId().getPrivilegeCode(), p.getId().getPrivilegeName()))
+				.collect(Collectors.toList());
 		response.setPriority(priority);
 
 		return response;
@@ -119,13 +129,13 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 	@Override
 	public void deleteMixPrivilegeMaster(List<Integer> ids) throws ParseException {
 
-		Map<String,Object[]> errorMessageParamsArray = new HashMap<>();
+		Map<String, Object[]> errorMessageParamsArray = new HashMap<>();
 
 		List<String> etdFromList = new ArrayList<>();
 
-		for(Integer id : ids) {
+		for (Integer id : ids) {
 			Optional<MixPrivilegeMasterEntity> entity = mixPrivilegeMasterRepository.findById(id);
-			if(entity.isPresent()) {
+			if (entity.isPresent()) {
 				MixPrivilegeMasterEntity mixPrivilegeMasterEntity = entity.get();
 				LocalDate etdFrom = mixPrivilegeMasterEntity.getEffFrom();
 				if (etdFrom != null && etdFrom.compareTo(currentDate) <= 0) {
@@ -133,54 +143,61 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 				}
 			}
 		}
-		if(!etdFromList.isEmpty()) {
+		if (!etdFromList.isEmpty()) {
 			String[] etdFrom = etdFromList.toArray(new String[0]);
-			errorMessageParamsArray.put("vanDateFrom",etdFrom);
-			throw new InvalidInputParametersException(errorMessageParamsArray,ConstantUtils.ERR_IN_1024);
+			errorMessageParamsArray.put("vanDateFrom", etdFrom);
+			throw new InvalidInputParametersException(errorMessageParamsArray, ConstantUtils.ERR_IN_1024);
 		}
 
-		//Delete all records by id
+		// Delete all records by id
 		mixPrivilegeMasterRepository.deleteAllById(ids);
 	}
 
 	@Override
-	public boolean saveMixPrivilegeMaster(List<MixPrivilegeMasterSaveRequestDto> mixPrivilegeMstSaveRequestDtoList,String userId) throws InvalidInputParametersException {
+	public boolean saveMixPrivilegeMaster(List<MixPrivilegeMasterSaveRequestDto> mixPrivilegeMstSaveRequestDtoList,
+			String userId) throws InvalidInputParametersException {
 
 		MixPrivilegeMasterEntity entity = new MixPrivilegeMasterEntity();
 
-		for(MixPrivilegeMasterSaveRequestDto dto: mixPrivilegeMstSaveRequestDtoList){
+		for (MixPrivilegeMasterSaveRequestDto dto : mixPrivilegeMstSaveRequestDtoList) {
 
-			if(!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.NOT_CONFIRMED)) {
+			if (!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.NOT_CONFIRMED)) {
 
-				if(dto.getPrivMstId()!=null) {
+				if (dto.getPrivMstId() != null) {
 
-					Optional<MixPrivilegeMasterEntity> optEntity = mixPrivilegeMasterRepository.findById(dto.getPrivMstId());
+					Optional<MixPrivilegeMasterEntity> optEntity = mixPrivilegeMasterRepository
+							.findById(dto.getPrivMstId());
 
-					if(optEntity.isPresent()){
+					if (optEntity.isPresent()) {
 
 						entity = optEntity.get();
 
-						if(!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)){
+						if (!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
 
 							String priorityOne = entity.getPriorityOne();
 							String inputPriorityOne = dto.getPriorityOne().stream().collect(Collectors.joining(","));
 							String priorityTwo = entity.getPriorityTwo();
 							String inputPriorityTwo = dto.getPriorityTwo().stream().collect(Collectors.joining(","));
 							String priorityThree = entity.getPriorityThree();
-							String inputPriorityThree = dto.getPriorityThree().stream().collect(Collectors.joining(","));
+							String inputPriorityThree = dto.getPriorityThree().stream()
+									.collect(Collectors.joining(","));
 							String priorityFour = entity.getPriorityFour();
 							String inputPriorityFour = dto.getPriorityFour().stream().collect(Collectors.joining(","));
 							String priorityFive = entity.getPriorityFive();
 							String inputPriorityFive = dto.getPriorityFive().stream().collect(Collectors.joining(","));
 
 							Date entityEffFrom = Date.valueOf(entity.getEffFrom());
-							Date inputEffFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffFromDate());
+							Date inputEffFrom = DateUtil.dateFromStringSqlDateFormate(
+									ConstantUtils.DEFAULT_DATE_FORMATE, dto.getEffFromDate());
 							Date entityEffTo = Date.valueOf(entity.getEffTo());
-							Date inputEffTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffToDate());
+							Date inputEffTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,
+									dto.getEffToDate());
 
-							if((inputEffFrom.compareTo(entityEffFrom) == 0) && (inputEffTo.compareTo(entityEffTo) == 0) && (priorityOne.equals(inputPriorityOne))
-									&& (priorityTwo.equals(inputPriorityTwo)) && (priorityThree.equals(inputPriorityThree)) && (priorityFour.equals(inputPriorityFour))
-									&& (priorityFive.equals(inputPriorityFive))){
+							if ((inputEffFrom.compareTo(entityEffFrom) == 0) && (inputEffTo.compareTo(entityEffTo) == 0)
+									&& (priorityOne.equals(inputPriorityOne)) && (priorityTwo.equals(inputPriorityTwo))
+									&& (priorityThree.equals(inputPriorityThree))
+									&& (priorityFour.equals(inputPriorityFour))
+									&& (priorityFive.equals(inputPriorityFive))) {
 								throw new InvalidInputParametersException(ConstantUtils.INFO_CM_3008);
 
 							}
@@ -189,8 +206,10 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 						}
 
 						entity.setCompanyCode(dto.getCompanyCode());
-						entity.setEffFrom(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffFromDate()));
-						entity.setEffTo(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffToDate()));
+						entity.setEffFrom(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,
+								dto.getEffFromDate()));
+						entity.setEffTo(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,
+								dto.getEffToDate()));
 						entity.setPriorityOne(dto.getPriorityOne().stream().collect(Collectors.joining(",")));
 						entity.setPriorityTwo(dto.getPriorityTwo().stream().collect(Collectors.joining(",")));
 						entity.setPriorityThree(dto.getPriorityThree().stream().collect(Collectors.joining(",")));
@@ -200,18 +219,19 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 						entity.setUpdatedDate(Date.valueOf(currentDate));
 
 						try {
-							//Save all records
-							if(dto.getConfirmFlag().isBlank() || dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
+							// Save all records
+							if (dto.getConfirmFlag().isBlank()
+									|| dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
 								return mixPrivilegeMasterRepository.save(entity) != null;
 							}
-						} catch(Exception e){
+						} catch (Exception e) {
 							return false;
 						}
 					}
 
-				}else {
+				} else {
 
-					if(!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)){
+					if (!dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
 						validateMixPrivilegeMstRequest(dto);
 					}
 
@@ -219,8 +239,10 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 					entity.setCarFmlyCode(dto.getCrFmlyCode());
 					entity.setExporterCode(dto.getReExpCode());
 					entity.setCompanyCode(dto.getCompanyCode());
-					entity.setEffFrom(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffFromDate()));
-					entity.setEffTo(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,dto.getEffToDate()));
+					entity.setEffFrom(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,
+							dto.getEffFromDate()));
+					entity.setEffTo(DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATE_FORMATE,
+							dto.getEffToDate()));
 					entity.setPriorityOne(dto.getPriorityOne().stream().collect(Collectors.joining(",")));
 					entity.setPriorityTwo(dto.getPriorityTwo().stream().collect(Collectors.joining(",")));
 					entity.setPriorityThree(dto.getPriorityThree().stream().collect(Collectors.joining(",")));
@@ -230,11 +252,12 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 					entity.setUpdatedDate(Date.valueOf(currentDate));
 
 					try {
-						//Save all records
-						if(dto.getConfirmFlag().isBlank() || dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
+						// Save all records
+						if (dto.getConfirmFlag().isBlank()
+								|| dto.getConfirmFlag().equalsIgnoreCase(ConstantUtils.CONFIRMED)) {
 							return mixPrivilegeMasterRepository.save(entity) != null;
 						}
-					} catch(Exception e) {
+					} catch (Exception e) {
 						return false;
 					}
 				}
@@ -245,80 +268,86 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 
 	}
 
-	private void validateMixPrivilegeMstRequest(MixPrivilegeMasterSaveRequestDto mixPrivilegeMstSaveRequestDto) throws InvalidInputParametersException{
+	private void validateMixPrivilegeMstRequest(MixPrivilegeMasterSaveRequestDto mixPrivilegeMstSaveRequestDto)
+			throws InvalidInputParametersException {
 
 		String effFrom = mixPrivilegeMstSaveRequestDto.getEffFromDate();
 		String effTo = mixPrivilegeMstSaveRequestDto.getEffToDate();
 		String destCode = mixPrivilegeMstSaveRequestDto.getDestCode();
 		String crFmlycode = mixPrivilegeMstSaveRequestDto.getCrFmlyCode();
 		String reExpCode = mixPrivilegeMstSaveRequestDto.getReExpCode();
-        
-		if(!Util.nullCheck(destCode) || !Util.nullCheck(crFmlycode) || !Util.nullCheck(reExpCode) || 
-				!Util.nullCheck(effFrom) || !Util.nullCheck(effTo) || mixPrivilegeMstSaveRequestDto.getPriorityOne().isEmpty()) {
+
+		if (!Util.nullCheck(destCode) || !Util.nullCheck(crFmlycode) || !Util.nullCheck(reExpCode)
+				|| !Util.nullCheck(effFrom) || !Util.nullCheck(effTo)
+				|| mixPrivilegeMstSaveRequestDto.getPriorityOne().isEmpty()) {
 			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
 		}
-		
-		Date effFromDate = DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, effFrom);
+
+		Date effFromDate = DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE,
+				effFrom);
 		Date effToDate = DateUtil.dateFromStringDateFormateforInvoiceDate(ConstantUtils.DEFAULT_DATE_FORMATE, effTo);
 
-		if(effFromDate.compareTo(effToDate) > 0) {
+		if (effFromDate.compareTo(effToDate) > 0) {
 			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1036);
 		}
 
 		Map<String, Object> errorMessageParams = new HashMap<>();
-		Map<String,Object[]> errorMessageparamsArray = new HashMap<>();
+		Map<String, Object[]> errorMessageparamsArray = new HashMap<>();
 
-		if(mixPrivilegeMstSaveRequestDto.getPrivMstId()==null) {
+		if (mixPrivilegeMstSaveRequestDto.getPrivMstId() == null) {
 
-			if((effFromDate.compareTo(Date.valueOf(currentDate)) < 0) || (effToDate.compareTo(Date.valueOf(currentDate)) < 0)) {
+			if ((effFromDate.compareTo(Date.valueOf(currentDate)) < 0)
+					|| (effToDate.compareTo(Date.valueOf(currentDate)) < 0)) {
 				throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1037);
 			}
 
-			Optional<MixPrivilegeMasterEntity> entity = mixPrivilegeMasterRepository.findBydestinationCodeAndCarFmlyCodeAndExporterCodeAndEffFromAndEffTo
-					(destCode,crFmlycode,reExpCode,effFromDate,effToDate);
-			if(entity.isPresent()) {
+			Optional<MixPrivilegeMasterEntity> entity = mixPrivilegeMasterRepository
+					.findBydestinationCodeAndCarFmlyCodeAndExporterCodeAndEffFromAndEffTo(destCode, crFmlycode,
+							reExpCode, effFromDate, effToDate);
+			if (entity.isPresent()) {
 				List<String> keyColumns = new ArrayList<>();
 				keyColumns.add("ImporterCode");
 				keyColumns.add("CarFamilyCode");
 				keyColumns.add("Re-exportCode");
 				keyColumns.add("VanDateFrom");
 				keyColumns.add("VanDateTo");
-				errorMessageParams.put("keyColumns",keyColumns);
-				throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3008,errorMessageParams);
+				errorMessageParams.put("keyColumns", keyColumns);
+				throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3008, errorMessageParams);
 			}
 		}
 
-		List<MixPrivilegeMasterEntity> listEntity = mixPrivilegeMasterRepository.findByDestinationCodeAndCarFmlyCodeAndExporterCode(destCode,crFmlycode,reExpCode);
+		List<MixPrivilegeMasterEntity> listEntity = mixPrivilegeMasterRepository
+				.findByDestinationCodeAndCarFmlyCodeAndExporterCode(destCode, crFmlycode, reExpCode);
 
-		if(!listEntity.isEmpty()) {
-			for(MixPrivilegeMasterEntity e : listEntity) {
+		if (!listEntity.isEmpty()) {
+			for (MixPrivilegeMasterEntity e : listEntity) {
 
 				Date entityEffFromDate = new Date(0);
 				Date entityEffToDate = new Date(0);
 
-				if(e.getEffFrom() != null) {
-					entityEffFromDate = Date.valueOf(e.getEffFrom()); 
+				if (e.getEffFrom() != null) {
+					entityEffFromDate = Date.valueOf(e.getEffFrom());
 				}
-				if(e.getEffTo() != null) {
+				if (e.getEffTo() != null) {
 					entityEffToDate = Date.valueOf(e.getEffTo());
 				}
 
-				if(effFromDate.before(entityEffFromDate) && effToDate.after(entityEffFromDate) ||
-						effFromDate.before(entityEffToDate) && effToDate.after(entityEffToDate) ||
-						effFromDate.before(entityEffFromDate) && effToDate.after(entityEffToDate) ||
-						effFromDate.after(entityEffFromDate) && effToDate.before(entityEffToDate) ) {
-					errorMessageParams.put("Re-ExporterCode","Re-Export Code:"+reExpCode); 
-					throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1038,errorMessageParams);
+				if (effFromDate.before(entityEffFromDate) && effToDate.after(entityEffFromDate)
+						|| effFromDate.before(entityEffToDate) && effToDate.after(entityEffToDate)
+						|| effFromDate.before(entityEffFromDate) && effToDate.after(entityEffToDate)
+						|| effFromDate.after(entityEffFromDate) && effToDate.before(entityEffToDate)) {
+					errorMessageParams.put("Re-ExporterCode", "Re-Export Code:" + reExpCode);
+					throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1038, errorMessageParams);
 				}
 
 			}
 		}
 
-		List<String> priorityOne   = mixPrivilegeMstSaveRequestDto.getPriorityOne();
-		List<String> priorityTwo   = mixPrivilegeMstSaveRequestDto.getPriorityTwo();
+		List<String> priorityOne = mixPrivilegeMstSaveRequestDto.getPriorityOne();
+		List<String> priorityTwo = mixPrivilegeMstSaveRequestDto.getPriorityTwo();
 		List<String> priorityThree = mixPrivilegeMstSaveRequestDto.getPriorityThree();
-		List<String> priorityFour  = mixPrivilegeMstSaveRequestDto.getPriorityFour();
-		List<String> priorityFive  = mixPrivilegeMstSaveRequestDto.getPriorityFive();
+		List<String> priorityFour = mixPrivilegeMstSaveRequestDto.getPriorityFour();
+		List<String> priorityFive = mixPrivilegeMstSaveRequestDto.getPriorityFive();
 
 		List<List<String>> priorities = new ArrayList<>();
 		priorities.add(priorityOne);
@@ -331,24 +360,25 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 		List<Integer> lessThanTwoPrivilegeList = new ArrayList<>();
 
 		Integer priorityNum1 = 0;
-		for(List<String> priority : priorities) {
+		for (List<String> priority : priorities) {
 
 			priorityNum1++;
-			if(!priority.isEmpty() && priority.size() <2){
+			if (!priority.isEmpty() && priority.size() < 2) {
 				lessThanTwoPrivilegeList.add(priorityNum1);
 				lessThanTwoPrivilegeFlag = true;
 			}
 		}
-		if(lessThanTwoPrivilegeFlag){
+		if (lessThanTwoPrivilegeFlag) {
 			Integer[] lessThanTwoPrivilegePriorities = lessThanTwoPrivilegeList.toArray(new Integer[0]);
-			errorMessageparamsArray.put("Priority_N",lessThanTwoPrivilegePriorities);
-			throw new InvalidInputParametersException(errorMessageparamsArray,ConstantUtils.ERR_IN_1039);
+			errorMessageparamsArray.put(PRIORITY_N, lessThanTwoPrivilegePriorities);
+			throw new InvalidInputParametersException(errorMessageparamsArray, ConstantUtils.ERR_IN_1039);
 		}
 
 		List<PrivilegeMasterEntity> priorityList = privilegeMasterRepository.findAll();
 
-		Map<String, List<String>> listOfPrivileges = priorityList.stream().collect(Collectors.groupingBy(e->e.getId().getPrivilegeName(), 
-				Collectors.mapping( e->e.getId().getPrivilegeName()+" "+e.getId().getPrivilegeCode(),Collectors.toList())));
+		Map<String, List<String>> listOfPrivileges = priorityList.stream()
+				.collect(Collectors.groupingBy(e -> e.getId().getPrivilegeName(), Collectors.mapping(
+						e -> e.getId().getPrivilegeName() + " " + e.getId().getPrivilegeCode(), Collectors.toList())));
 
 		List<String> keyList = new ArrayList<>(listOfPrivileges.keySet());
 		List<String> privType1 = new ArrayList<>();
@@ -357,7 +387,7 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 		List<String> privType4 = new ArrayList<>();
 		List<String> privType5 = new ArrayList<>();
 
-		if(!keyList.isEmpty()) {
+		if (!keyList.isEmpty()) {
 			privType1 = listOfPrivileges.get(keyList.get(0));
 			privType2 = listOfPrivileges.get(keyList.get(1));
 			privType3 = listOfPrivileges.get(keyList.get(2));
@@ -367,88 +397,108 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 
 		boolean samePrivlegeFlag = false;
 		List<Integer> samePrivlegeTypeList = new ArrayList<>();
-		Integer priorityNum =1;
+		Integer priorityNum = 1;
 
-		if(!priorityOne.isEmpty() && ((priorityOne.size()==priorityTwo.size() && (priorityOne.stream().allMatch(priorityTwo::contains))) || 
-				(priorityOne.size()==priorityThree.size() && priorityOne.stream().allMatch(priorityThree::contains))||
-				(priorityOne.size()==priorityFour.size() && priorityOne.stream().allMatch(priorityFour::contains)) || 
-				(priorityOne.size()==priorityFive.size() && priorityOne.stream().allMatch(priorityFive::contains))
-				)){
+		if (!priorityOne.isEmpty()
+				&& ((priorityOne.size() == priorityTwo.size() && (priorityOne.stream().allMatch(priorityTwo::contains)))
+						|| (priorityOne.size() == priorityThree.size()
+								&& priorityOne.stream().allMatch(priorityThree::contains))
+						|| (priorityOne.size() == priorityFour.size()
+								&& priorityOne.stream().allMatch(priorityFour::contains))
+						|| (priorityOne.size() == priorityFive.size()
+								&& priorityOne.stream().allMatch(priorityFive::contains)))) {
 			samePrivlegeFlag = true;
 			samePrivlegeTypeList.add(priorityNum);
 
 		}
 		priorityNum++;
-		if(!priorityTwo.isEmpty() && ((priorityTwo.size()==priorityOne.size() && priorityTwo.stream().allMatch(priorityOne::contains)) || 
-				(priorityTwo.size()==priorityThree.size() && priorityTwo.stream().allMatch(priorityThree::contains))||
-				(priorityTwo.size()==priorityFour.size() && priorityTwo.stream().allMatch(priorityFour::contains)) || 
-				(priorityTwo.size()==priorityFive.size() && priorityTwo.stream().allMatch(priorityFive::contains))
-				)) {
+		if (!priorityTwo.isEmpty()
+				&& ((priorityTwo.size() == priorityOne.size() && priorityTwo.stream().allMatch(priorityOne::contains))
+						|| (priorityTwo.size() == priorityThree.size()
+								&& priorityTwo.stream().allMatch(priorityThree::contains))
+						|| (priorityTwo.size() == priorityFour.size()
+								&& priorityTwo.stream().allMatch(priorityFour::contains))
+						|| (priorityTwo.size() == priorityFive.size()
+								&& priorityTwo.stream().allMatch(priorityFive::contains)))) {
 			samePrivlegeFlag = true;
 			samePrivlegeTypeList.add(priorityNum);
 
 		}
 		priorityNum++;
-		if(!priorityThree.isEmpty() && ((priorityThree.size()==priorityOne.size() && priorityThree.stream().allMatch(priorityOne::contains)) || 
-				(priorityThree.size()==priorityTwo.size() && priorityThree.stream().allMatch(priorityTwo::contains))||
-				(priorityThree.size()==priorityFour.size() && priorityThree.stream().allMatch(priorityFour::contains)) || 
-				(priorityThree.size()==priorityFive.size() && priorityThree.stream().allMatch(priorityFive::contains))
-				)) {
+		if (!priorityThree.isEmpty() && ((priorityThree.size() == priorityOne.size()
+				&& priorityThree.stream().allMatch(priorityOne::contains))
+				|| (priorityThree.size() == priorityTwo.size()
+						&& priorityThree.stream().allMatch(priorityTwo::contains))
+				|| (priorityThree.size() == priorityFour.size()
+						&& priorityThree.stream().allMatch(priorityFour::contains))
+				|| (priorityThree.size() == priorityFive.size()
+						&& priorityThree.stream().allMatch(priorityFive::contains)))) {
 			samePrivlegeFlag = true;
 			samePrivlegeTypeList.add(priorityNum);
 
 		}
 		priorityNum++;
-		if(!priorityFour.isEmpty() && ((priorityFour.size()==priorityOne.size() && priorityFour.stream().allMatch(priorityOne::contains)) || 
-				(priorityFour.size()==priorityTwo.size() && priorityFour.stream().allMatch(priorityTwo::contains))||
-				(priorityFour.size()==priorityThree.size() && priorityFour.stream().allMatch(priorityThree::contains)) || 
-				(priorityFour.size()==priorityFive.size() && priorityFour.stream().allMatch(priorityFive::contains))
-				)) {
+		if (!priorityFour.isEmpty() && ((priorityFour.size() == priorityOne.size()
+				&& priorityFour.stream().allMatch(priorityOne::contains))
+				|| (priorityFour.size() == priorityTwo.size() && priorityFour.stream().allMatch(priorityTwo::contains))
+				|| (priorityFour.size() == priorityThree.size()
+						&& priorityFour.stream().allMatch(priorityThree::contains))
+				|| (priorityFour.size() == priorityFive.size()
+						&& priorityFour.stream().allMatch(priorityFive::contains)))) {
 			samePrivlegeFlag = true;
 			samePrivlegeTypeList.add(priorityNum);
 		}
 		priorityNum++;
-		if(!priorityFive.isEmpty() && ((priorityFive.size()==priorityOne.size() && priorityFive.stream().allMatch(priorityOne::contains)) || 
-				(priorityFive.size()==priorityTwo.size() && priorityFive.stream().allMatch(priorityTwo::contains))||
-				(priorityFive.size()==priorityThree.size() && priorityFive.stream().allMatch(priorityThree::contains)) || 
-				(priorityFive.size()==priorityFour.size() && priorityFive.stream().allMatch(priorityFour::contains))
-				)) {
+		if (!priorityFive.isEmpty() && ((priorityFive.size() == priorityOne.size()
+				&& priorityFive.stream().allMatch(priorityOne::contains))
+				|| (priorityFive.size() == priorityTwo.size() && priorityFive.stream().allMatch(priorityTwo::contains))
+				|| (priorityFive.size() == priorityThree.size()
+						&& priorityFive.stream().allMatch(priorityThree::contains))
+				|| (priorityFive.size() == priorityFour.size()
+						&& priorityFive.stream().allMatch(priorityFour::contains)))) {
 			samePrivlegeFlag = true;
 			samePrivlegeTypeList.add(priorityNum);
 		}
 
-		if(samePrivlegeFlag) {
+		if (samePrivlegeFlag) {
 			Integer[] samePrivlegeTypePriorities = samePrivlegeTypeList.toArray(new Integer[0]);
-			errorMessageparamsArray.put("Priority_N",samePrivlegeTypePriorities);
-			throw new InvalidInputParametersException(errorMessageparamsArray,ConstantUtils.ERR_IN_1040);
+			errorMessageparamsArray.put(PRIORITY_N, samePrivlegeTypePriorities);
+			throw new InvalidInputParametersException(errorMessageparamsArray, ConstantUtils.ERR_IN_1040);
 		}
-
 
 		boolean moreThanTwoPrivlegeTypeFlag = false;
 		List<Integer> moreThanTwoPrivlegeTypeList = new ArrayList<>();
 
 		Integer priorityCount = 0;
 
-		for(List<String> priority : priorities) {
+		for (List<String> priority : priorities) {
 			priorityCount++;
-			if((!priority.isEmpty() && priority.size() >2) && (((priority.stream().anyMatch(privType1::contains)) && (priority.stream().anyMatch(privType2::contains)) && 
-					(priority.stream().anyMatch(privType3::contains))) || ((priority.stream().anyMatch(privType2::contains)) && (priority.stream().anyMatch(privType3::contains)) && 
-							(priority.stream().anyMatch(privType4::contains))) || ((priority.stream().anyMatch(privType3::contains)) && (priority.stream().anyMatch(privType4::contains)) && 
-									(priority.stream().anyMatch(privType5::contains))) || ((priority.stream().anyMatch(privType4::contains)) && (priority.stream().anyMatch(privType5::contains)) && 
-											(priority.stream().anyMatch(privType1::contains))) || ((priority.stream().anyMatch(privType5::contains)) && (priority.stream().anyMatch(privType1::contains)) && 
-													(priority.stream().anyMatch(privType2::contains))))) {
+			if ((!priority.isEmpty() && priority.size() > 2) && (((priority.stream().anyMatch(privType1::contains))
+					&& (priority.stream().anyMatch(privType2::contains))
+					&& (priority.stream().anyMatch(privType3::contains)))
+					|| ((priority.stream().anyMatch(privType2::contains))
+							&& (priority.stream().anyMatch(privType3::contains))
+							&& (priority.stream().anyMatch(privType4::contains)))
+					|| ((priority.stream().anyMatch(privType3::contains))
+							&& (priority.stream().anyMatch(privType4::contains))
+							&& (priority.stream().anyMatch(privType5::contains)))
+					|| ((priority.stream().anyMatch(privType4::contains))
+							&& (priority.stream().anyMatch(privType5::contains))
+							&& (priority.stream().anyMatch(privType1::contains)))
+					|| ((priority.stream().anyMatch(privType5::contains))
+							&& (priority.stream().anyMatch(privType1::contains))
+							&& (priority.stream().anyMatch(privType2::contains))))) {
 				moreThanTwoPrivlegeTypeFlag = true;
 				moreThanTwoPrivlegeTypeList.add(priorityCount);
 
 			}
 		}
 
-		if(moreThanTwoPrivlegeTypeFlag) {
+		if (moreThanTwoPrivlegeTypeFlag) {
 			Integer[] moreThanTwoPrivTypesPriorities = moreThanTwoPrivlegeTypeList.toArray(new Integer[0]);
-			errorMessageparamsArray.put("Priority_N",moreThanTwoPrivTypesPriorities);
-			throw new InvalidInputParametersException(errorMessageparamsArray,ConstantUtils.WARN_IN_1040);
+			errorMessageparamsArray.put(PRIORITY_N, moreThanTwoPrivTypesPriorities);
+			throw new InvalidInputParametersException(errorMessageparamsArray, ConstantUtils.WARN_IN_1040);
 		}
-
 
 		List<Integer> expectNonPriorityList = new ArrayList<>();
 		List<String> expectNonPrivlegeNameList = new ArrayList<>();
@@ -458,71 +508,66 @@ public class MixPrivilegeMasterServiceImpl implements MixPrivilegeMasterService{
 
 		String privilegeTypeNon = ConstantUtils.PRIVILEGETYPE_NON;
 
-		for(List<String> priority : priorities) {
-			if(!priority.isEmpty()) {
+		for (List<String> priority : priorities) {
+			if (!priority.isEmpty()) {
 				priotityNumber++;
 				count = 0;
-				if(privType1.stream().noneMatch(p->p.contains(privilegeTypeNon)) && count<2) {
-					if(priority.stream().anyMatch(privType1::contains)){
-						count++;
-						if(count >= 2) {
-							expectNonPrivlegeNameList.add(privType1.get(0));
-						}
+				if (privType1.stream().noneMatch(p -> p.contains(privilegeTypeNon)) && count < 2
+						&& (priority.stream().anyMatch(privType1::contains))) {
+					count++;
+					if (count >= 2) {
+						expectNonPrivlegeNameList.add(privType1.get(0));
 					}
+
 				}
-				if(privType2.stream().noneMatch(p->p.contains(privilegeTypeNon)) && count<2) {
-					if(priority.stream().anyMatch(privType2::contains)){
-						count++;
-						if(count >= 2) {
-							expectNonPrivlegeNameList.add(privType2.get(0));
-						}
+				if (privType2.stream().noneMatch(p -> p.contains(privilegeTypeNon)) && count < 2
+						&& (priority.stream().anyMatch(privType2::contains))) {
+					count++;
+					if (count >= 2) {
+						expectNonPrivlegeNameList.add(privType2.get(0));
 					}
+
 				}
-				if(privType3.stream().noneMatch(p->p.contains(privilegeTypeNon)) && count<2) {
-					if(priority.stream().anyMatch(privType3::contains)){
-						count++;
-						if(count >= 2) {
-							expectNonPrivlegeNameList.add(privType3.get(0));
-						}
+				if (privType3.stream().noneMatch(p -> p.contains(privilegeTypeNon)) && count < 2
+						&& (priority.stream().anyMatch(privType3::contains))) {
+					count++;
+					if (count >= 2) {
+						expectNonPrivlegeNameList.add(privType3.get(0));
 					}
+
 				}
-				if(privType4.stream().noneMatch(p->p.contains(privilegeTypeNon)) && count<2) {
-					if(priority.stream().anyMatch(privType4::contains)){
-						count++;
-						if(count >= 2) {
-							expectNonPrivlegeNameList.add(privType4.get(0));
-						}
+				if (privType4.stream().noneMatch(p -> p.contains(privilegeTypeNon)) && count < 2
+						&& (priority.stream().anyMatch(privType4::contains))) {
+					count++;
+					if (count >= 2) {
+						expectNonPrivlegeNameList.add(privType4.get(0));
 					}
+
 				}
-				if(privType5.stream().noneMatch(p->p.contains(privilegeTypeNon)) && count<2) {
-					if(priority.stream().anyMatch(privType5::contains)){
-						count++;
-						if(count >= 2) {
-							expectNonPrivlegeNameList.add(privType5.get(0));
-						}
+				if (privType5.stream().noneMatch(p -> p.contains(privilegeTypeNon)) && count < 2
+						&& (priority.stream().anyMatch(privType5::contains))) {
+					count++;
+					if (count >= 2) {
+						expectNonPrivlegeNameList.add(privType5.get(0));
 					}
+
 				}
-				if(count >= 2) {
+				if (count >= 2) {
 					expectNonPriorityList.add(priotityNumber);
 				}
 			}
 
-			if(count >= 2) {
+			if (count >= 2) {
 				Integer[] priorityTypes = expectNonPriorityList.toArray(new Integer[0]);
 				String[] privilegeTypes = expectNonPrivlegeNameList.toArray(new String[0]);
 
-				errorMessageparamsArray.put("Priority_N",priorityTypes);
-				errorMessageparamsArray.put("Privilege_Names",privilegeTypes);
+				errorMessageparamsArray.put(PRIORITY_N, priorityTypes);
+				errorMessageparamsArray.put("Privilege_Names", privilegeTypes);
 
-				throw new InvalidInputParametersException(errorMessageparamsArray,ConstantUtils.WARN_IN_1041);
+				throw new InvalidInputParametersException(errorMessageparamsArray, ConstantUtils.WARN_IN_1041);
 			}
 		}
 
-
-
 	}
 
-
 }
-
-

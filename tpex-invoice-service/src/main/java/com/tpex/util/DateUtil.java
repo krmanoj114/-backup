@@ -12,8 +12,12 @@ import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 
 public class DateUtil {
-	
-	private static final String DD_MM_YYYY ="dd/MM/yyyy";
+
+	private DateUtil() {
+
+	}
+
+	private static final String DD_MM_YYYY = "dd/MM/yyyy";
 
 	public static LocalDateTime convertSqlDateToLocalDateTimeOfEntityAttribute(java.sql.Timestamp dbData) {
 
@@ -82,13 +86,14 @@ public class DateUtil {
 		DateFormat objFormate = new SimpleDateFormat(DD_MM_YYYY);
 		return timestamp == null ? null : objFormate.format(new Date(Long.valueOf(timestamp)));
 	}
-   /**
-    * @author Mohd.Javed
-    * Method for convert date format from dd/mm/yyyy to dd-MMM-yy
-    * @param date
-    * @return String date
-    * @throws ParseException
-    */
+
+	/**
+	 * @author Mohd.Javed Method for convert date format from dd/mm/yyyy to
+	 *         dd-MMM-yy
+	 * @param date
+	 * @return String date
+	 * @throws ParseException
+	 */
 	public static String getStringDate(String date) throws ParseException {
 
 		SimpleDateFormat inputFormat = new SimpleDateFormat(DD_MM_YYYY);
@@ -97,17 +102,18 @@ public class DateUtil {
 		return date == null ? null : reqFormat.format(inputFormat.parse(date));
 
 	}
-	
+
 	/**
 	 * Gets the string date.
 	 *
-	 * @param inputDate the input date
-	 * @param inputDateFormat the input date format
+	 * @param inputDate        the input date
+	 * @param inputDateFormat  the input date format
 	 * @param outputDateFormat the output date format
 	 * @return the string date
 	 * @throws ParseException the parse exception
 	 */
-	public static String getStringDate(String inputDate, String inputDateFormat, String outputDateFormat) throws ParseException {
+	public static String getStringDate(String inputDate, String inputDateFormat, String outputDateFormat)
+			throws ParseException {
 		SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat);
 		SimpleDateFormat outputFormat = new SimpleDateFormat(outputDateFormat);
 		return inputDate == null ? null : outputFormat.format(inputFormat.parse(inputDate));

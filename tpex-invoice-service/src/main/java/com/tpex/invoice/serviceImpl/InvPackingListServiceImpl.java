@@ -1,6 +1,6 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
-import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tpex.invoice.dto.DownloadInvoiceReportsRequestDTO;
+import com.tpex.exception.InvalidInputParametersException;
 import com.tpex.invoice.dto.InsModuleDtlsDto;
 import com.tpex.invoice.dto.InvPackingListResponseDTO;
 import com.tpex.invoice.dto.PartDetailDataDTO;
@@ -26,6 +26,8 @@ import com.tpex.invoice.service.InvPackingListService;
 import com.tpex.jasperreport.service.JasperReportService;
 import com.tpex.repository.InvPackingListRepository;
 import com.tpex.repository.TpexConfigRepository;
+
+import net.sf.jasperreports.engine.JRException;
 
 @Service
 @Transactional
@@ -45,7 +47,7 @@ public class InvPackingListServiceImpl implements InvPackingListService {
 
 	@Override
 	public Object getInvPackingListRptDownload(String invNumber, String fileTemplateName,
-			String reportFormat) throws Exception {
+			String reportFormat) throws FileNotFoundException, JRException {
 
 		Object response = null;
 		Map<String, Object> parameters = new HashMap<>();
@@ -66,47 +68,31 @@ public class InvPackingListServiceImpl implements InvPackingListService {
 
 		List<InvPackingListResponseDTO> invPackingListResponseDTOList = getPackingListData(invNumber);
 
-		StringBuilder sb = new StringBuilder().append(String.valueOf(config.get("reportDirectory"))).append("/")
-				.append(fileName);
-
 		if ("xlsx".equals(fileFormat)) {
 			response = jasperReportService.getJasperReportDownloadOnline(invPackingListResponseDTOList, fileFormat, fileTemplateName, fileName, parameters, config);
 		
 		}else {
-			response = jasperReportService.getJasperReportDownloadOfflineV1(invPackingListResponseDTOList, fileFormat, fileTemplateName, parameters, config, 0, sb, fileName);
+			response = jasperReportService.getJasperReportDownloadOfflineV1(invPackingListResponseDTOList, fileFormat, fileTemplateName, parameters, config, 0, fileName);
 
 		}
 		return response;
 	}
 	
-	private List<InvPackingListResponseDTO> getPackingListData(String invNumber) throws Exception {
+	private List<InvPackingListResponseDTO> getPackingListData(String invNumber) {
 
 		List<InvPackingListResponseDTO> invPackingListResponseDTOList = new ArrayList<>();
 		List<PartDetailDataDTO> partDetailDataDTOList = null;
-		Tuple invCompDetail = null;
-		String userMsg = "Fetch data from Parameter Master";
 
-		String companyCode = invPackingListRepository.getCompanyCode(); // TODO : input pram
+		String companyCode = invPackingListRepository.getCompanyCode();
 		if (companyCode == null) {
-			throw new Exception("");
+			throw new InvalidInputParametersException();
 		}
 
-		// String compCode = "TMAPTH_CMPO";
 		String compCode = invPackingListRepository.getCompCode(invNumber);
 
-		userMsg = "Fetch data from Consignee Mst";
 		String tmapthInvFlg = invPackingListRepository.getTmapthInvFlg(invNumber);
-		if ("Y".equalsIgnoreCase(tmapthInvFlg)) {
-			invCompDetail = invPackingListRepository.getInvCompDetailWhenFlgY(companyCode, compCode);
-		} else {
-			invCompDetail = invPackingListRepository.getInvCompDetailWhenFlgN(companyCode);
-		}
-
-		String invCompDetail1 = invCompDetail.get(0, String.class);
-		String invCompDetail2 = invCompDetail.get(1, String.class);
-		String invCompDetail3 = invCompDetail.get(2, String.class);
-		String invCompDetail4 = invCompDetail.get(3, String.class);
-		String invCompDetail5 = invCompDetail.get(4, String.class);
+		
+		Tuple invCompDetail = ("Y".equalsIgnoreCase(tmapthInvFlg)) ? invPackingListRepository.getInvCompDetailWhenFlgY(companyCode, compCode) : invPackingListRepository.getInvCompDetailWhenFlgN(companyCode);
 
 		List<Tuple> partDetailData = invPackingListRepository.getPartDetailData(invNumber);
 
@@ -118,9 +104,6 @@ public class InvPackingListServiceImpl implements InvPackingListService {
 
 				).collect(Collectors.toList());
 
-		String l_n_Prev_Mod = null;
-		String l_v_Prev_CF_CD = null;
-
 		List<Tuple> list1 = invPackingListRepository.getData(invNumber);
 		List<InsModuleDtlsDto> insModuleDtlsDtoList = null;
 
@@ -131,91 +114,101 @@ public class InvPackingListServiceImpl implements InvPackingListService {
 
 		Map<String, InsModuleDtlsDto> map = new HashMap<>();
 		for (InsModuleDtlsDto mapObj : insModuleDtlsDtoList) {
-			map.put(mapObj.getCfCd_modNo(), mapObj);
+			map.put(mapObj.getCfCdModNo(), mapObj);
 		}
-
+		if (!partDetailDataDTOList.isEmpty()) {
+			invPackingListResponseDTOList = getInvPackingList(partDetailDataDTOList, invCompDetail, map, invNumber, companyCode);
+		}
+		return invPackingListResponseDTOList;
+	}
+	
+	private List<InvPackingListResponseDTO> getInvPackingList(List<PartDetailDataDTO> partDetailDataDTOList, Tuple invCompDetail, Map<String, InsModuleDtlsDto> map, String invNumber, String companyCode) {
+		List<InvPackingListResponseDTO> invPackingListResponseDTOList = new ArrayList<>();
+		String invCompDetail1 = invCompDetail.get(0, String.class);
+		String invCompDetail2 = invCompDetail.get(1, String.class);
+		String invCompDetail3 = invCompDetail.get(2, String.class);
+		String invCompDetail4 = invCompDetail.get(3, String.class);
+		String invCompDetail5 = invCompDetail.get(4, String.class);
+		
+		int lnCtr = 0;
+		String lnPrevMod = null;
+		String lvPrevCfCd = null;
 		BigDecimal grossWeight = new BigDecimal("0");
 		BigDecimal measurement = new BigDecimal("0");
 		BigDecimal noOfModule = new BigDecimal("0");
-		int l_n_Part_Wt = 0;
-		int l_n_Ctr = 0;
-
+		
 		for (PartDetailDataDTO partDetailDataDTO : partDetailDataDTOList) {
-			if (partDetailDataDTO != null) {
 
-				l_n_Part_Wt = 0;
-
-				if (l_n_Ctr == 0) {
-					l_n_Prev_Mod = partDetailDataDTO.getSHIP_MARK();
-					l_v_Prev_CF_CD = partDetailDataDTO.getCF_CD();
-					String key = partDetailDataDTO.getCF_CD() + "-" + partDetailDataDTO.getSHIP_MARK();
-					grossWeight = map.get(key) != null && map.get(key).getGrossWt() != null ? map.get(key).getGrossWt()	: new BigDecimal("0");
-					measurement = map.get(key) != null && map.get(key).getTotalM3() != null ? map.get(key).getTotalM3()	: new BigDecimal("0");
-					noOfModule = map.get(key) != null && map.get(key).getCCount() != null ? map.get(key).getCCount() : new BigDecimal("0");
-				}
-
-				if ((l_n_Prev_Mod != null && !l_n_Prev_Mod.equals(partDetailDataDTO.getSHIP_MARK()))
-						|| (l_v_Prev_CF_CD != null && !l_v_Prev_CF_CD.equals(partDetailDataDTO.getCF_CD()))) {
-
-					String l_v_user_msg = partDetailDataDTO.getSHIP_MARK();
-					grossWeight = new BigDecimal("0");
-					measurement = new BigDecimal("0");
-					noOfModule = new BigDecimal("0");
-
-					String key = partDetailDataDTO.getCF_CD() + "-" + partDetailDataDTO.getSHIP_MARK();
-					grossWeight = map.get(key) != null && map.get(key).getGrossWt() != null ? map.get(key).getGrossWt()	: new BigDecimal("0");
-					measurement = map.get(key) != null && map.get(key).getTotalM3() != null ? map.get(key).getTotalM3()	: new BigDecimal("0");
-					noOfModule = map.get(key) != null && map.get(key).getCCount() != null ? map.get(key).getCCount() : new BigDecimal("0");
-				}
-				if (partDetailDataDTO.getPART_WT() == null) {
-					noOfModule = new BigDecimal("0");
-					// l_n_Part_Wt := 0;
-				}
-
-				InvPackingListResponseDTO invPackingListResponseDTO = new InvPackingListResponseDTO();
-
-				invPackingListResponseDTO.setINS_CNSG_NAME(invCompDetail1);
-				invPackingListResponseDTO.setINS_CNSG_ADD1(invCompDetail2);
-				invPackingListResponseDTO.setINS_CNSG_ADD2(invCompDetail3);
-				invPackingListResponseDTO.setINS_CNSG_ADD3(invCompDetail4);
-				invPackingListResponseDTO.setINS_CNSG_ADD4(invCompDetail5);
-				invPackingListResponseDTO.setINS_INV_NO(invNumber);
-				invPackingListResponseDTO.setINS_INV_DT(partDetailDataDTO.getINV_DT());
-				invPackingListResponseDTO.setINS_PART_NO(partDetailDataDTO.getPART_NO());
-				invPackingListResponseDTO.setINS_UNIT_PER_BOX(partDetailDataDTO.getUNIT_BOX().intValue());
-				invPackingListResponseDTO.setINS_SUM_TOT_UNIT(partDetailDataDTO.getSUM_TOT_UNIT().intValue());
-				invPackingListResponseDTO.setINS_PART_NAME(partDetailDataDTO.getPRT_NAME());
-				invPackingListResponseDTO.setINS_PART_WT(partDetailDataDTO.getPART_WT().doubleValue());
-				/*
-				  String key = partDetailDataDTO.getCF_CD()+"-"+partDetailDataDTO.getSHIP_MARK(); 
-				  BigDecimal grossWeight = map.get(key) != null && map.get(key).getGrossWt() != null ? map.get(key).getGrossWt() : new BigDecimal("0"); 
-				  BigDecimal measurement = map.get(key) != null && map.get(key).getTotalM3() != null ? map.get(key).getTotalM3() : new BigDecimal("0"); 
-				  BigDecimal noOfModule = map.get(key) != null && map.get(key).getCCount() != null ? map.get(key).getCCount() : new BigDecimal("0");
-				 */
-				invPackingListResponseDTO.setINS_GROSS_WT(grossWeight.doubleValue());
-				invPackingListResponseDTO.setINS_MEASUREMENT(measurement.doubleValue());
-				invPackingListResponseDTO.setINS_SHIPMARK_4(partDetailDataDTO.getSHIP_MARK());
-				invPackingListResponseDTO.setINS_SHIPMARK_5(partDetailDataDTO.getSHIP_MARK4());
-				invPackingListResponseDTO.setSHIP_MARK_GP(partDetailDataDTO.getSHIP_MARK());
-				invPackingListResponseDTO
-						.setCASE_MOD((partDetailDataDTO.getSHIP_MARK().substring(0, 3) == companyCode)
-								? (partDetailDataDTO.getSHIP_MARK().substring(0, 3) + "-"
-										+ partDetailDataDTO.getSHIP_MARK().substring(3, 4) + "-"
-										+ partDetailDataDTO.getSHIP_MARK().substring(4, 5) + "-"
-										+ partDetailDataDTO.getSHIP_MARK().substring(5))
-								: partDetailDataDTO.getSHIP_MARK());
-				invPackingListResponseDTO.setINS_CF_CD(partDetailDataDTO.getCF_CD());
-				invPackingListResponseDTO.setINS_SRS_NAME(partDetailDataDTO.getSERIES());
-				invPackingListResponseDTO.setINS_NO_OF_CASES(noOfModule.intValue());
-
-				l_n_Prev_Mod = partDetailDataDTO.getSHIP_MARK();
-				l_v_Prev_CF_CD = partDetailDataDTO.getCF_CD();
-				l_n_Ctr = l_n_Ctr + 1;
-
-				invPackingListResponseDTOList.add(invPackingListResponseDTO);
+			if (lnCtr == 0) {
+				lnPrevMod = partDetailDataDTO.getShipMark();
+				lvPrevCfCd = partDetailDataDTO.getCfCd();
+				String key = partDetailDataDTO.getCfCd() + "-" + partDetailDataDTO.getShipMark();
+				grossWeight = getGrossWeight(map, key);
+				measurement = getMeasurement(map, key);
+				noOfModule = getNoOfModule(map, key);
 			}
+
+			if ((lnPrevMod != null && !lnPrevMod.equals(partDetailDataDTO.getShipMark()))
+					|| (lvPrevCfCd != null && !lvPrevCfCd.equals(partDetailDataDTO.getCfCd()))) {
+
+				String key = partDetailDataDTO.getCfCd() + "-" + partDetailDataDTO.getShipMark();
+				grossWeight = getGrossWeight(map, key);
+				measurement = getMeasurement(map, key);
+				noOfModule = getNoOfModule(map, key);
+			}
+			if (partDetailDataDTO.getPartWt() == null) {
+				noOfModule = new BigDecimal("0");
+			}
+
+			InvPackingListResponseDTO invPackingListResponseDTO = new InvPackingListResponseDTO();
+
+			invPackingListResponseDTO.setCnsgName(invCompDetail1);
+			invPackingListResponseDTO.setCnsgAdd1(invCompDetail2);
+			invPackingListResponseDTO.setCnsgAdd2(invCompDetail3);
+			invPackingListResponseDTO.setCnsgAdd3(invCompDetail4);
+			invPackingListResponseDTO.setCnsgAdd4(invCompDetail5);
+			invPackingListResponseDTO.setInvNo(invNumber);
+			invPackingListResponseDTO.setInvDt(partDetailDataDTO.getInvDt());
+			invPackingListResponseDTO.setPartNo(partDetailDataDTO.getPartNo());
+			invPackingListResponseDTO.setUnitPerBox(partDetailDataDTO.getUnitBox().intValue());
+			invPackingListResponseDTO.setSumTotalUnit(partDetailDataDTO.getSumTotalUnit().intValue());
+			invPackingListResponseDTO.setPartName(partDetailDataDTO.getPartName());
+			invPackingListResponseDTO.setPartWt(partDetailDataDTO.getPartWt().doubleValue());
+			invPackingListResponseDTO.setGrossWt(grossWeight.doubleValue());
+			invPackingListResponseDTO.setMeasurement(measurement.doubleValue());
+			invPackingListResponseDTO.setShipMark4(partDetailDataDTO.getShipMark());
+			invPackingListResponseDTO.setShipMark5(partDetailDataDTO.getShipMark4());
+			invPackingListResponseDTO.setShipMarkGp(partDetailDataDTO.getShipMark());
+			invPackingListResponseDTO
+					.setCaseMod((partDetailDataDTO.getShipMark().substring(0, 3).equals(companyCode))
+							? (partDetailDataDTO.getShipMark().substring(0, 3) + "-"
+									+ partDetailDataDTO.getShipMark().substring(3, 4) + "-"
+									+ partDetailDataDTO.getShipMark().substring(4, 5) + "-"
+									+ partDetailDataDTO.getShipMark().substring(5))
+							: partDetailDataDTO.getShipMark());
+			invPackingListResponseDTO.setCfCd(partDetailDataDTO.getCfCd());
+			invPackingListResponseDTO.setSrsName(partDetailDataDTO.getSeries());
+			invPackingListResponseDTO.setNoOfCases(noOfModule.intValue());
+
+			lnPrevMod = partDetailDataDTO.getShipMark();
+			lvPrevCfCd = partDetailDataDTO.getCfCd();
+			lnCtr = lnCtr + 1;
+
+			invPackingListResponseDTOList.add(invPackingListResponseDTO);
 		}
 		return invPackingListResponseDTOList;
+	}
+	
+	private BigDecimal getGrossWeight(Map<String, InsModuleDtlsDto> map, String key) {
+		return map.get(key) != null && map.get(key).getGrossWt() != null ? map.get(key).getGrossWt() : new BigDecimal("0");
+	}
+	
+	private BigDecimal getMeasurement(Map<String, InsModuleDtlsDto> map, String key) {
+		return map.get(key) != null && map.get(key).getTotalM3() != null ? map.get(key).getTotalM3()	: new BigDecimal("0");
+	}
+	
+	private BigDecimal getNoOfModule(Map<String, InsModuleDtlsDto> map, String key) {
+		return map.get(key) != null && map.get(key).getCCount() != null ? map.get(key).getCCount() : new BigDecimal("0");
 	}
 
 }

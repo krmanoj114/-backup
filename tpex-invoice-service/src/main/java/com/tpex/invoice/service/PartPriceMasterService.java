@@ -25,7 +25,8 @@ public interface PartPriceMasterService {
 	 * @return the part price master response dto
 	 * @throws ParseException the parse exception
 	 */
-	PartPriceMasterResponseDto partPriceMasterList(PartPriceMasterRequestDto partPriceMasterRequestDto) throws ParseException;
+	PartPriceMasterResponseDto partPriceMasterList(PartPriceMasterRequestDto partPriceMasterRequestDto)
+			throws ParseException;
 
 	/**
 	 * Destination and carfamily codes.

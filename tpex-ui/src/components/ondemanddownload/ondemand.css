@@ -1,0 +1,11 @@
+.accordion-button:not(.collapsed) {
+    background-color: #d1e7dd;
+}
+
+.red-border {
+    border: 1px solid red;
+}
+
+.red-text {
+    color: red;
+}

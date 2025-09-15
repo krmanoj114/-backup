@@ -8,69 +8,69 @@
 	<queryString language="plsql">
 		<![CDATA[{ call PINS005($P{P_IO_V_PARAM}, $P{P_I_V_INVOICE_NO}, $P{P_I_V_USER_ID})}]]>
 	</queryString>
-	<field name="INM_INV_NO" class="java.lang.String"/>
-	<field name="INV_DT" class="java.lang.String"/>
-	<field name="CMP_NAME" class="java.lang.String"/>
-	<field name="CMP_ADD_1" class="java.lang.String"/>
-	<field name="CMP_ADD_2" class="java.lang.String"/>
-	<field name="CMP_ADD_3" class="java.lang.String"/>
-	<field name="CMP_ADD_4" class="java.lang.String"/>
-	<field name="INM_LOT_NO" class="java.lang.String"/>
-	<field name="IIV_INV_VIN_NO" class="java.lang.String"/>
-	<sortField name="INM_LOT_NO"/>
+	<field name="invNo" class="java.lang.String"/>
+	<field name="invDt" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="add1" class="java.lang.String"/>
+	<field name="add2" class="java.lang.String"/>
+	<field name="add3" class="java.lang.String"/>
+	<field name="add4" class="java.lang.String"/>
+	<field name="lotNo" class="java.lang.String"/>
+	<field name="invVinNo" class="java.lang.String"/>
+	<sortField name="lotNo"/>
 	<variable name="fmlAddress2" class="java.lang.String">
 		<variableExpression><![CDATA[/*
-if IsNull ({PINS005.CMP_ADD_2}) then 
+if IsNull ({PINS005.add2}) then 
     ""
 else
-    ", " + {PINS005.CMP_ADD_2}
+    ", " + {PINS005.add2}
 
 */
-$F{CMP_ADD_2}==null ?
+$F{add2}==null ?
 	"" :
-		", "+$F{CMP_ADD_2}]]></variableExpression>
+		", "+$F{add2}]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
-if IsNull ({PINS005.CMP_ADD_2}) then 
+if IsNull ({PINS005.add2}) then 
     ""
 else
-    ", " + {PINS005.CMP_ADD_2}
+    ", " + {PINS005.add2}
 
 */
-$F{CMP_ADD_2}==null ?
+$F{add2}==null ?
 	"" :
-		", "+$F{CMP_ADD_2}]]></initialValueExpression>
+		", "+$F{add2}]]></initialValueExpression>
 	</variable>
 	<variable name="fmlAddress4" class="java.lang.String">
 		<variableExpression><![CDATA[/*
-if IsNull ({PINS005.CMP_ADD_4}) then 
+if IsNull ({PINS005.add4}) then 
     ""
 else
-    ", " + {PINS005.CMP_ADD_4}
+    ", " + {PINS005.add4}
 
 */
-$F{CMP_ADD_4}==null ?
+$F{add4}==null ?
 	"" :
-		", "+$F{CMP_ADD_4}]]></variableExpression>
+		", "+$F{add4}]]></variableExpression>
 		<initialValueExpression><![CDATA[/*
-if IsNull ({PINS005.CMP_ADD_4}) then 
+if IsNull ({PINS005.add4}) then 
     ""
 else
-    ", " + {PINS005.CMP_ADD_4}
+    ", " + {PINS005.add4}
 
 */
-$F{CMP_ADD_4}==null ?
+$F{add4}==null ?
 	"" :
-		", "+$F{CMP_ADD_4}]]></initialValueExpression>
+		", "+$F{add4}]]></initialValueExpression>
 	</variable>
 	<variable name="readMe" class="java.lang.String">
-		<variableExpression><![CDATA[/*There exist underlay over $F{INM_LOT_NO} in Detail Section.So field $F{IIV_INV_VIN_NO} from Detail Section 2 was moved to Detail Section 1 and Detail Section 2 was deleted.
+		<variableExpression><![CDATA[/*There exist underlay over $F{lotNo} in Detail Section.So field $F{invVinNo} from Detail Section 2 was moved to Detail Section 1 and Detail Section 2 was deleted.
  * Remove all frames to implement docx report layout.*/
 null]]></variableExpression>
 		<initialValueExpression><![CDATA[/* */
 null]]></initialValueExpression>
 	</variable>
-	<group name="INM_LOT_NO" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{INM_LOT_NO}]]></groupExpression>
+	<group name="lotNo" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{lotNo}]]></groupExpression>
 		<groupHeader>
 			<band>
 				<property name="local_mesure_unitheight" value="pixel"/>
@@ -97,7 +97,7 @@ null]]></initialValueExpression>
 				<textElement textAlignment="Center">
 					<font fontName="Courier New" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CMP_NAME}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="25" width="524" height="12" isPrintWhenDetailOverflows="true" uuid="bcbbfd82-3711-42d0-856c-ccdc9984f5fb">
@@ -107,7 +107,7 @@ null]]></initialValueExpression>
 				<textElement textAlignment="Center" markup="styled">
 					<font fontName="Courier New" size="10" />
 				</textElement>
-				<textFieldExpression><![CDATA[($F{CMP_ADD_1}==null?"":$F{CMP_ADD_1})+($V{fmlAddress2}==null?"":$V{fmlAddress2})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{add1}==null?"":$F{add1})+($V{fmlAddress2}==null?"":$V{fmlAddress2})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="37" width="524" height="12" isPrintWhenDetailOverflows="true" uuid="63420d65-5598-4dad-9f0d-6d2f1e641a20">
@@ -117,7 +117,7 @@ null]]></initialValueExpression>
 				<textElement textAlignment="Center" markup="styled">
 					<font fontName="Courier New" size="10" />
 				</textElement>
-				<textFieldExpression><![CDATA[($F{CMP_ADD_3}==null?"":$F{CMP_ADD_3})+($V{fmlAddress4}==null?"":$V{fmlAddress4})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{add3}==null?"":$F{add3})+($V{fmlAddress4}==null?"":$V{fmlAddress4})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="70" width="524" height="17" isPrintWhenDetailOverflows="true" uuid="5b2cbb1f-68d6-488a-9823-c43f0e4a9d2b">
@@ -166,7 +166,7 @@ null]]></initialValueExpression>
 				<textElement textAlignment="Left" markup="styled">
 					<font fontName="Courier New" size="10" />
 				</textElement>
-				<textFieldExpression><![CDATA[$F{INV_DT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invDt}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="107" y="119" width="103" height="17" uuid="c59b8489-f233-4592-adc3-c39f54d0558c">
@@ -220,7 +220,7 @@ null]]></initialValueExpression>
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="107" y="0" width="103" height="15" printWhenGroupChanges="INM_LOT_NO" uuid="2f4de752-4496-4721-be77-319153d18322">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="107" y="0" width="103" height="15" printWhenGroupChanges="lotNo" uuid="2f4de752-4496-4721-be77-319153d18322">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
@@ -231,7 +231,7 @@ null]]></initialValueExpression>
 					<font fontName="Courier New" size="10" />
 					<paragraph leftIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{INM_LOT_NO_COUNT} == 1 || $V{PAGE_COUNT} == 1 ?$F{INM_LOT_NO}:""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{lotNo_COUNT} == 1 || $V{PAGE_COUNT} == 1 ?$F{lotNo}:""]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="210" y="0" width="217" height="15" uuid="d6574c74-1d39-427d-9f1e-8d64fb7e6e93">
@@ -249,7 +249,7 @@ null]]></initialValueExpression>
 					<font fontName="Courier New" size="10" />
 					<paragraph leftIndent="2" spacingBefore="2"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{IIV_INV_VIN_NO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invVinNo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -10,13 +10,14 @@ import org.springframework.stereotype.Repository;
 import com.tpex.entity.RddDownLocDtlEntity;
 
 @Repository
+@SuppressWarnings("squid:S2479")
 public interface InvoiceHeaderPageRepository extends JpaRepository<RddDownLocDtlEntity, Integer> {
 	
 	@Query(value = "SELECT IFNULL(PARA_VAL, 'N') FROM TB_M_PARAMETER WHERE PARA_CD ='CNTRY_ORG'", nativeQuery = true)
 	String getCountryOfOrigin();
 	
 	
-	@Query(value = "SELECT FD.FD_DST_NM FROM TB_R_INV_INVOICE_H IND, OEM_FNL_DST_MST FD WHERE IND.INV_NO = 'KR22100530' AND IND.FINAL_DST = FD.FD_DST_CD", nativeQuery = true)
+	@Query(value = "SELECT FD.DST_NM FROM TB_R_INV_INVOICE_H IND, TB_M_FINAL_DESTINATION FD WHERE IND.INV_NO = 'KR22100530' AND IND.FINAL_DST = FD.DST_CD", nativeQuery = true)
 	String getFinalCountryName(@Param("invNumber") String invNumber);
 	
 	@Query(value = "SELECT \r\n" + 

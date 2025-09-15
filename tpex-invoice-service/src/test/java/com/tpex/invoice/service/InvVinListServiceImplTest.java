@@ -27,7 +27,19 @@ import com.tpex.repository.TpexConfigRepository;
 import com.tpex.util.ConstantUtils;
 
 @ExtendWith(MockitoExtension.class)
-public class InvVinListServiceImplTest {
+class InvVinListServiceImplTest {
+	private static final String COMPANY_ADD4 = "Tax ID : 0115546006888";
+
+	private static final String COMPANY_ADD3 = "10560 Thailand.Tel: (66-2) 790-5000";
+
+	private static final String COMPANY_ADD2 = "T.Ban-Ragad, A.Bang Bo,Samutprakarn,";
+
+	private static final String COMPANY_ADD1 = "99 Moo5, Bangna-Trad K.M. 29.5 Rd.";
+
+	private static final String COMPANY_NAME = "Toyota Daihatsu Engineering & Manufacturing Co.,Ltd.";
+
+	private static final String INVOICE_NO = "KR22106543";
+
 	@InjectMocks
 	InvVinListServiceImpl invVinListServiceImpl;
 
@@ -47,13 +59,13 @@ public class InvVinListServiceImplTest {
 	@Test
 	void getVinListDataTest() throws Exception {
 
-		String INM_INV_NO = "KR22106543";
+		String INM_INV_NO = INVOICE_NO;
 		String INV_DT = "25/11/2022";
-		String CMP_NAME = "Toyota Daihatsu Engineering & Manufacturing Co.,Ltd.";
-		String CMP_ADD_1 = "99 Moo5, Bangna-Trad K.M. 29.5 Rd.";
-		String CMP_ADD_2 = "T.Ban-Ragad, A.Bang Bo,Samutprakarn,";
-		String CMP_ADD_3 = "10560 Thailand.Tel: (66-2) 790-5000";
-		String CMP_ADD_4 = "Tax ID : 0115546006888";
+		String CMP_NAME = COMPANY_NAME;
+		String CMP_ADD_1 = COMPANY_ADD1;
+		String CMP_ADD_2 = COMPANY_ADD2;
+		String CMP_ADD_3 = COMPANY_ADD3;
+		String CMP_ADD_4 = COMPANY_ADD4;
 		String INM_LOT_NO = "RN0046";
 		String IIV_INV_VIN_NO = "PN1BA3FS001265107";
 		String userId = "NIITTMT";
@@ -88,9 +100,9 @@ public class InvVinListServiceImplTest {
 				Object[] o = new Object[] { INM_INV_NO, INV_DT, CMP_NAME, CMP_ADD_1, CMP_ADD_2, CMP_ADD_3, CMP_ADD_4,
 						INM_LOT_NO, IIV_INV_VIN_NO, userId, tmapthInvFlg, cmpCd };
 
-				Object[] o1 = new Object[] { "Toyota Daihatsu Engineering & Manufacturing Co.,Ltd.",
-						"99 Moo5, Bangna-Trad K.M. 29.5 Rd.", "T.Ban-Ragad, A.Bang Bo,Samutprakarn,",
-						"10560 Thailand.Tel: (66-2) 790-5000", "Tax ID : 0115546006888" };
+				Object[] o1 = new Object[] { COMPANY_NAME,
+						COMPANY_ADD1, COMPANY_ADD2,
+						COMPANY_ADD3, COMPANY_ADD4 };
 				tuple.put(0, Arrays.asList(o));
 
 				tuple.put(1, Arrays.asList(o1));
@@ -117,15 +129,15 @@ public class InvVinListServiceImplTest {
 		List<InvVinListResponseDTO> expected = new ArrayList<>();
 		InvVinListResponseDTO dto = new InvVinListResponseDTO();
 		List<Tuple> listObj = new ArrayList<>();
-		dto.setINV_NO("KR22106543");
-		dto.setINV_DT("25/11/2022");
-		dto.setNAME("Toyota Daihatsu Engineering & Manufacturing Co.,Ltd.");
-		dto.setADD_1("99 Moo5, Bangna-Trad K.M. 29.5 Rd.");
-		dto.setADD_2("T.Ban-Ragad, A.Bang Bo,Samutprakarn,");
-		dto.setADD_3("10560 Thailand.Tel: (66-2) 790-5000");
-		dto.setADD_4("Tax ID : 0115546006888");
-		dto.setLOT_NO("RN0046");
-		dto.setINV_VIN_NO("PN1BA3FS001265107");
+		dto.setInvNo(INVOICE_NO);
+		dto.setInvDt("25/11/2022");
+		dto.setName(COMPANY_NAME);
+		dto.setAdd1(COMPANY_ADD1);
+		dto.setAdd2(COMPANY_ADD2);
+		dto.setAdd3(COMPANY_ADD3);
+		dto.setAdd4(COMPANY_ADD4);
+		dto.setLotNo("RN0046");
+		dto.setInvVinNo("PN1BA3FS001265107");
 		expected.add(dto);
 		listObj.addAll((Collection<? extends Tuple>) mockedTuple.get(0));
 		Mockito.lenient().when(invVinListRepository.getPartDetailData(INM_INV_NO)).thenReturn(listObj);
@@ -144,14 +156,14 @@ public class InvVinListServiceImplTest {
 		config.put(ConstantUtils.STORE_DB, "true");
 		config.put(ConstantUtils.LOGIN_USER_ID, "TestUser");
 		String fileFormat = "pdf";
-		String fileName = "KR22106543" + "_" + "VIN" + "." + fileFormat;
+		String fileName = INVOICE_NO + "_" + "VIN" + "." + fileFormat;
 		StringBuilder sb = new StringBuilder().append(String.valueOf(config.get("reportDirectory"))).append("/")
 				.append(fileName);
 		String reportName = "RINS005";
 		jasperReportService.getJasperReportDownloadOffline(expected, fileFormat, reportName, parameters, config, 0, sb);
-		assertEquals("Tax ID : 0115546006888", dto.getADD_4());
+		assertEquals(COMPANY_ADD4, dto.getAdd4());
 		assertEquals("NIITTMT", parameters.get(ConstantUtils.USER_ID));
-		assertEquals("KR22106543", parameters.get(ConstantUtils.INVOICE_NO));
+		assertEquals(INVOICE_NO, parameters.get(ConstantUtils.INVOICE_NO));
 	}
 
 }

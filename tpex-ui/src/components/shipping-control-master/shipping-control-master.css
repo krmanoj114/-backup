@@ -1,0 +1,202 @@
+.tableinvoice1.tableShippingControl .tpexTable td {
+    line-height: 25px;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable tr {
+    z-index: 9;
+    position: relative;
+}
+
+.tableinvoice1.tableShippingControl .css-b62m3t-container .css-166bipr-Input {
+    margin: 0;
+    padding: 0;
+}
+
+.tableinvoice1.tableShippingControl .form-check {
+    padding-left: 38px;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable th:nth-of-type(1) {
+    visibility: visible;
+    background-color: #D5F5FE;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(1) {
+    border-bottom: 2px solid #DADADA;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(8) {
+    background-color: #F2F9FF;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable tr:hover td:nth-of-type(8) {
+    background-color: #EFF1F9;
+}
+
+.grid-table .tableinvoice1.tableShippingControl .tpexTable td.noData {
+    margin-left: 520px;
+    border-bottom: none;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable>tbody>tr:has(.css-1nmdiq5-menu) {
+    z-index: 10;
+}
+
+.tableinvoice1.tableShippingControl .tooltip-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    width: 148px;
+}
+
+.tableinvoice1.tableShippingControl .custom-multiSelect .css-1nmdiq5-menu {
+    width: max-content;
+    position: relative;
+}
+
+.tableinvoice1.tableShippingControl tbody tr.editTableRow:hover td:nth-of-type(7) {
+    background: url('../../assets/images/icons/edit.svg') no-repeat right, #EFF1F9;
+    background-position: right 5px top 7px;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable thead tr:nth-of-type(2) th.checkboxCol {
+    height: 31px;
+}
+
+.tableinvoice1.tableShippingControl .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):hover:after,
+.tableinvoice1.tableShippingControl .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):hover::before {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+.tableinvoice1.tableShippingControl .tooltip-title[data-title]:not(.tooltip-title[data-title=""])::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 88%;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent #999 transparent transparent;
+    z-index: 11;
+    visibility: hidden;
+}
+
+.tableinvoice1.tableShippingControl .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):after {
+    content: attr(data-title);
+    text-transform: capitalize;
+    visibility: hidden;
+    display: inline-block;
+    width: auto;
+    background-color: #FFF;
+    box-shadow: 0px 3px 6px #00000029;
+    color: #000;
+    border-radius: 4px;
+    padding: 1px 10px;
+    position: absolute;
+    z-index: 20;
+    max-width: 1120px;
+    bottom: 0;
+    left: 97%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    border: 1px solid #999;
+}
+
+.tableinvoice1.tableShippingControl .custom-multiSelect .css-1n6sfyn-MenuList {
+    max-height: 150px;
+}
+
+.tableinvoice1.tableShippingControl .checkboxCol .minus-icon {
+    margin-left: 7px;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(1),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(2),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(3),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(4),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(5),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(6),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(7) {
+    height: 32px;
+}
+
+.grid-table .tableinvoice1.tableShippingControl table td {
+    vertical-align: top;
+}
+
+.tableShippingControl table thead tr th:nth-child(-n + 8),
+.tableShippingControl table tbody tr td:nth-child(-n + 8) {
+    position: sticky;
+    z-index: 2;
+}
+
+.tableinvoice1 th:nth-of-type(1),
+.tableinvoice1 td:nth-of-type(1) {
+    left: 0;
+    width: 40px;
+    min-width: 40px !important;
+    padding: 0;
+}
+
+.tableinvoice1 .tpexTable th:nth-of-type(2),
+.tableinvoice1 .tpexTable td:nth-of-type(2) {
+    left: 40px;
+    width: 85px;
+    min-width: 85px;
+}
+
+.tableinvoice1 th:nth-of-type(3),
+.tableinvoice1 td:nth-of-type(3) {
+    left: 125px;
+    width: 100px;
+    min-width: 100px;
+}
+
+.tableinvoice1 th:nth-of-type(4),
+.tableinvoice1 td:nth-of-type(4) {
+    left: 225px;
+    width: 100px;
+    min-width: 100px;
+}
+
+.tableinvoice1 th:nth-of-type(5),
+.tableinvoice1 td:nth-of-type(5) {
+    left: 325px;
+    width: 150px;
+    min-width: 150px;
+}
+
+.tableinvoice1 th:nth-of-type(6),
+.tableinvoice1 td:nth-of-type(6) {
+    left: 475px;
+    width: 146px;
+    min-width: 146px;
+}
+
+.tableinvoice1 th:nth-of-type(7),
+.tableinvoice1 td:nth-of-type(7) {
+    left: 621px;
+    width: 115px;
+    min-width: 115px;
+}
+
+.tableinvoice1 th:nth-of-type(8),
+.tableinvoice1 td:nth-of-type(8) {
+    left: 743px;
+    width: 165px;
+    box-shadow: 3px 0 3px 0px rgb(0 0 0 / 0.1), inset -2px 0 #DADADA;
+}
+
+.tableinvoice1.tableShippingControl .tpexTable th:nth-of-type(8),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(8) {
+    box-shadow: 3px 0 3px 0px rgb(0 0 0 / 0.1), inset -2px 0 #DADADA;
+    border-right: 3px solid #00000010;
+}
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(13),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(14),
+.tableinvoice1.tableShippingControl .tpexTable td:nth-of-type(15) {
+    min-width: 315px;
+}

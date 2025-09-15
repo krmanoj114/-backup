@@ -1,0 +1,90 @@
+.alert-modal.modal {
+    --bs-modal-width: 370px;
+    box-shadow: 0px 8px 16px #15223214;
+    border-radius: 10px;
+}
+.alert-modal .modal-header {
+    border-bottom: 0;
+    color: #000000;
+    align-self: center;
+    padding: 0;
+    margin-top: -20px;
+    background-color: #FFF;
+}
+.alert-modal .modal-content {
+    min-height: 330px;
+}
+.alert-modal .modal-header .modal-title {
+    font-size: 28px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    line-height: 38px;
+    color: #000000;
+}
+.alert-modal .modal-body {
+    font-size: 16px;
+    align-self: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+.alert-modal .modal-body p {
+    margin-bottom: 20px;
+    color: #000000;
+    font-size: 16px;
+    line-height: 18px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.alert-modal .modal-button {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+.alert-icon {
+    height: 80px;
+    width: 80px;
+    display: inline-block;
+    position: relative;
+    top: -36px;
+    left: 145px;
+    border-radius: 50%;
+    box-shadow: 0px 3px 6px #00000029;
+}
+.alert-Warning .modal-content {
+    border-bottom: 12px solid #FFC700;
+}
+.alert-Information .modal-content{
+    border-bottom: 12px solid #00C67D;
+}
+.alert-Error .modal-content{
+    border-bottom: 12px solid #FF2459;
+}
+.alert-Warning-icon {
+    background: url('../../../assets/images/icons/Warning.svg') no-repeat 22px 20px, #FFC700;
+}
+.alert-Information-icon {
+    background: url('../../../assets/images/icons/checked.svg') no-repeat 17px 23px, #00C67D;
+}
+.alert-Error-icon {
+    background: url('../../../assets/images/icons/error.svg') no-repeat 22px 22px, #FF2459;
+}
+.alert-modal-content {
+    word-wrap: break-word;
+    height: 125px;
+    overflow-y: auto;
+    line-height: 20px;
+    padding: 0px 5px;
+}
+.alert-modal-content::-webkit-scrollbar {
+    width: 10px;
+    position: absolute;
+    z-index: 1;
+  }
+  .alert-modal-content::-webkit-scrollbar-track {
+    background-color: #0000001A;
+    border-radius: 6px;
+  }
+  .alert-modal-content::-webkit-scrollbar-thumb {
+    background: #3A78F2; 
+    border-radius: 6px;
+  }

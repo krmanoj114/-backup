@@ -1,8 +1,6 @@
 package com.tpex.invoice.serviceImpl;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,15 +14,15 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tpex.entity.TpexConfigEntity;
-import com.tpex.invoice.dto.DgInvoicePackingListResponseDto;
 import com.tpex.invoice.dto.PackingListCustomBrokerDto;
-import com.tpex.invoice.serviceImpl.PackingListCustomBrokerServiceImpl;
+import com.tpex.invoice.serviceimpl.PackingListCustomBrokerServiceImpl;
 import com.tpex.jasperreport.service.JasperReportService;
 import com.tpex.repository.PackingListCustomBrokerRepository;
 import com.tpex.repository.TpexConfigRepository;
 import com.tpex.util.ConstantUtils;
 
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("squid:S2699")
  class PackingListCustomBrokerServiceImplTest {
 	@Mock
 	JasperReportService jasperReportService;

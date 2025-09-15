@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+  <fontFamily name="Courier New">
+    <normal>fonts/CourierNew/Courier_New.ttf</normal>
+    <bold>fonts/CourierNew/Courier_New_Bold.ttf</bold>
+    <italic>fonts/CourierNew/Courier_New_Italic.ttf</italic>
+    <boldItalic>fonts/CourierNew/Courier_New_Bold_Italic.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+    <exportFonts>
+    </exportFonts>
+  </fontFamily>
+
+</fontFamilies>

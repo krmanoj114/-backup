@@ -20,14 +20,14 @@ public interface NoemRenbanSetupMstRepository extends JpaRepository<NoemRenbanSe
 
 	List<NoemRenbanSetupMstEntity> findByIdContDstCdOrderByIdGroupId(String destCode);
 
-	//void deleteByIdContDstCdAndIdEffFromDtAndEffToDt(String destCode, Date effFrom, Date effTo);
+	
 	
 	@Modifying
 	void deleteByIdContDstCdAndIdEffFromDtAndEffToDt(String destCode, Date effFrom, Date effTo);
 	
 	@Modifying
 	@Query(value = "update TB_M_MTH_RENBAN_SETUP set FOLDER_NAME=:folderName, EFF_TO_DT=:effTo, UPD_BY=:userId where CONT_DST_CD=:contDstCd AND EFF_FROM_DT=:effFrom AND GROUP_ID=:groupId AND CONT_GRP_CD=:renbanGroupCode", nativeQuery = true)
-	void updateRenbanCodeMaster(@Param("contDstCd") String contDstCd, @Param("renbanGroupCode") String renbanGroupCode, @Param("effFrom") Date effFrom,  @Param("effTo") Date effTo,
+	int updateRenbanCodeMaster(@Param("contDstCd") String contDstCd, @Param("renbanGroupCode") String renbanGroupCode, @Param("effFrom") Date effFrom,  @Param("effTo") Date effTo,
 			@Param("groupId") String groupId, @Param("folderName") String folderName,@Param("userId") String userId);
 
 	boolean existsByIdContDstCdAndIdEffFromDtAndEffToDt(String destCode, Date effFrom, Date effTo);

@@ -15,7 +15,7 @@ public class ColumnsDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@JsonProperty("columns")
-	List<CoulmnsInfo> columns = new ArrayList<>();
+	private List<CoulmnsInfo> columns = new ArrayList<>();
 	private String tableName;
 	private String primaryKey;
 	private String userId;

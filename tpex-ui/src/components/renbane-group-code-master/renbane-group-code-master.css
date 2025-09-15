@@ -1,0 +1,18 @@
+.grid-table .tpexTable.tpexTableRenbane > thead > tr > th {
+    vertical-align: middle;
+    padding: 3px 10px;
+}
+.grid-table .tpexTable.tpexTableRenbane > thead > tr > th.colSpan-th {
+    box-shadow: inset -2px -2px #A9EBFF;
+    text-align: center;
+    padding: 2px 0;
+}
+.grid-table .tpexTableRenbane-height {
+    position: relative;
+    border-radius: 5px;
+    overflow: auto;
+    max-height: 429px;
+  }
+  .grid-table .tpexTable.tpexTableRenbane > thead > tr > th:nth-of-type(3){
+    min-width: 120px;
+  }

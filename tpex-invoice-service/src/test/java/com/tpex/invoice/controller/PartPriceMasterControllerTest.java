@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -42,6 +45,12 @@ class PartPriceMasterControllerTest {
 	@Mock
 	private PartPriceMasterService partPriceMasterService;
 	
+	private static String id = "481W303D202202174510M02000USD";
+	private static String effectiveDate = "2022/02";
+	private static String partName = "GASKET, EXHAUST PIPE";
+	private static String partNo = "174510M02000";
+
+	
 	@Test
 	void searchPartPriceDetailsTest() throws Exception {
 		
@@ -50,15 +59,15 @@ class PartPriceMasterControllerTest {
 		currencyList.add(new CommonMultiSelectDropdownDto("BHT", "BHT - THAI BAHT"));
 		
 		List<PartPriceMasterDto> partPriceMasterList = new ArrayList<>();
-		partPriceMasterList.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2022/02", "2022/02", "174510M02000", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterList.add(new PartPriceMasterDto(id, "481W", "303D", effectiveDate, effectiveDate, partNo, partName, BigDecimal.valueOf(2.55), "USD"));
 		
 		PartPriceMasterResponseDto partPriceMasterResponseDto = new PartPriceMasterResponseDto();
 		partPriceMasterResponseDto.setCurrencyList(currencyList);
 		partPriceMasterResponseDto.setPartPriceMasterList(partPriceMasterList);
 		
-		when(partPriceMasterService.partPriceMasterList(Mockito.any())).thenReturn(partPriceMasterResponseDto);
+		when(partPriceMasterService.partPriceMasterList(any())).thenReturn(partPriceMasterResponseDto);
 		
-		ResponseEntity<PartPriceMasterResponseDto> result = partPriceMasterController.searchPartPriceDetails(new PartPriceMasterRequestDto("481W", "303D", "174510M02000", "2022/02", "TMT"));
+		ResponseEntity<PartPriceMasterResponseDto> result = partPriceMasterController.searchPartPriceDetails(new PartPriceMasterRequestDto("481W", "303D", partNo, effectiveDate, "TMT"));
 		
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
@@ -76,7 +85,7 @@ class PartPriceMasterControllerTest {
 		destinationList.add(new CommonMultiSelectDropdownDto("0000", "0000-CHINA"));
 		destinationList.add(new CommonMultiSelectDropdownDto("0001", "0001-GERMANY"));
 		
-		when(partPriceMasterService.destinationAndCarfamilyCodes(Mockito.any())).thenReturn(new FinalDestinationAndCarFamilyCodesDTO(carFamilyList, destinationList));
+		when(partPriceMasterService.destinationAndCarfamilyCodes(any())).thenReturn(new FinalDestinationAndCarFamilyCodesDTO(carFamilyList, destinationList));
 		
 		ResponseEntity<FinalDestinationAndCarFamilyCodesDTO> result = partPriceMasterController.destinationAndCarfamilyCodes("TMT");
 		
@@ -92,9 +101,9 @@ class PartPriceMasterControllerTest {
 		map.put("fileName", "PxP Price_481W_303D");
 		map.put("status", "online");
 		
-		when(partPriceMasterService.downloadPartPriceMasterDetails(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(map);
+		when(partPriceMasterService.downloadPartPriceMasterDetails(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(map);
 	
-		ResponseEntity<Object> result = partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", "2022/02", "174510M02000", "USD");
+		ResponseEntity<Object> result = partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", effectiveDate, partNo, "USD");
 		
 		assertEquals(HttpStatus.OK, result.getStatusCode());
 		assertEquals(MediaType.APPLICATION_OCTET_STREAM, result.getHeaders().getContentType());
@@ -106,19 +115,19 @@ class PartPriceMasterControllerTest {
 		map.put("message", "INFO_IN_1004");
 		map.put("status", "offline");
 		
-		when(partPriceMasterService.downloadPartPriceMasterDetails(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(map);
+		when(partPriceMasterService.downloadPartPriceMasterDetails(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(map);
 	
-		ResponseEntity<Object> result = partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", "2022/02", "174510M02000", "USD");
+		ResponseEntity<Object> result = partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", effectiveDate, partNo, "USD");
 		
 		assertEquals(HttpStatus.OK, result.getStatusCode());
 	}
 	
 	@Test
 	void downloadPartPriceMasterDetailsExceptionsTest() throws Exception {
-		assertThrows(MyResourceNotFoundException.class, () -> partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", "20200002", "174510M02000", "USD"));
+		assertThrows(MyResourceNotFoundException.class, () -> partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", "20200002", partNo, "USD"));
 
-		when(partPriceMasterService.downloadPartPriceMasterDetails(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(new HashMap<>());
-		assertThrows(MyResourceNotFoundException.class, () -> partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", "2022/02", "174510M02000", "USD"));
+		when(partPriceMasterService.downloadPartPriceMasterDetails(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn(new HashMap<>());
+		assertThrows(MyResourceNotFoundException.class, () -> partPriceMasterController.downloadPartPriceMasterDetails("481W", "303D", effectiveDate, partNo, "USD"));
 	}
 	
 	@Test
@@ -131,7 +140,7 @@ class PartPriceMasterControllerTest {
 		partPriceMasterDto.setPartNo("17451-0M020-04");
 		partPriceMasterDeleteRequestDtoList.add(partPriceMasterDto);
 		
-		Mockito.when(partPriceMasterService.deletePartPriceMasterDetails(Mockito.anyList())).thenReturn(new ArrayList<PartPriceMasterDto>());
+		Mockito.when(partPriceMasterService.deletePartPriceMasterDetails(anyList())).thenReturn(new ArrayList<PartPriceMasterDto>());
 		
 		PartPriceMasterDeleteRequestDto partPriceMasterDeleteRequestDto = new PartPriceMasterDeleteRequestDto();
 		partPriceMasterDeleteRequestDto.setData(partPriceMasterDeleteRequestDtoList);
@@ -146,10 +155,10 @@ class PartPriceMasterControllerTest {
 	@Test
 	void saveShippingControlMasterTest() throws ParseException {
 		//Test success scenario
-		when(partPriceMasterService.savePxpPartPriceMaster(Mockito.any())).thenReturn(true);
+		when(partPriceMasterService.savePxpPartPriceMaster(any())).thenReturn(true);
 		
 		List<PartPriceMasterDto> partPriceMasterDtos = new ArrayList<>();
-		partPriceMasterDtos.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2022/02", "2022/02", "174510M02000", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterDtos.add(new PartPriceMasterDto(id, "481W", "303D", effectiveDate, effectiveDate, partNo, partName, BigDecimal.valueOf(2.55), "USD"));
 		PartPriceMasterDeleteRequestDto partPriceMasterDeleteRequestDto = new PartPriceMasterDeleteRequestDto("TestUser", partPriceMasterDtos);
 		
 		ResponseEntity<ApiResponseMessage> result = partPriceMasterController.savePxpPartPriceMaster(partPriceMasterDeleteRequestDto);
@@ -157,7 +166,7 @@ class PartPriceMasterControllerTest {
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
 		
-		when(partPriceMasterService.savePxpPartPriceMaster(Mockito.any())).thenReturn(false);
+		when(partPriceMasterService.savePxpPartPriceMaster(any())).thenReturn(false);
 		Assertions.assertThrows(MyResourceNotFoundException.class,
 				() -> partPriceMasterController.savePxpPartPriceMaster(partPriceMasterDeleteRequestDto));
 	}
@@ -165,10 +174,10 @@ class PartPriceMasterControllerTest {
 	@Test
 	void updateShippingControlMasterTest() throws ParseException {
 		//Test success scenario
-		when(partPriceMasterService.updatePxpPartPriceMaster(Mockito.any())).thenReturn(true);
+		when(partPriceMasterService.updatePxpPartPriceMaster(any())).thenReturn(true);
 		
 		List<PartPriceMasterDto> partPriceMasterDtos = new ArrayList<>();
-		partPriceMasterDtos.add(new PartPriceMasterDto("481W303D202202174510M02000USD", "481W", "303D", "2022/02", "2022/02", "174510M02000", "GASKET, EXHAUST PIPE", BigDecimal.valueOf(2.55), "USD"));
+		partPriceMasterDtos.add(new PartPriceMasterDto(id, "481W", "303D", effectiveDate, effectiveDate, partNo, partName, BigDecimal.valueOf(2.55), "USD"));
 		PartPriceMasterDeleteRequestDto partPriceMasterDeleteRequestDto = new PartPriceMasterDeleteRequestDto("TestUser", partPriceMasterDtos);
 		
 		ResponseEntity<ApiResponseMessage> result = partPriceMasterController.updatePxpPartPriceMaster(partPriceMasterDeleteRequestDto);
@@ -176,7 +185,7 @@ class PartPriceMasterControllerTest {
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
 		
-		when(partPriceMasterService.updatePxpPartPriceMaster(Mockito.any())).thenReturn(false);
+		when(partPriceMasterService.updatePxpPartPriceMaster(any())).thenReturn(false);
 		Assertions.assertThrows(MyResourceNotFoundException.class,
 				() -> partPriceMasterController.updatePxpPartPriceMaster(partPriceMasterDeleteRequestDto));
 	}
@@ -184,10 +193,10 @@ class PartPriceMasterControllerTest {
 	
 	@Test
 	void partNameByPartNoTest() {
-		when(partPriceMasterService.partNameByPartNo(Mockito.any())).thenReturn("GASKET, EXHAUST PIPE");
+		when(partPriceMasterService.partNameByPartNo(any())).thenReturn(partName);
 		ResponseEntity<String> result = partPriceMasterController.partNameByPartNo("17451-0M020-00");
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody()).isNotNull();
-		assertEquals("GASKET, EXHAUST PIPE", result.getBody());
+		assertEquals(partName, result.getBody());
 	}
 }

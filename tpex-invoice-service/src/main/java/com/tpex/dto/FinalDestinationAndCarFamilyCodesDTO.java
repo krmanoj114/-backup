@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// TODO: Auto-generated Javadoc
 /**
  * To string.
  *
@@ -23,14 +22,14 @@ import lombok.NoArgsConstructor;
  * Instantiates a new final destination and car family codes DTO.
  *
  * @param destinationList the destination list
- * @param carFamilyList the car family list
+ * @param carFamilyList   the car family list
  */
 @AllArgsConstructor
 public class FinalDestinationAndCarFamilyCodesDTO {
 
 	/** The destination list. */
 	private List<CommonMultiSelectDropdownDto> destinationList;
-	
+
 	/** The car family list. */
 	private List<CommonMultiSelectDropdownDto> carFamilyList;
 }

@@ -1,5 +1,7 @@
 package com.tpex.invoice.dto;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -14,7 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LotPriceUpdateRequestDTO {
+public class LotPriceUpdateRequestDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@NotNull(message = ConstantUtils.ERR_CM_3011)
 	@NotEmpty(message = ConstantUtils.ERR_CM_3011)

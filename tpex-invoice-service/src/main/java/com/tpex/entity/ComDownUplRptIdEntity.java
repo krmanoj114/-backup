@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 
-public class ComDownUplRptIdEntity implements Serializable{
-	
+public class ComDownUplRptIdEntity implements Serializable {
+
 	/**
 	 * 
 	 */

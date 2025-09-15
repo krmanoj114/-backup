@@ -1,0 +1,22 @@
+.Error-status span:hover,
+.Success-status span:hover{
+    cursor: pointer;
+}
+.Info-status span:hover{
+    text-decoration: none;
+}
+/*.tpexTable a.Error-status:hover,
+.tpexTable a.Success-status:hover,
+.Info-status span:hover, */
+.Processing-status span,
+.Pending-status span{
+    pointer-events: none;
+}
+.col-6.invoiceNo.BINF016 {
+    width: 100%;
+    margin-bottom: 7px;
+}
+
+.col-6.invoiceNo.BINF016 input{
+    width: 48%;
+}

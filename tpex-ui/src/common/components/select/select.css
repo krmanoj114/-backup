@@ -1,0 +1,49 @@
+.form-select.customSelect {
+    font-size: 16px;
+    line-height: 16px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    height: 34px;
+    border: 1px solid #0D1B3E4D;
+    border-radius: 4px;
+    color: #000;
+}
+
+.customSelect label {
+    font-size: 14px;
+    line-height: 17px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    margin-bottom: 4px;
+}
+
+.form-select.customSelect:hover,
+.form-select.customSelect:focus {
+    border: 1px solid #3A78F2;
+}
+
+.customSelect option:checked {
+    color: #3A78F2;
+    background-color: #EFF1F9;
+    font-size: 16px;
+}
+
+.customSelect option:not(:checked) {
+    color: #7A7A7A;
+    background-color: #FFF;
+    font-size: 16px;
+}
+
+.customSelect::-webkit-scrollbar {
+    width: 12px;
+    position: absolute;
+    z-index: 1;
+}
+
+.customSelect::-webkit-scrollbar-track {
+    background-color: #0000001A;
+    border-radius: 6px;
+}
+
+.customSelect::-webkit-scrollbar-thumb {
+    background: #3A78F2;
+    border-radius: 6px;
+}

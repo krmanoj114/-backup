@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+  <fontFamily name="Arial">
+    <normal>fonts/Arial/arial.ttf</normal>
+    <bold>fonts/Arial/arialbd.ttf</bold>
+    <italic>fonts/Arial/ariali.ttf</italic>
+    <boldItalic>fonts/Arial/arialbi.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+    <exportFonts>
+    </exportFonts>
+  </fontFamily>
+
+</fontFamilies>

@@ -2,6 +2,8 @@ package com.tpex.invoice.controller;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tpex.dto.DestinationCodeAndReportTypesDTO;
 import com.tpex.dto.InvoiceMaintenanceDTO;
@@ -40,6 +44,7 @@ import com.tpex.exception.MyResourceNotFoundException;
 import com.tpex.invoice.dto.DownloadInvoiceReportsRequestDTO;
 import com.tpex.invoice.dto.ShippingContSearchInputDTO;
 import com.tpex.invoice.service.CertificateOriginReportService;
+import com.tpex.invoice.service.DownloadInvCntnrLvlReportService;
 import com.tpex.invoice.service.DownloadInvoiceReportsService;
 import com.tpex.invoice.service.InvGenWorkPlanMstService;
 import com.tpex.invoice.service.InvMaintenanceSearchService;
@@ -50,12 +55,16 @@ import com.tpex.invoice.service.InvoiceCoverPageService;
 import com.tpex.invoice.service.InvoiceHeaderPageService;
 import com.tpex.invoice.service.MpmiInvoiceCoverPageService;
 import com.tpex.invoice.service.SCInvAttachedSheetService;
+import com.tpex.invoice.service.SeparateInvoiceGenerationService;
 import com.tpex.invoice.service.WorkInstructionReportService;
-import com.tpex.invoice.serviceImpl.DgInvoicePackingListService;
-import com.tpex.invoice.serviceImpl.PackingListCustomBrokerServiceImpl;
+import com.tpex.invoice.serviceimpl.DgInvoicePackingListService;
+import com.tpex.invoice.serviceimpl.PackingListCustomBrokerServiceImpl;
 import com.tpex.repository.InvoiceMaintenanceRepository;
+import com.tpex.repository.SeperateInvoiceGenRepository;
 import com.tpex.util.ConstantUtils;
 import com.tpex.util.TpexConfigurationUtil;
+
+import net.sf.jasperreports.engine.JRException;
 
 
 /**
@@ -89,7 +98,7 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 
 	@Autowired
 	InvPackingListService invPackingListService;
-	
+
 	@Autowired
 	CertificateOriginReportService certificateOriginReportService;
 
@@ -104,25 +113,43 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 
 	@Autowired
 	DgInvoicePackingListService dgInvoicePackingListService;
-	
+
 	@Autowired
 	PackingListCustomBrokerServiceImpl packingListCustomBrokerServiceImpl;
-	
+
 	@Autowired
 	InvoiceCoverPageService invoiceCoverPageService;
-	
+
 	@Autowired
 	MpmiInvoiceCoverPageService mpmiInvoiceCoverPageService;
+	
+	@Autowired
+	DownloadInvCntnrLvlReportService downloadInvCntnrLvlReportService;
+
+	@Autowired
+	SeparateInvoiceGenerationService separateInvoiceGenerationService;
+	
+	@Autowired
+	SeperateInvoiceGenRepository seperateInvoiceGenRepository;
+
+	private static final String DEST = "destination";
+	private static final String BOOKINNO = "bookingNo";
+	private static final String REPORTFORMAT = "reportFormat";
+	private static final String USERID = "userId";
 
 
 	/**
 	 * Fetch report types.
 	 *
 	 * @return the response entity
+	 * @throws IOException 
+	 * @throws DatabindException 
+	 * @throws StreamReadException 
 	 * @throws Exception the exception
 	 */
 	@GetMapping(value = "/destinationAndShippingReports", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DestinationCodeAndReportTypesDTO> fetchReportTypes() throws Exception {
+	public ResponseEntity<DestinationCodeAndReportTypesDTO> fetchReportTypes()
+			throws  IOException  {
 		DestinationCodeAndReportTypesDTO destinationCodeAndReportTypesDTO = new DestinationCodeAndReportTypesDTO();
 
 		List<OemFnlDstMstEntity> destList = invGenWorkPlanMsteService.destinationCodeList();
@@ -143,7 +170,7 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 		destinationCodeAndReportTypesDTO.setDestinations(destCodeAndName);
 		destinationCodeAndReportTypesDTO.setReports(sampleObject);
 
-		return new ResponseEntity<DestinationCodeAndReportTypesDTO>(destinationCodeAndReportTypesDTO, HttpStatus.OK);
+		return new ResponseEntity<>(destinationCodeAndReportTypesDTO, HttpStatus.OK);
 
 	}
 
@@ -155,21 +182,27 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 	@GetMapping(value = "/orderTypeAndInvoiceNo", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<InvoiceMaintenanceDTO>> onLoadInvoiceMaintenanceSearch(){		
 		List<InvoiceMaintenanceDTO> list = invMaintenanceSearchService.fetchOrderTypeAndInvoiceNumber();
-		return new ResponseEntity<List<InvoiceMaintenanceDTO>>(list, HttpStatus.OK);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	/**
 	 * Inquiry Screen for Invoice & Shipping Reports- Print
 	 *
 	 * @return 
+	 * @throws IOException 
+	 * @throws DatabindException 
+	 * @throws StreamReadException 
+	 * @throws ParseException 
+	 * @throws JRException 
 	 */
+	@SuppressWarnings("unchecked")
 	@PostMapping(value="/downloadInvoiceReports")
 	@CrossOrigin(exposedHeaders = { "filename" })
-	public ResponseEntity<?> downloadInvoiceReports(@RequestBody DownloadInvoiceReportsRequestDTO request) throws Exception{
+	public ResponseEntity<Object> downloadInvoiceReports(@RequestBody DownloadInvoiceReportsRequestDTO request) throws IOException, JRException, ParseException  {
 
 		String[] reportIds = request.getReportTypes();
-		
+
 		List<Map<String, String>> responseList = new ArrayList<>();
-		
+
 		ObjectMapper objectMapper = new ObjectMapper();
 		String filePath = tpexConfigurationUtil.getFilePath(ConstantUtils.REPORT_TYPES_JSON_FOR_INQUIRYSCREEN);
 		File file = ResourceUtils.getFile(filePath);
@@ -188,245 +221,46 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 		}
 
 		for(String reportId:reportIds) {
-			
-			if(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals("11") || reportId.equals("RINS105")||reportId.equals(ConstantUtils.RINS002DG)) {
 
-
-				if((StringUtils.isBlank(request.getEtd()) || StringUtils.isAllBlank(request.getDestinations())) && !(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals(ConstantUtils.RINS002DG)))
+			Object outStream = null;
+			if (reportId.equals(ConstantUtils.RINS110)) {
+				if(StringUtils.isBlank(request.getEtd()) && (request.getDestinations() != null))
 				{
 					throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
 				}
-				if((StringUtils.isBlank(request.getEtd()) || StringUtils.isAllBlank(request.getDestinations())) && reportId.equals(ConstantUtils.RINS104_DG))
-				{
-					throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+				byte[] byteResponse = this.downloadInvCntnrLvlReportService.generateContainerLevelReport(reportId,
+						request.getReportFormate(), request.getEtd(), request.getDestinations());
+				String reportNameAddParameter = this.downloadInvCntnrLvlReportService.getReportfeildItems(request.getEtd(), request.getDestinations());
+				StringBuilder fileNameConainerReport = new StringBuilder();
+				fileNameConainerReport.append(ConstantUtils.INVOICE_CONTAINER_LEVEL_FILENAME);
+				fileNameConainerReport.append(reportNameAddParameter);
+				fileNameConainerReport.append(ConstantUtils.INVOICE_CONTAINER_LEVEL_EXTENSION);
+				HttpHeaders headers = new HttpHeaders();
+				headers.add(ConstantUtils.FILENAME,fileNameConainerReport.toString());
+				headers.add(ConstantUtils.CONTENTDISPOSITION,
+						ConstantUtils.ATTACHMENT + fileNameConainerReport.toString());
+				return ResponseEntity.ok()
+						.headers(headers)
+						.contentType(MediaType.APPLICATION_OCTET_STREAM)
+				.body(byteResponse);
 				}
 
-				if(reportId.equals(ConstantUtils.RINS105)) {
-					Object outStream = null;
-					String contDestination = request.getDestinations()[0];
-					Object responseObject = this.workInstructionReportService.getRegularWrkInstructionRptDownload(request.getEtd(),contDestination,request.getBookingNo(),request.getUserId(),request.getReportFormate(), reportId);
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
+			Object responseObject = downloadInvoiceReports(reportId, request);
 
-				if(reportId.equals(ConstantUtils.RINS104_DG)) {
-					Object outStream = null;
-					Object responseObject  = dgInvoicePackingListService.downloadDgInvoicePackingListReport(request.getBookingNo(), request.getEtd(), request.getEtdTo(), request.getDestinations()[0], request.getReportFormate(),reportId);
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				// tpex-187
-				if (reportId.equals(ConstantUtils.RINS002DG)) {
-					Object outStream = null;
-					Object responseObject  = dgInvoicePackingListService.download2DgInvoicePackingListReport(request.getEtd(),
-							request.getDestinations()[0], request.getReportFormate(), request.getInvoiceNumber(),
-							reportId, request.getOrderType(), request.getCmpCd(), request.getUserId());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
+			if(responseObject!=null) {
 
-			} 
-			else
-			{
-				if(StringUtils.isBlank(request.getInvoiceNumber()))
-				{
-					throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
-				}
+				HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
 
-				List<String> dbinvoiceNumberList = invoiceMaintenanceRepository.getAllInvoiceNo();
+				String fileName =(String) map.get(ConstantUtils.FILENAME);
 
-				if(!dbinvoiceNumberList.contains(request.getInvoiceNumber()))
-				{
-					throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1006);
-				}
-				if(reportId.equals(ConstantUtils.RINS001A)) {
-					Object outStream = null;
-					Object responseObject = this.invoiceHeaderPageService.getAttachedInvHeaderPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS002)) {
-					Object outStream = null;
-					Object responseObject = this.invPackingListService.getInvPackingListRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS003B)) {
-					Object outStream = null;
-					String cmpCd = "TMT";
-					Object responseObject = this.invSearchService.downloadPINS103(cmpCd, reportId, request.getInvoiceNumber(), request.getUserId(), request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
+				if(map.get(ConstantUtils.OUTSTREAM) != null){
 
-				if(reportId.equals(ConstantUtils.RINS003D)) {
-					
-					Optional<InsInvDtlsEntity> entity = invoiceMaintenanceRepository.findById(request.getInvoiceNumber());
+					outStream = map.get(ConstantUtils.OUTSTREAM);
 
-					if(entity.isPresent()) {
+					HttpHeaders headers = new HttpHeaders();
+					headers.add(ConstantUtils.FILENAME, fileName);
+					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
 
-						InsInvDtlsEntity invoiceEntity = entity.get();
-
-						if(StringUtils.isBlank(invoiceEntity.getIndScInvFlag()) || invoiceEntity.getIndScInvFlag().equals("N"))
-						{
-							throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1007);
-						}
-					}
-					
-					Object outStream = null;
-					String cmpCd = "TMT";
-					Object responseObject = this.scInvAttachedSheetService.downloadPINS103forSc(cmpCd, request.getInvoiceNumber(), request.getUserId(), request.getReportFormate(), reportId);
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS005)) {
-					Object outStream = null;
-					String cmpCd="TMT";
-					Object responseObject = this.invVinListService.getInvVinListReportDownload(cmpCd, request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS002A)) {
-					Object outStream = null;
-					String pidUserId="NIITTMT";
-					Object responseObject = this.packingListCustomBrokerServiceImpl.generateReport(request.getInvoiceNumber(),reportId,pidUserId,request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get("fileName") : "";
-					if(map != null && map.get("outStream") != null){
-						outStream = map.get("outStream");
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add("filename", fileName);
-					headers.add("Content-Disposition", "attachment; filename="+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS106)) {
-					Object outStream = null;
-					String cmpCd="TMT";
-					Object responseObject = this.certificateOriginReportService.getCertificateOriginReportDownload(cmpCd, request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS001)) {
-					Object outStream = null;
-					Object responseObject = this.invoiceCoverPageService.getInvoiceCoverPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
-					return ResponseEntity.ok()
-							.headers(headers)
-							.contentType(MediaType.APPLICATION_OCTET_STREAM)
-							.body(outStream);
-				}
-				if(reportId.equals(ConstantUtils.RINS0011B)) {
-					Object outStream = null;
-					Object responseObject = this.mpmiInvoiceCoverPageService.getInvoiceCoverPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
-					HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
-					String fileName = map != null ? (String) map.get(ConstantUtils.FILENAME) : "";
-					if(map != null && map.get(ConstantUtils.OUTSTREAM) != null){
-						outStream = map.get(ConstantUtils.OUTSTREAM);
-					}
-					HttpHeaders headers = new HttpHeaders();
-					headers.add(ConstantUtils.FILENAME, fileName);
-					headers.add(ConstantUtils.CONTENTDISPOSITION, ConstantUtils.ATTACHMENT+fileName);
 					return ResponseEntity.ok()
 							.headers(headers)
 							.contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -437,19 +271,145 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 		return new ResponseEntity<>(responseList, HttpStatus.OK);
 	}
 
+	private Object downloadInvoiceReports(String reportId, DownloadInvoiceReportsRequestDTO request) throws FileNotFoundException, JRException, ParseException {
+		Object responseObject = null;
+
+		if(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals("11") || reportId.equals("RINS105")||reportId.equals(ConstantUtils.RINS002DG)) {
+			responseObject = downloadDGInvoiceReports(reportId, request);
+		} 
+		else{
+			responseObject= downloadInvoiceReportsForInvoiceNumber(reportId, request);
+		}
+
+		return responseObject;
+	}
+
+	private Object downloadDGInvoiceReports(String reportId, DownloadInvoiceReportsRequestDTO request) throws FileNotFoundException, ParseException, JRException {
+		Object responseObject = new Object();
+		if((StringUtils.isBlank(request.getEtd()) || StringUtils.isAllBlank(request.getDestinations())) && !(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals(ConstantUtils.RINS002DG)))
+		{
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+		}
+		if((StringUtils.isBlank(request.getEtd()) || StringUtils.isAllBlank(request.getDestinations())) && reportId.equals(ConstantUtils.RINS104_DG))
+		{
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+		}
+
+		if(reportId.equals(ConstantUtils.RINS105)) {
+			String contDestination = request.getDestinations()[0];
+			responseObject =  this.workInstructionReportService.getRegularWrkInstructionRptDownload(request.getEtd(),contDestination,request.getBookingNo(),request.getUserId(),request.getReportFormate(), reportId);
+		}
+
+		if(reportId.equals(ConstantUtils.RINS104_DG)) {
+			responseObject =  dgInvoicePackingListService.downloadDgInvoicePackingListReport(request.getBookingNo(), request.getEtd(), request.getEtdTo(), request.getDestinations()[0], request.getReportFormate(),reportId);
+		}
+		// tpex-187
+		if (reportId.equals(ConstantUtils.RINS002DG)) {
+			responseObject =  dgInvoicePackingListService.download2DgInvoicePackingListReport(request.getEtd(),
+					request.getDestinations()[0], request.getReportFormate(), request.getInvoiceNumber(),
+					reportId, request.getOrderType(), request.getCmpCd(), request.getUserId());
+		}
+		return responseObject;
+	}
+
+	private Object downloadInvoiceReportsForInvoiceNumber(String reportId, DownloadInvoiceReportsRequestDTO request) throws FileNotFoundException, JRException, ParseException {
+		Object responseObject = new Object();
+
+		if(StringUtils.isBlank(request.getInvoiceNumber()))
+		{
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+		}
+
+		List<String> dbinvoiceNumberList = invoiceMaintenanceRepository.getAllInvoiceNo();
+
+		if(!dbinvoiceNumberList.contains(request.getInvoiceNumber()))
+		{
+			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1006);
+		}
+		if(reportId.equals(ConstantUtils.RINS001A)) {
+			responseObject =  this.invoiceHeaderPageService.getAttachedInvHeaderPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS002)) {
+			responseObject =  this.invPackingListService.getInvPackingListRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS003B)) {
+			String cmpCd = "TMT";
+			responseObject =  this.invSearchService.downloadPINS103(cmpCd, reportId, request.getInvoiceNumber(), request.getUserId(), request.getReportFormate());
+		}
+
+		if(reportId.equals(ConstantUtils.RINS003D)) {
+
+			Optional<InsInvDtlsEntity> entity = invoiceMaintenanceRepository.findById(request.getInvoiceNumber());
+
+			if(entity.isPresent() && (StringUtils.isBlank(entity.get().getIndScInvFlag()) || entity.get().getIndScInvFlag().equals("N"))) {
+				throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1007);
+			}
+
+			String cmpCd = "TMT";
+			responseObject =  this.scInvAttachedSheetService.downloadPINS103forSc(cmpCd, request.getInvoiceNumber(), request.getUserId(), request.getReportFormate(), reportId);
+		}
+		if(reportId.equals(ConstantUtils.RINS005)) {
+			String cmpCd="TMT";
+			responseObject =  this.invVinListService.getInvVinListReportDownload(cmpCd, request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS002A)) {
+			String pidUserId="NIITTMT";
+			responseObject =  this.packingListCustomBrokerServiceImpl.generateReport(request.getInvoiceNumber(),reportId,pidUserId,request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS106)) {
+			String cmpCd="TMT";
+			responseObject =  this.certificateOriginReportService.getCertificateOriginReportDownload(cmpCd, request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS001)) {
+			responseObject =  this.invoiceCoverPageService.getInvoiceCoverPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
+		}
+		if(reportId.equals(ConstantUtils.RINS0011B)) {
+			responseObject =  this.mpmiInvoiceCoverPageService.getInvoiceCoverPageRptDownload(request.getInvoiceNumber(), reportId, request.getReportFormate());
+		}
+
+		String countryOfOrigin = seperateInvoiceGenRepository.getCountryOfOrigin();
+		responseObject = createResponseForSeparateInvoiceGen(reportId, request, responseObject, countryOfOrigin);
+
+		return responseObject;
+	}
+
+	private Object createResponseForSeparateInvoiceGen(String reportId, DownloadInvoiceReportsRequestDTO request,
+			Object responseObject, String countryOfOrigin) throws FileNotFoundException, JRException, ParseException {
+		if ("Y".equals(countryOfOrigin)) {
+			if (reportId.equals(ConstantUtils.RINS012)) {
+				responseObject = this.separateInvoiceGenerationService.getSeparateInvoiceGeneration(request.getCmpCd(),
+						request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate(),
+						request.getInvoiceType());
+			}
+		} else {
+			if (reportId.equals(ConstantUtils.RINS007)) {
+				responseObject = this.separateInvoiceGenerationService.getSeparateInvoiceGeneration(request.getCmpCd(),
+						request.getInvoiceNumber(), request.getUserId(), reportId, request.getReportFormate(),
+						request.getInvoiceType());
+			}
+		}
+		return responseObject;
+	}
+
 	/**
 	 * Inquiry Screen for Invoice & Shipping Reports- Print
 	 *
 	 * @return 
+	 * @throws IOException 
+	 * @throws DatabindException 
+	 * @throws StreamReadException 
+	 * @throws JRException 
+	 * @throws ParseException 
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping(value="/downloadExportedReports", produces=MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<?> downloadExportedReports(@RequestParam(defaultValue = "") String userId, 
+	public  ResponseEntity<Object> downloadExportedReports(@RequestParam(defaultValue = "") String userId, 
 			@RequestParam(defaultValue = "") String orderType, @RequestParam(defaultValue = "") String invoiceNumber, 
 			@RequestParam String reportId, @RequestParam(defaultValue = "") String etd,  @RequestParam(defaultValue = "") String etdTo,
-			@RequestParam String destination, @RequestParam(defaultValue = "") String reportFormat, @RequestParam(defaultValue = "") String bookingNo) throws Exception{
+			@RequestParam String destination, @RequestParam(defaultValue = "") String reportFormat, @RequestParam(defaultValue = "") String bookingNo) throws IOException, ParseException, JRException{
 
-		
-		Object responseObject = new Object();
+
+		Object responseObject = null;
 		ObjectMapper objectMapper = new ObjectMapper();
 		String filePath = tpexConfigurationUtil.getFilePath(ConstantUtils.REPORT_TYPES_JSON_FOR_INQUIRYSCREEN);
 		File file = ResourceUtils.getFile(filePath);
@@ -468,68 +428,21 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 		}
 
 		if(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals(ConstantUtils.RINS002DG)  || reportId.equals(ConstantUtils.RINS105)) {
+			Map<String, String> inputMap = new HashMap<>();
+			inputMap.put("reportId", reportId);
+			inputMap.put("etd", etd);
+			inputMap.put("etdTo", etdTo);
+			inputMap.put(destination, destination);
+			inputMap.put("invoiceNumber", invoiceNumber);
+			inputMap.put(bookingNo, bookingNo);
+			inputMap.put(reportFormat, reportFormat);
+			inputMap.put(userId, userId);
 
-			if((StringUtils.isBlank(etd) || StringUtils.isAllBlank(destination)) && !(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals(ConstantUtils.RINS002DG)))
-			{
-				throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
-			}
-
-			if(reportId.equals(ConstantUtils.RINS105)) {
-				responseObject = this.workInstructionReportService.getRegularWrkInstructionRptDownload(etd,destination,bookingNo,userId,reportFormat, reportId);
-
-			}else if(reportId.equals(ConstantUtils.RINS104_DG)) {
-				responseObject = dgInvoicePackingListService.downloadDgInvoicePackingListReport(bookingNo,etd,etdTo,destination,reportFormat,reportId);
-
-			}else if(reportId.equals(ConstantUtils.RINS002DG)) {
-				responseObject = dgInvoicePackingListService.download2DgInvoicePackingListReport(etd, destination, reportFormat, invoiceNumber, reportId, orderType, null, userId);
-			}
+			responseObject = getDGExportedReports(inputMap);
 		} 
 		else
 		{
-			if(StringUtils.isBlank(invoiceNumber))
-			{
-				throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
-			}
-
-			List<String> dbinvoiceNumberList = invoiceMaintenanceRepository.getAllInvoiceNo();
-
-			if(!dbinvoiceNumberList.contains(invoiceNumber))
-			{
-				throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1006);
-			}
-			if(reportId.equals(ConstantUtils.RINS001A)) {
-				responseObject = this.invoiceHeaderPageService.getAttachedInvHeaderPageRptDownload(invoiceNumber, reportId, reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS002)) {
-				responseObject = this.invPackingListService.getInvPackingListRptDownload(invoiceNumber, reportId, reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS003B)) {
-				String cmpCd = "TMT";
-				responseObject = this.invSearchService.downloadPINS103(cmpCd, reportId, invoiceNumber, userId, reportFormat );
-			}
-			else if(reportId.equals(ConstantUtils.RINS003D)) {
-				String cmpCd = "TMT";
-				responseObject = this.scInvAttachedSheetService.downloadPINS103forSc(cmpCd,  invoiceNumber, userId, reportFormat,reportId);
-			}
-			else if(reportId.equals(ConstantUtils.RINS005)) {
-				String cmpCd="TMT";
-				responseObject = this.invVinListService.getInvVinListReportDownload(cmpCd, invoiceNumber, userId, reportId, reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS002A)) {
-				String pidUserId="NIITTMT";
-				responseObject = this.packingListCustomBrokerServiceImpl.generateReport(invoiceNumber,reportId,pidUserId,reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS106)) {
-				String cmpCd="TMT";
-				responseObject = this.certificateOriginReportService.getCertificateOriginReportDownload(cmpCd, invoiceNumber, userId, reportId, reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS001)) {
-				responseObject = this.invoiceCoverPageService.getInvoiceCoverPageRptDownload(invoiceNumber, reportId, reportFormat);
-			}
-			else if(reportId.equals(ConstantUtils.RINS0011B)) {
-				responseObject = this.mpmiInvoiceCoverPageService.getInvoiceCoverPageRptDownload(invoiceNumber, reportId, reportFormat);
-			}
-
+			responseObject = getExportedReportsForInvoiceNumber(reportId, invoiceNumber, reportFormat, userId);
 		}
 		HashMap<String, Object> map = (HashMap<String, Object>) responseObject;
 		Object outStream = null;
@@ -547,7 +460,72 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 
 	}
 
-	
+	private Object getDGExportedReports(Map<String, String> inputMap) throws FileNotFoundException, ParseException, JRException {
+		Object responseObject = new Object();
+		String reportId = inputMap.get("reportId");
+		if((StringUtils.isBlank(inputMap.get("etd")) || StringUtils.isAllBlank(inputMap.get(DEST)) && !(reportId.equals(ConstantUtils.RINS104_DG) || reportId.equals(ConstantUtils.RINS002DG))))
+		{
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+		}
+		if(reportId.equals(ConstantUtils.RINS105)) {
+			responseObject = this.workInstructionReportService.getRegularWrkInstructionRptDownload(inputMap.get("etd"),inputMap.get(DEST),inputMap.get(BOOKINNO),inputMap.get(USERID),inputMap.get(REPORTFORMAT), reportId);
+
+		}else if(reportId.equals(ConstantUtils.RINS104_DG)) {
+			responseObject = dgInvoicePackingListService.downloadDgInvoicePackingListReport(inputMap.get(BOOKINNO), inputMap.get("etd"),inputMap.get("etdTo"),inputMap.get(DEST),inputMap.get(REPORTFORMAT),reportId);
+
+		}else if(reportId.equals(ConstantUtils.RINS002DG)) {
+			responseObject = dgInvoicePackingListService.download2DgInvoicePackingListReport(inputMap.get("etd"), inputMap.get(DEST), inputMap.get(REPORTFORMAT), inputMap.get("invoiceNumber"), reportId, inputMap.get("orderType"), null, inputMap.get(USERID));
+		}
+		return responseObject;
+	}
+
+	private Object getExportedReportsForInvoiceNumber(String reportId, String invoiceNumber, String reportFormat, String userId) throws FileNotFoundException, JRException {
+		Object responseObject = new Object();
+
+		if(StringUtils.isBlank(invoiceNumber))
+			throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3001);
+
+		List<String> dbinvoiceNumberList = invoiceMaintenanceRepository.getAllInvoiceNo();
+
+		if(!dbinvoiceNumberList.contains(invoiceNumber))
+			throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1006);
+
+		if(reportId.equals(ConstantUtils.RINS001A)) {
+			responseObject = this.invoiceHeaderPageService.getAttachedInvHeaderPageRptDownload(invoiceNumber, reportId, reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS002)) {
+			responseObject = this.invPackingListService.getInvPackingListRptDownload(invoiceNumber, reportId, reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS003B)) {
+			String cmpCd = "TMT";
+			responseObject = this.invSearchService.downloadPINS103(cmpCd, reportId, invoiceNumber, userId, reportFormat );
+		}
+		else if(reportId.equals(ConstantUtils.RINS003D)) {
+			String cmpCd = "TMT";
+			responseObject = this.scInvAttachedSheetService.downloadPINS103forSc(cmpCd,  invoiceNumber, userId, reportFormat,reportId);
+		}
+		else if(reportId.equals(ConstantUtils.RINS005)) {
+			String cmpCd="TMT";
+			responseObject = this.invVinListService.getInvVinListReportDownload(cmpCd, invoiceNumber, userId, reportId, reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS002A)) {
+			String pidUserId="NIITTMT";
+			responseObject = this.packingListCustomBrokerServiceImpl.generateReport(invoiceNumber,reportId,pidUserId,reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS106)) {
+			String cmpCd="TMT";
+			responseObject = this.certificateOriginReportService.getCertificateOriginReportDownload(cmpCd, invoiceNumber, userId, reportId, reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS001)) {
+			responseObject = this.invoiceCoverPageService.getInvoiceCoverPageRptDownload(invoiceNumber, reportId, reportFormat);
+		}
+		else if(reportId.equals(ConstantUtils.RINS0011B)) {
+			responseObject = this.mpmiInvoiceCoverPageService.getInvoiceCoverPageRptDownload(invoiceNumber, reportId, reportFormat);
+		}
+		return responseObject;
+	}
+
+
 
 	/**
 	 * @param shippingContSearchInputDTO
@@ -555,9 +533,8 @@ public class InquiryScreenforInvoiceAndShippingReportsController {
 	 * @throws ParseException
 	 */
 	@PostMapping(value= "/invShippingContainerResults", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ShippingContResultDTO>> shippingResults(@RequestBody ShippingContSearchInputDTO shippingContSearchInputDTO) throws Exception {
-		return new ResponseEntity<List<ShippingContResultDTO>>(invGenWorkPlanMsteService.shippingResults(shippingContSearchInputDTO), HttpStatus.OK);
+	public ResponseEntity<List<ShippingContResultDTO>> shippingResults(@RequestBody ShippingContSearchInputDTO shippingContSearchInputDTO)  {
+		return new ResponseEntity<>(invGenWorkPlanMsteService.shippingResults(shippingContSearchInputDTO), HttpStatus.OK);
 	}
 
 }
-

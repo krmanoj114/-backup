@@ -13,25 +13,22 @@ import lombok.Data;
 @Data
 @Table(name = "COM_DOWN_UPL_RPT")
 @Entity
-public class ComDownUplRptEntity implements Serializable{
-	
+public class ComDownUplRptEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	private ComDownUplRptIdEntity comDownUplRptIdEntity;
-	
-	
+
 	@Column(name = "CDUR_RPT_NAME")
 	private String rptName;
-	
+
 	@Column(name = "CDUR_UPD_BY")
 	private String updatedBy;
 	@Column(name = "RDD_UPDATE_DATE")
-	private Date CDUR_UPD_DT;
-	
+	private Date rddUpdateDate;
 
 }

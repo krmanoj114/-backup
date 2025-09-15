@@ -1,4 +1,4 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,18 +45,7 @@ public class SeperateInvGenServiceImpl implements SeperateInvGenService {
 			for (Object[] obj : objRespose) {
 				SeprateInvGenResponseDto dto = new SeprateInvGenResponseDto();
 
-				if (obj[0] != null)
-					dto.setImpCd(obj[0].toString());
-				if (obj[1] != null)
-					dto.setPartNo(obj[1].toString());
-				if (obj[2] != null)
-					dto.setCfCd(obj[2].toString());
-				if (obj[3] != null)
-					dto.setSeries(obj[3].toString());
-				if (obj[4] != null && obj[5] != null)
-					dto.setModifiedPrivilage(obj[4].toString() + "-" + obj[5].toString());
-				if (obj[5] != null)
-					dto.setOriginalPrivilage(obj[5].toString());
+				setInvDetails(obj, dto);
 				response.add(dto);
 			}
 		}
@@ -65,6 +54,21 @@ public class SeperateInvGenServiceImpl implements SeperateInvGenService {
 		seprateInvGenResponseWrapper.setSepInvDto(setInvList);
 		seprateInvGenResponseWrapper.setSepInvGenRespDto(response);
 		return seprateInvGenResponseWrapper;
+	}
+
+	private void setInvDetails(Object[] obj, SeprateInvGenResponseDto dto) {
+		if (obj[0] != null)
+			dto.setImpCd(obj[0].toString());
+		if (obj[1] != null)
+			dto.setPartNo(obj[1].toString());
+		if (obj[2] != null)
+			dto.setCfCd(obj[2].toString());
+		if (obj[3] != null)
+			dto.setSeries(obj[3].toString());
+		if (obj[4] != null && obj[5] != null)
+			dto.setModifiedPrivilage(obj[4].toString() + "-" + obj[5].toString());
+		if (obj[5] != null)
+			dto.setOriginalPrivilage(obj[5].toString());
 	}
 
 }

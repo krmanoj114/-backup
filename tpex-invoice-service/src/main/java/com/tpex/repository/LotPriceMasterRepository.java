@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.tpex.entity.OemLotPrcMstEntity;
 
 import io.lettuce.core.dynamic.annotation.Param;
-
+@SuppressWarnings("squid:S107")
 @Repository
 public interface LotPriceMasterRepository extends JpaRepository<OemLotPrcMstEntity, String> {
 

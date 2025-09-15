@@ -1,5 +1,6 @@
-package com.tpex.invoice.serviceImpl;
+package com.tpex.invoice.serviceimpl;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +23,11 @@ import com.tpex.repository.CertificateOriginReportRepository;
 import com.tpex.repository.TpexConfigRepository;
 import com.tpex.util.ConstantUtils;
 
+import net.sf.jasperreports.engine.JRException;
+
 @Service
 @Transactional
+@SuppressWarnings("squid:S3776")
 public class CertificateOriginReportServiceImpl implements CertificateOriginReportService {
 
 	@Autowired
@@ -40,7 +44,7 @@ public class CertificateOriginReportServiceImpl implements CertificateOriginRepo
 
 	@Override
 	public Object getCertificateOriginReportDownload(String cmpCd, String invNumber, String userId, String reportName,
-			String reportFormat) throws Exception {
+			String reportFormat) throws FileNotFoundException, JRException  {
 		Map<String, Object> parameters = new HashMap<>();
 		Object jasperResponse = null;
 
@@ -63,8 +67,6 @@ public class CertificateOriginReportServiceImpl implements CertificateOriginRepo
 		String fileFormat = StringUtils.isNotBlank(reportFormat) && "xlsx".equalsIgnoreCase(reportFormat) ? reportFormat
 				: "pdf";
 		String fileName = invNumber + "_" + "COO" + "." + fileFormat;
-		StringBuilder sb = new StringBuilder().append(String.valueOf(config.get(ConstantUtils.REPORT_DIRECTORY))).append("/")
-				.append(fileName);
 		List<CertificateOriginReportDTO> certificateOriginReportDTOList = getcertificateOriginReportData(cmpCd,
 				invNumber);
 
@@ -72,7 +74,7 @@ public class CertificateOriginReportServiceImpl implements CertificateOriginRepo
 			jasperResponse = jasperReportService.getJasperReportDownloadOnline(certificateOriginReportDTOList, fileFormat, reportName, fileName, parameters, config);
 		
 		}else {
-			jasperResponse = jasperReportService.getJasperReportDownloadOfflineV1(certificateOriginReportDTOList, fileFormat, reportName, parameters, config, 0, sb, fileName);
+			jasperResponse = jasperReportService.getJasperReportDownloadOfflineV1(certificateOriginReportDTOList, fileFormat, reportName, parameters, config, 0, fileName);
 
 		}
 		return jasperResponse;

@@ -1,5 +1,4 @@
-package com.tpex.invoice.serviceImpl;
-
+package com.tpex.invoice.serviceimpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.tpex.dto.CommonMultiSelectDropdownDto;
@@ -54,15 +51,17 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 			@Valid RenbanGroupCodeMasterRequestDto request) throws ParseException {
 
 		RenbanGroupCodeMasterResponseFinalDto finalResponse = new RenbanGroupCodeMasterResponseFinalDto();
-		Set<RenbanGroupCodeMasterResponseDto> renbanGroupCodeMasterResponseDtoList=new HashSet<>();
+		Set<RenbanGroupCodeMasterResponseDto> renbanGroupCodeMasterResponseDtoList = new HashSet<>();
 
 		String[] splitting = request.getFinalDestCodeAndName().split("-");
 		String destCode = splitting[0];
 
 		List<NoemRenbanSetupMstEntity> renbanCodeList = noemRenbanSetupMstRepository
 				.findByIdContDstCdOrderByIdContGrpCdAsc(destCode);
+		
+		List<NoemRenbanSetupMstEntity> renbanGroupCodeList = noemRenbanSetupMstRepository.findAll();
 
-		List<CommonMultiSelectDropdownDto> renbanCodes = renbanCodeList.stream()
+		List<CommonMultiSelectDropdownDto> renbanCodes = renbanGroupCodeList.stream()
 				.map(u -> new CommonMultiSelectDropdownDto(u.getId().getContGrpCd(), u.getId().getContGrpCd()))
 				.distinct().collect(Collectors.toList());
 
@@ -71,6 +70,7 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 
 		List<CommonMultiSelectDropdownDto> alphabetRenbanCodeList = renbanCodes.stream()
 				.filter(t -> t.getValue().matches("[a-zA-Z]+")).collect(Collectors.toList());
+		
 		alphabetRenbanCodeList.addAll(numericRenbanCodeList);
 
 		finalResponse.setRenbanGroupCodeList(alphabetRenbanCodeList);
@@ -83,14 +83,14 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 			String effFrom = dataBaseEntity.getId().getEffFromDt().toString();
 			String effTo = dataBaseEntity.getEffToDt().toString();
 
-			SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE);
+			SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE);
 			SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATE_FORMATE);
 
 			try {
 				renbanGroupCodeMasterResponseDto.setEtdFromDate(outPutFormat.format(inputFormat.parse(effFrom)));
 				renbanGroupCodeMasterResponseDto.setEtdToDate(outPutFormat.format(inputFormat.parse(effTo)));
 			} catch (ParseException e1) {
-				throw new RuntimeException(e1);
+				throw new ParseException(e1.getMessage(), e1.getErrorOffset());
 			}
 
 			Map<String, List<GroupCodeDetailsDto>> collect = renbanCodeList.stream()
@@ -107,11 +107,13 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 
 		}
 
-		List<RenbanGroupCodeMasterResponseDto> renbanGroupCodeMasterResponseDtoList1= new ArrayList<>(renbanGroupCodeMasterResponseDtoList);
+		List<RenbanGroupCodeMasterResponseDto> renbanGroupCodeMasterResponseDtoList1 = new ArrayList<>(
+				renbanGroupCodeMasterResponseDtoList);
 
 		DateTimeFormatter formate = DateTimeFormatter.ofPattern(ConstantUtils.DEFAULT_DATE_FORMATE);
 
-		Collections.sort(renbanGroupCodeMasterResponseDtoList1, (e1, e2) -> LocalDate.parse(e1.getEtdFromDate(), formate).compareTo(LocalDate.parse(e2.getEtdFromDate(), formate)));
+		Collections.sort(renbanGroupCodeMasterResponseDtoList1, (e1, e2) -> LocalDate
+				.parse(e1.getEtdFromDate(), formate).compareTo(LocalDate.parse(e2.getEtdFromDate(), formate)));
 		finalResponse.setRenbanData(renbanGroupCodeMasterResponseDtoList1);
 		return finalResponse;
 
@@ -119,7 +121,8 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 
 	@Transactional
 	@Override
-	public void deleteRenbanGroupCodeMasterDetails(List<RenbancodeMasterDeleteDto> deleteRequest) throws ParseException {
+	public void deleteRenbanGroupCodeMasterDetails(List<RenbancodeMasterDeleteDto> deleteRequest)
+			throws ParseException {
 
 		for (RenbancodeMasterDeleteDto request : deleteRequest) {
 
@@ -128,34 +131,36 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 			String destCode = splitting[0];
 
 			SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATE_FORMATE);
-			SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE);
+			SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE);
 
 			String effectiveFrom = outPutFormat.format(inputFormat.parse(request.getEffectiveFromDt()));
 			String effectiveTo = outPutFormat.format(inputFormat.parse(request.getEffctiveToDt()));
 
-			Date effFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
+			Date effFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,
 					effectiveFrom);
-			Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
+			Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,
 					effectiveTo);
 
-			List<NoemRenbanBookDtlEntity> renbanCodes = noemRenbanBookDtlRepository.findByIdContDestCdAndIdEtd1(destCode, effFrom);
+			List<NoemRenbanBookDtlEntity> renbanCodes = noemRenbanBookDtlRepository
+					.findByIdContDestCdAndIdEtd1(destCode, effFrom);
 
-			List<String> existingRenbanCodeList = renbanCodes.stream().filter(e -> request.getContGrpCd().contains(e.getId().getContGrpCode()))
-					.map(e -> e.getId().getContGrpCode())
-					.collect(Collectors.toList());
+			List<String> existingRenbanCodeList = renbanCodes.stream()
+					.filter(e -> request.getContGrpCd().contains(e.getId().getContGrpCode()))
+					.map(e -> e.getId().getContGrpCode()).collect(Collectors.toList());
 
 			if (existingRenbanCodeList.isEmpty()) {
 
 				try {
 
-					if(!noemRenbanSetupMstRepository.existsByIdContDstCdAndIdEffFromDtAndEffToDt(destCode, effFrom, effTo)) {
+					if (!noemRenbanSetupMstRepository.existsByIdContDstCdAndIdEffFromDtAndEffToDt(destCode, effFrom,
+							effTo)) {
 						throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1030);
 					}
 					noemRenbanSetupMstRepository.deleteByIdContDstCdAndIdEffFromDtAndEffToDt(destCode, effFrom, effTo);
-				} catch ( Exception e) {
+				} catch (Exception e) {
 					throw new InvalidInputParametersException(ConstantUtils.ERR_IN_1030);
 				}
-				
+
 			} else {
 				throw new MyResourceNotFoundException(ConstantUtils.ERR_IN_1031);
 			}
@@ -170,25 +175,24 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 
 		List<NoemRenbanSetupMstEntity> noemRenbanSetupMstEntities = new ArrayList<>();
 
-		SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATE_FORMATE);
-		SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE);
-
+		SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATE_FORMAT_FOR_RANBAN);
+		SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE);
 		for (RenbanGroupCodeMasterSaveRequestDto renbanGroupCodeMasterSaveRequestDto : renbanGroupCodeMasterSaveRequestDtoList) {
 
-			NoemRenbanSetupMstEntity noemRenbanSetupMstEntity = new NoemRenbanSetupMstEntity();
-
-			NoemRenbanSetupMstIdEntity noemRenbanSetupMstIdEntity = new NoemRenbanSetupMstIdEntity();
+			List<NoemRenbanSetupMstEntity> noemRenbanSetupMstEntityList = new ArrayList<>();
 
 			for (GroupCodeDetailsDto groupCodeDetailsDto : renbanGroupCodeMasterSaveRequestDto.getGoupdIdDetails()) {
+				NoemRenbanSetupMstEntity noemRenbanSetupMstEntity = new NoemRenbanSetupMstEntity();
+				NoemRenbanSetupMstIdEntity noemRenbanSetupMstIdEntity = new NoemRenbanSetupMstIdEntity();
 				String effectiveFrom = outPutFormat
 						.format(inputFormat.parse(renbanGroupCodeMasterSaveRequestDto.getEtdFromDate()));
 
-				java.sql.Date effFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
-						effectiveFrom);
+				java.sql.Date effFrom = DateUtil
+						.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE, effectiveFrom);
 				String effectiveTo = outPutFormat
 						.format(inputFormat.parse(renbanGroupCodeMasterSaveRequestDto.getEtdToDate()));
 
-				java.sql.Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
+				java.sql.Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,
 						effectiveTo);
 
 				noemRenbanSetupMstIdEntity.setContDstCd(renbanGroupCodeMasterSaveRequestDto.getContDstCd());
@@ -203,9 +207,12 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 				noemRenbanSetupMstEntity.setUpdatedDate(java.sql.Date.valueOf(LocalDate.now()));
 
 				noemRenbanSetupMstEntity.setId(noemRenbanSetupMstIdEntity);
+
+				noemRenbanSetupMstEntityList.add(noemRenbanSetupMstEntity);
+
 			}
 
-			noemRenbanSetupMstEntities.add(noemRenbanSetupMstEntity);
+			noemRenbanSetupMstEntities.addAll(noemRenbanSetupMstEntityList);
 
 		}
 		try {
@@ -220,11 +227,10 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 	@Override
 	@Transactional
 	public void updateRenbanCodeMaster(
-			List<RenbanGroupCodeMasterSaveRequestDto> renbanGroupCodeMasterSaveRequestDtoList)
-					throws Exception {
+			List<RenbanGroupCodeMasterSaveRequestDto> renbanGroupCodeMasterSaveRequestDtoList) throws ParseException {
 
 		SimpleDateFormat inputFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATE_FORMATE);
-		SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE);
+		SimpleDateFormat outPutFormat = new SimpleDateFormat(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE);
 
 		for (RenbanGroupCodeMasterSaveRequestDto renbanGroupCodeMasterSaveRequestDto : renbanGroupCodeMasterSaveRequestDtoList) {
 
@@ -232,18 +238,23 @@ public class RenbanGroupCodeMasterServiceImpl implements RenbanGroupCodeMasterSe
 				String effectiveFrom = outPutFormat
 						.format(inputFormat.parse(renbanGroupCodeMasterSaveRequestDto.getEtdFromDate()));
 
-				Date effFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
+				Date effFrom = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,
 						effectiveFrom);
 
 				String effectiveTo = outPutFormat
 						.format(inputFormat.parse(renbanGroupCodeMasterSaveRequestDto.getEtdToDate()));
 
-				Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATAbASE_DATE_FORMATE,
-						effectiveTo);		
+				Date effTo = DateUtil.dateFromStringSqlDateFormate(ConstantUtils.DEFAULT_DATABASE_DATE_FORMATE,
+						effectiveTo);
 
-				noemRenbanSetupMstRepository.updateRenbanCodeMaster(renbanGroupCodeMasterSaveRequestDto.getContDstCd(), groupCodeDetailsDto.getRenbanGroupCode(), effFrom,
-						effTo, groupCodeDetailsDto.getGroupId(), groupCodeDetailsDto.getFolderName(), ConstantUtils.TEST_USER);
-			}		
+				int check = noemRenbanSetupMstRepository.updateRenbanCodeMaster(renbanGroupCodeMasterSaveRequestDto.getContDstCd(),
+						groupCodeDetailsDto.getRenbanGroupCode(), effFrom, effTo, groupCodeDetailsDto.getGroupId(),
+						groupCodeDetailsDto.getFolderName(), ConstantUtils.TEST_USER);
+				if (check == 0) {
+					throw new InvalidInputParametersException(ConstantUtils.ERR_CM_3006);
+				}
+
+			}
 
 		}
 

@@ -24,6 +24,6 @@ public interface JasperReportService {
 
 	Object getJasperReportDownloadOfflineV1(List<?> reportData, String fileFormat, String fileTemplateName,
 											Map<String, Object> reportParameters, Map<String, Object> reportConfiguration,
-											int reportId, StringBuilder sb, String fileName);
+											int reportId, String fileName);
 
 }

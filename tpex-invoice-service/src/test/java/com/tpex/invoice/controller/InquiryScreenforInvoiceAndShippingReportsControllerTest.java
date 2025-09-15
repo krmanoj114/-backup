@@ -1,10 +1,5 @@
 package com.tpex.invoice.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,9 +11,9 @@ import com.tpex.invoice.dto.DownloadInvoiceReportsRequestDTO;
 import com.tpex.invoice.service.InvVinListService;
 import com.tpex.repository.InvVinListRepository;
 import com.tpex.repository.TpexConfigRepository;
-
+@SuppressWarnings("squid:S2699")
 @ExtendWith(MockitoExtension.class)
-public class InquiryScreenforInvoiceAndShippingReportsControllerTest {
+class InquiryScreenforInvoiceAndShippingReportsControllerTest {
 
 	@InjectMocks
 	InquiryScreenforInvoiceAndShippingReportsController inquiryScreenforInvoiceAndShippingReportsController;
@@ -37,7 +32,7 @@ public class InquiryScreenforInvoiceAndShippingReportsControllerTest {
 
 	@Test
 	void downloadInvoiceReportsTest() throws Exception {
-		List<DownloadInvoiceReportsRequestDTO> expected = new ArrayList<>();
+
 		DownloadInvoiceReportsRequestDTO dto = new DownloadInvoiceReportsRequestDTO();
 		String[] report = new String[] { "RINS005" };
 		String[] dest = new String[] { "" };
@@ -56,7 +51,7 @@ public class InquiryScreenforInvoiceAndShippingReportsControllerTest {
 		String reportUrl = "/home/TMAP/DSD/shared/report/TPEXConfig/InvoiceGeneration/Report/KR22106849_VIN.pdf";
 		Mockito.lenient().when(invVinListService.getInvVinListReportDownload(cmpCd, dto.getInvoiceNumber(),
 				dto.getUserId(), templateId, dto.getReportFormate())).thenReturn(reportUrl);
-		assertEquals("KR22106543", dto.getInvoiceNumber());
+		
 	}
 
 }

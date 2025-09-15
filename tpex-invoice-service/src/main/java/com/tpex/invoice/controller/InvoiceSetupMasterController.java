@@ -51,7 +51,7 @@ public class InvoiceSetupMasterController {
 	}
 	
 	@DeleteMapping(value= "/invoiceSetupMaster", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object>  deleteInvoiceSetupMaster(@RequestBody List<Integer> ids) throws Exception{
+	public ResponseEntity<Object>  deleteInvoiceSetupMaster(@RequestBody List<Integer> ids) {
 
 		Map<String,Object> errorMessageParams = new HashMap<>();
 		

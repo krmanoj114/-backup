@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tpex.entity.RddDownLocDtlEntity;
-
+@SuppressWarnings("squid:S2479")
 @Repository
 public interface DgDeclarationReportResponseRepository extends JpaRepository<RddDownLocDtlEntity, Integer> {
 

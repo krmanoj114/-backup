@@ -1,0 +1,200 @@
+.recalcu-search-panal .col-1{
+    width: 10%;
+}
+
+.sticky-table .grid-table table thead tr th:nth-child(-n + 6),
+.sticky-table .grid-table table tbody tr td:nth-child(-n + 6) {    
+    position: sticky;
+    z-index: 99;
+    display: inline-block;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(1){
+    box-shadow: inset -2px 0 #A9EBFF;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(1), 
+.invoiceRecalculation .grid-table table td:nth-of-type(1){
+    left: 0;
+    width: 40px;
+    min-width: 40px;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(2), 
+.invoiceRecalculation .grid-table table td:nth-of-type(2){
+    left: 40px;
+    width: 63px;
+    min-width: 63px;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(3), 
+.invoiceRecalculation .grid-table table td:nth-of-type(3){
+    left: 103px;
+    width: 72px;
+    min-width: 72px;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(4), 
+.invoiceRecalculation .grid-table table td:nth-of-type(4){
+    left: 175px;
+    width: 162px;
+    min-width: 162px;
+}
+.invoiceRecalculation .grid-table table th:nth-of-type(5), 
+.invoiceRecalculation .grid-table table td:nth-of-type(5){
+    left: 337px;
+    width: 146px;
+    min-width: 146px;
+}
+
+.invoiceRecalculation .grid-table table th:nth-of-type(6){
+    left: 483px;
+    width: 165px;
+    min-width: 165px;
+    box-shadow:4px 0 5px -1px rgb(0 0 0 / 0.2), inset -2px 0 #A9EBFF;
+}
+.invoiceRecalculation .grid-table table td:nth-of-type(6){
+    left: 483px;
+    width: 165px;
+    min-width: 165px;
+    box-shadow: 4px 0 5px -1px rgb(0 0 0 / 0.2), inset -2px 0 #DADADA;
+}
+
+.invoiceRecalculation .grid-table table tr td{
+    background-color: #F7F7F7;
+    cursor: default;
+}
+.invoiceRecalculation .grid-table .tpexTable th,
+.invoiceRecalculation .grid-table .tpexTable td{
+    min-width: auto;
+}
+.invoiceRecalculation tbody tr:hover>*, 
+.invoiceRecalculation tbody tr:hover td, 
+.invoiceRecalculation tbody tr:hover td.checkboxCol {
+    background-color: #F7F7F7;
+}
+.invoiceRecalculation .tpexTable td.noData {
+    left: 520px !important;
+    border-bottom: none;
+    position: sticky;
+}
+
+.INVOICE_RECALCULATION input#selectAll {
+    text-align: center;
+    margin-left: -12px;
+}
+
+.invoiceRecalculation.chekboxDis input[type=checkbox]{
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+
+.INVOICE_RECALCULATION .tableWithChecbox .checkboxCol .form-check .form-check-input {
+    margin-left: -22px;
+}
+.invoiceRecalculation .errorRow td{
+    background-color: #FFCEDA !important;
+    box-shadow: inset -2px 0 #ccc;
+    border-bottom-color: #ccc ;
+}
+.invoiceRecalculation .tableWithChecbox .checkboxCol .form-check .form-check-input{
+    margin-top: 6px;
+}
+/******recalculate_Part_Price css start*******/
+.recalculate_Part_Price.invoiceRecalculation .tpexTable tr td:first-child{
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.recalculate_Part_Price.invoiceRecalculation .tpexTable tr:hover td:first-child {
+    background-color: #eff1f9;
+}
+
+/******recalculate_Part_Name css start******/
+.recalculate_Part_Name.invoiceRecalculation .tpexTable tr td:first-child{
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.recalculate_Part_Name.invoiceRecalculation .tpexTable tr:hover td:first-child {
+    background-color: #eff1f9;
+}
+
+/*********recalculate_Part_Box_Weight css start**********/
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr td:first-child{
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr td:nth-of-type(11),
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr td:nth-of-type(13){
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr td{
+    background-color: #F7F7F7;
+    cursor: default;
+  }
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr:hover td:nth-of-type(1),
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr:hover td:nth-of-type(11),
+.recalculate_Part_Box_Weight.invoiceRecalculation .tpexTable tr:hover td:nth-of-type(13){
+    background-color: #eff1f9;
+}
+
+
+.recalculate_Part_Price .tpexTable tr td:nth-of-type(6),
+.recalculate_Part_Name .tpexTable tr td:nth-of-type(6){
+    position: relative;
+    left: auto;
+}
+
+/*******if table row data more than add sticky class in tr******/
+.recalculate_Part_Price.sticky-table .tpexTable tr td:nth-of-type(6),
+.recalculate_Part_Name.sticky-table .tpexTable tr td:nth-of-type(6){
+    position: sticky;
+    left: 483px;
+}
+
+/******Tooltip******/
+.invoiceRecalculation .tooltip-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    width: 148px;
+}
+.invoiceRecalculation .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):hover:after,
+.invoiceRecalculation .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):hover::before {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+
+.invoiceRecalculation .tooltip-title[data-title]:not(.tooltip-title[data-title=""])::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 91%;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent #999 transparent transparent;
+    z-index: 11;
+    visibility: hidden;
+}
+
+.invoiceRecalculation .tooltip-title[data-title]:not(.tooltip-title[data-title=""]):after {
+    content: attr(data-title);
+    text-transform: capitalize;
+    visibility: hidden;
+    display: inline-block;
+    width: auto;
+    background-color: #FFF;
+    box-shadow: 0px 3px 6px #00000029;
+    color: #000;
+    border-radius: 4px;
+    padding: 1px 10px;
+    position: absolute;
+    z-index: 99;
+    max-width: 1120px;
+    top: 0;
+    left: 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    border: 1px solid #999;
+}

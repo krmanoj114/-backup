@@ -1,0 +1,35 @@
+.grid-table .INVOICE_SETUP_MASTER td {
+    white-space: normal;
+    line-height: 20px;
+    vertical-align: top;
+}
+.INVOICE_SETUP_MASTER .editTableRow.disableClick td {
+    background-color: #DBDBDB;
+    box-shadow: inset -2px 0 #B3B3B3;
+    border-bottom: 2px solid #B3B3B3;
+}
+.INVOICE_SETUP_MASTER .editTableRow.disableClick td.checkboxCol {
+    background-color: #ffffff;
+}
+.INVOICE_SETUP_MASTER .editTableRow.disableClick:hover td.checkboxCol {
+    background-color: #EFF1F9;
+}
+.INVOICE_SETUP_MASTER .editTableRow.disableClick td:last-child {
+    box-shadow: none; 
+}
+.INVOICE_SETUP_MASTER .editTableRow.disableClick .checkboxCol .form-check .form-check-input {
+    pointer-events: all;
+    opacity: 1;
+}
+.INVOICE_SETUP_MASTER .custom-multiSelect .css-1nmdiq5-menu {
+    position: relative;
+}
+.INVOICE_SETUP_MASTER .custom-multiSelect .css-1n6sfyn-MenuList {
+    max-height: 150px;
+}
+.mandatoryControl .form-select[name^='priceMethod__']:disabled{
+    background-color: #DBDBDB;
+    box-shadow: inset -2px 0 #B3B3B3;
+    border-bottom: 2px solid #B3B3B3;
+    cursor: default;
+}

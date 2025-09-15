@@ -2,11 +2,11 @@ default:
   tags:
     - docker
   cache:
-      paths:
-        - .m2/repository    
+    paths:
+      - .m2/repository
 stages:
   - compile
-  - code scan  
+  - code scan
   - image build
   - image scan
   - image push
@@ -24,13 +24,17 @@ variables:
   PROJECT_NAME: "toyota-part-export-system" # Harbor repository name
   SERVICE_NAME: "tpex-invoice-service" # OpenShift service name
   SERVICE_VERSION: "v1.0.0" # Service version using for tagging on Harbor
-  
+
   # MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   MAVEN_CLI_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Djavax.net.ssl.trustStore=/etc/ssl/certs/cacerts -Dserver.username=$ARTIFACTORY_USER -Dserver.password=$ARTIFACTORY_PASS -DskipTests"
+  MAVEN_CLI_OPTS_TEST: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Djavax.net.ssl.trustStore=/etc/ssl/certs/cacerts -Dserver.username=$ARTIFACTORY_USER -Dserver.password=$ARTIFACTORY_PASS"
   DIRECTORY_BUILD: "build/libs"
   SOURCE_SCAN_PATH: "."
-  SONAR_CONFIG : "-Dsonar.java.binaries=./build/libs/ -Dsonar.qualitygate.timeout=360"
-
+  #SONAR_CONFIG : "-Dsonar.java.binaries=./build/libs/ -Dsonar.qualitygate.timeout=360"
+  SONAR_CONFIG : "-Dsonar.qualitygate.timeout=360 -Dsonar.java.binaries=. -Dsonar.java.libraries=."
+  SONAR_HOST_URL : "https://sast.ap.toyota-asia.com"
+  SONAR_TOKEN : "sqp_70b84c94aa7981a4aaad12ebae677fb912e3caa1"
+  SONAR_PROJECT_KEY : "toyota-part-export-system-tpex-admin-service"
 
 include:
   - project: "DevSecOps/cicd-template"
@@ -38,12 +42,12 @@ include:
     file: "/templates/DS9/template-pipeline-v1.0.0.yml"
 
   # REMOVE! : Create new template on here https://scm.ap.toyota-asia.com/devsecops/cicd-template/-/tree/master/templates/<project_name>
-  # REMOVE! : Jobs template for Build NodeJS for 4 Environment template-pipeline-v1.0.0.yml https://scm.ap.toyota-asia.com/devsecops/cicd-template/-/blob/master/templates/ep0/template-pipeline-v1.0.0.yml    
+  # REMOVE! : Jobs template for Build NodeJS for 4 Environment template-pipeline-v1.0.0.yml https://scm.ap.toyota-asia.com/devsecops/cicd-template/-/blob/master/templates/ep0/template-pipeline-v1.0.0.yml
 
 
 compile:
   stage: compile
-  image: $DOMAIN_NAME_TCR/hubdocker/library/maven:3-jdk-12 #openjdk:12-alpine
+  image: $DOMAIN_NAME_TCR/hubdocker/library/maven:3-jdk-11 #openjdk:12-alpine
   script:
     - set -x
     - java --version
@@ -72,6 +76,21 @@ compile:
     - develop
     - release
     - /^hotfix-v[0-9]\d*(\.[0-9]\d*)*$/
+
+code coverage:
+  stage: code scan
+  #image: maven:3.6.3-jdk-11
+  image: $DOMAIN_NAME_TCR/hubdocker/library/maven:3-jdk-11
+  script:
+    - set -x
+    - keytool -importcert -noprompt -file ./sast.ap.toyota-asia.com.crt -keystore $JAVA_HOME/lib/security/cacerts -alias "sonar202306" -storepass changeit
+    - mvn $MAVEN_CLI_OPTS_TEST verify -s settings.xml sonar:sonar -Dsonar.host.url=https://$DOMAIN_NAME_SAST -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.projectKey=$PROJECT_NAME-$SERVICE_NAME -Dsonar.projectName=$PROJECT_NAME-$SERVICE_NAME -Dsonar.qualitygate.wait=true
+
+    #- mvn MAVEN_CLI_OPTS_TEST package -s settings.xml
+  allow_failure: true
+  artifacts:
+    paths:
+      - target/site/jacoco/jacoco.xml
 
 .version checking:
   stage: testing

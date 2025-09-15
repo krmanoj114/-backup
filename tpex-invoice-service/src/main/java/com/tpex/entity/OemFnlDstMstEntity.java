@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-
+@SuppressWarnings("squid:S107")
 @Table(name = "TB_M_FINAL_DESTINATION")
 @Entity
 public class OemFnlDstMstEntity implements Serializable {

@@ -17,5 +17,9 @@ public class ReturnablePackingMasterDetailsDTO {
 	private String moduleDesciption;
 	private String vanningDateFrom;
 	private String vanningDateTo;
+	private String updBy;
+	private String createBy;
+	private String createDate;
+	private String updDate;
 
 }

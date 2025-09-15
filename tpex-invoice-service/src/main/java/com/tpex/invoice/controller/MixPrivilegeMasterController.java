@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -61,7 +59,7 @@ public class MixPrivilegeMasterController {
 	}
 
 	@DeleteMapping(value= "/deleteMixPrivilegeMaster", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object>  deleteMixPrivilegeMaster(@RequestBody List<Integer> ids) throws Exception{
+	public ResponseEntity<Object>  deleteMixPrivilegeMaster(@RequestBody List<Integer> ids) {
 
 		Map<String,Object> errorMessageParams = new HashMap<>();
 

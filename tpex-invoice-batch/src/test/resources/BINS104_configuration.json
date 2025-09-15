@@ -1,0 +1,266 @@
+{
+	"batchId" : "BINS104",
+
+	"fileInfo" : {		
+		
+		"inputFileNames" : [
+            {
+                "beginWith" : "DA90010",
+                "company" : "TMT"
+            },
+            {
+                "beginWith" : "DA90010",
+                "company" : "STM"
+            }
+        ],
+
+		"inputFileFolder" : "/home/TMAP/DSD/shared/batch/BINS104/input",
+		"processingFolder" : "/home/TMAP/DSD/shared/batch/BINS104/input/tmp",		
+		"archiveFolderName" : "/home/TMAP/DSD/shared/batch/BINS104/archive"		
+	},
+
+	"fileStructure" : {
+		
+		"fileHeader" : {
+			"recordLength" : "50",
+			"tokens" : [
+				{
+					"name" : "Beginning of Record",
+					"desc" : "Beginning of Record",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "1",
+					"endDigit" : "1",					
+					"fixValue" : "#"					
+				},
+				{
+					"name" : "Record ID",
+					"desc" : "Record ID",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "2",
+					"endDigit" : "2",					
+					"fixValue" : "H",
+					"notTrim" : "Y"
+				},
+				{
+					"name" : "From System",
+					"desc" : "From System",
+					"dataType" : "Char",
+					"length" : "3",
+					"startDigit" : "4",
+					"endDigit" : "6",					
+					"fixValue" : "IXO"
+				},
+				{
+					"name" : "To System",
+					"desc" : "To System",
+					"dataType" : "Char",
+					"length" : "3",
+					"startDigit" : "8",
+					"endDigit" : "10",					
+					"fixValue" : "OEM"
+				},
+				{
+					"name" : "File Name",
+					"desc" : "File Name",
+					"dataType" : "Char",
+					"length" : "24",
+					"startDigit" : "12",
+					"endDigit" : "35",					
+					"fixValue" : "DA90010_YYYYMMDDHHMISS_D"
+				},
+				{
+					"name" : "Interface Name",
+					"desc" : "Interface Identifier",
+					"dataType" : "Char",
+					"length" : "7",
+					"startDigit" : "37",
+					"endDigit" : "43",					
+					"fixValue" : "DA90010"
+				},
+				{
+					"name" : "Record Length",
+					"desc" : "Record Length of Data",
+					"dataType" : "Char",
+					"length" : "5",
+					"startDigit" : "45",
+					"endDigit" : "49",					
+					"fixValue" : "00098"
+				},
+				{
+					"name" : "Ending of Record",
+					"desc" : "Ending of Record",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "50",
+					"endDigit" : "50",					
+					"fixValue" : "#"
+				}
+			]
+		},
+		
+		"fileRecord" : {
+			"recordLength" : "130",
+			"tokens" : [
+				{
+					"name" : "Record ID",
+					"desc" : "Record ID",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "1",
+					"endDigit" : "1",
+					"mandatory" : "Y",
+					"fixValue" : "D",
+					"notTrim" : "Y"
+				},
+				{
+					"name" : "Car Family Code",
+					"desc" : "Car Family Code",
+					"dataType" : "Char",
+					"length" : "4",
+					"startDigit" : "2",
+					"endDigit" : "5",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Car Family Name",
+					"desc" : "Series Name",
+					"dataType" : "Char",
+					"length" : "20",
+					"startDigit" : "6",
+					"endDigit" : "25",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Part No.",
+					"desc" : "Part No.",
+					"dataType" : "Char",
+					"length" : "10",
+					"startDigit" : "26",
+					"endDigit" : "35",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Part Name",
+					"desc" : "Part Name",
+					"dataType" : "Char",
+					"length" : "40",
+					"startDigit" : "36",
+					"endDigit" : "75",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Importer Company Code",
+					"desc" : "Importer Company Code",
+					"dataType" : "Char",
+					"length" : "3",
+					"startDigit" : "76",
+					"endDigit" : "78",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Exporter Company Code",
+					"desc" : "Exporter Company Code",
+					"dataType" : "Char",
+					"length" : "3",
+					"startDigit" : "79",
+					"endDigit" : "81",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Part Privilage Flag",
+					"desc" : "Part Privilage Flag",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "82",
+					"endDigit" : "82",
+                    "mandatory" : "Y"
+				},
+				{
+					"name" : "Time Control From",
+					"desc" : "Effective Date",
+					"dataType" : "Date",
+					"length" : "8",
+					"startDigit" : "83",
+					"endDigit" : "90",
+                    "mandatory" : "Y",
+					"format" : "yyyyMMdd"					
+				},
+				{
+					"name" : "Time Control To",
+					"desc" : "Expire Date",
+					"dataType" : "Date",
+					"length" : "8",
+					"startDigit" : "91",
+					"endDigit" : "98",
+                    "mandatory" : "Y",
+					"format" : "yyyyMMdd"
+				},
+				{
+					"name" : "HS Code",
+					"desc" : "HS Code",
+					"dataType" : "Char",
+					"length" : "15",
+					"startDigit" : "99",
+					"endDigit" : "113",
+                    "mandatory" : "N"
+				},
+				{
+					"name" : "Origin Criteria",
+					"desc" : "% of Local Content (Product of AEC)",
+					"dataType" : "Char",
+					"length" : "17",
+					"startDigit" : "114",
+					"endDigit" : "130",
+                    "mandatory" : "N"
+				}
+				
+			]
+		},
+		
+		"fileFooter" : {
+			"recordLength" : "11",
+			"tokens" : [
+				{
+					"name" : "Beginning of Record",
+					"desc" : "Beginning of Record",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "1",
+					"endDigit" : "1",					
+					"fixValue" : "#"					
+				},
+				{
+					"name" : "Record Id",
+					"desc" : "Record Id",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "2",
+					"endDigit" : "2",
+					"fixValue" : "T",
+					"notTrim" : "Y"
+				},
+				{
+					"name" : "Record Count",
+					"desc" : "Record Count",
+					"dataType" : "Number",
+					"length" : "7",
+					"startDigit" : "4",
+					"endDigit" : "10",
+					"fixValue" : "0000000"
+				},
+				{
+					"name" : "Ending of Record",
+					"desc" : "Ending of Record",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "11",
+					"endDigit" : "11",
+					"fixValue" : "#"
+				}
+			]
+		}
+	}
+	
+}

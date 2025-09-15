@@ -1,0 +1,21 @@
+package com.tpex.batchjob.binf301.configuration.model;
+
+import java.io.Serializable;
+
+import com.tpex.batchjob.common.configuration.model.ReceiveBatchConfig;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper=false)
+@Data
+public class Binf301Config extends ReceiveBatchConfig implements Serializable  {
+
+	private static final long serialVersionUID = -5054886755499024323L;
+	
+	private Binf301FileStructure fileStructure;
+
+	public Binf301Config() {
+		super();
+	}
+}

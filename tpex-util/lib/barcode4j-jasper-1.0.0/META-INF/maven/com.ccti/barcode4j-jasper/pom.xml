@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ccti</groupId>
+	<artifactId>barcode4j-jasper</artifactId>
+	<name>barcode4j-jasper</name>
+	<packaging>jar</packaging>
+	<version>1.0.0</version>
+
+	<description>Alternative barcode for JasperReport</description>
+
+	<organization>
+		<name>Solutins Exchange, Inc</name>
+		<url>http://www.sxchange.com.ph</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<url>http://192.168.1.113:8090/sxirepo/trunk/barcode4j-jasper</url>
+		<connection>scm:svn:http://192.168.1.113:8090/sxirepo/trunk/barcode4j-jasper</connection>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>avalon-framework</groupId>
+			<artifactId>avalon-framework</artifactId>
+			<version>4.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>3.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>archiva.internal</id>
+			<name>Internal Release Repository</name>
+			<url>http://192.168.1.113:8086/archiva/repository/internal</url>
+		</repository>
+		<snapshotRepository>
+			<id>archiva.snapshots</id>
+			<name>Internal Snapshot Repository</name>
+			<url>http://192.168.1.113:8086/archiva/repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+</project>

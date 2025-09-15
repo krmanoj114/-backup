@@ -10,15 +10,14 @@ import com.tpex.json.dto.ColumnsDTO;
 import lombok.Data;
 
 @Data
-public class CommonCodeMasterListDTO implements Serializable{
+public class CommonCodeMasterListDTO implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private ColumnsDTO columns;
-	//List<Object[]> data = new ArrayList<>();
-	List<Map<String, String>> data = new ArrayList<>();
 
+	private List<Map<String, String>> data = new ArrayList<>();
 
 }
