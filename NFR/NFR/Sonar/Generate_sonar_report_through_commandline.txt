@@ -1,0 +1,40 @@
+Add following entries into pom.xml, to generate the sonar report remotely on SonarQube
+ server through command line 
+Note:- The purpose of these etries in pom.xml to generate report, shoud not be checked in to gitlab.
+#add profile
+<profile>
+	<id>sonar</id>
+	<activation>
+	<activeByDefault>true</activeByDefault>
+	</activation>
+	<properties>
+		<sonar.host.url>https://sast.ap.toyota-asia.com</sonar.host.url>
+		<sonar.login>XXXX</sonar.login>
+		<sonar.password>xxxxxxx</sonar.password>
+	</properties>
+</profile>
+
+
+#add sonar dependency
+<dependency>
+	<groupId>org.sonarsource.scanner.maven</groupId>
+	<artifactId>sonar-maven-plugin</artifactId>
+	<version>3.9.1.2184</version>
+</dependency>
+
+#mvn command to generate sonar report
+mvn sonar:sonar -Dsonar.projectKey=toyota-part-export-system-tpex-admin-service
+
+Note:- To generate the sonar report locally through commandlinet, certificate from sonarQube and Jforg artifactory server need to be placed in ~/lib/security folder od external JDK 11
+ 
+
+
+Following are the sonar project key:-
+------------------------------------
+admin         - toyota-part-export-system-tpex-admin-service
+invoice       - toyota-part-export-system-tpex-invoice-service
+invoice-batch - toyota-part-export-system-tpex-invoice-batch
+month-service - toyota-part-export-system-tpex-month-service
+daily-service - toyota-part-export-system-tpex-daily-service
+
+sast - https://sast.ap.toyota-asia.com
