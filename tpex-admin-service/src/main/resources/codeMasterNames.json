@@ -1,0 +1,37 @@
+[
+	{
+		"codeMasterId": "1",
+		"codeMasterName": "Car Family Master",
+		"jsonFileName":"carFamilyJsonPath"
+	},{
+		"codeMasterId": "2",
+		"codeMasterName": "Country Code For COO",
+		"jsonFileName":"codeMasterCooJsonPath"
+	},
+	{
+		"codeMasterId": "3",
+		"codeMasterName": "Final Destination Master",
+		"jsonFileName":"finalDestinationJsonPath"
+	},
+	{
+		"codeMasterId": "4",
+		"codeMasterName": "Currency Code Master",
+		"jsonFileName":"currencyCodeMasterJsonPath"
+	},
+	{
+		"codeMasterId": "5",
+		"codeMasterName": "Payment Term Master",
+		"jsonFileName":"paymentTermMasterJsonPath"
+	},
+	{
+		"codeMasterId": "6",
+		"codeMasterName": "Port Master",
+		"jsonFileName":"portMasterJsonPath"
+	},
+	{
+		"codeMasterId": "7",
+		"codeMasterName": "Test Master3",
+		"jsonFileName":"nameOftheJsonFileInDatabase"
+	}
+	
+]

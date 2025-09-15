@@ -1,0 +1,31 @@
+
+		{
+	"columns": [
+		{
+			"id": "PART_NO",
+			"name": "PartNo",
+			"type": "string",
+			"max": "12",
+			"min": "12",
+			"required": true,
+			"editable": true,
+			"unique": true,
+			"link": false
+		},
+		{
+			"id": "EFF_FROM",
+			"name": "EffectiveFrom",
+			"type": "string",
+			"max": "10",
+			"min": "4",
+			"required": true,
+			"editable": false,
+			"unique": true,
+			"link": false
+		}
+	],
+	"tableName":"TB_M_COUNTRY_ORIGIN",
+	"primaryKey":"PART_NO"
+	
+	
+}

@@ -1,0 +1,22 @@
+FROM openjdk:11
+
+USER nonroot
+
+#ARG CERT="certificate.crt"
+ADD certificate.crt /usr/local/openjdk-11/lib/security/certificate.crt
+
+#RUN keytool -keystore /usr/local/openjdk-11/lib/security/cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias https://tpex-dev.tdem.toyota-asia.com -file /usr/local/openjdk-11/lib/security/certificate.crt
+
+
+
+VOLUME /tmp
+
+ENV TZ=Asia/Bangkok
+
+EXPOSE 9090
+
+ARG JAR_FILE=./build/libs/*.jar
+
+ADD ${JAR_FILE} app.jar
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=dev", "-jar", "/app.jar"]
