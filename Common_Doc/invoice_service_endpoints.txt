@@ -1,0 +1,79 @@
+inquiry-screenfor-invoice-and-shipping-reports-controller
+GET		​/tpex-invoice-service​/invoice​/destinationAndShippingReports
+GET		​/tpex-invoice-service​/invoice​/downloadExportedReports
+POST	​/tpex-invoice-service​/invoice​/downloadInvoiceReports
+POST	​/tpex-invoice-service​/invoice​/invShippingContainerResults
+GET		​/tpex-invoice-service​/invoice​/orderTypeAndInvoiceNo
+
+inv-gen-work-plan-mst-controller
+GET		​/tpex-invoice-service​/invoice​/destCodeAndDestName
+GET		​/tpex-invoice-service​/invoice​/downloadInvoiceGenPlan
+POST	​/tpex-invoice-service​/invoice​/generateHaisenNo
+POST	​/tpex-invoice-service​/invoice​/invoiceDetails
+GET		​/tpex-invoice-service​/invoice​/renbanCodesByContDstCode
+POST	​/tpex-invoice-service​/invoice​/saveInvoice
+
+inv-haisen-details-controller
+POST	​/tpex-invoice-service​/invoice​/saveInvHaisenDetails
+PUT		​/tpex-invoice-service​/invoice​/updateInvoiceDetails
+
+inv-search-controller
+GET		​/tpex-invoice-service​/invoice​/getInvDtlsByHaisenNo
+GET		​/tpex-invoice-service​/invoice​/searchByInvoiceNo
+POST	​/tpex-invoice-service​/invoice​/searchInvoice
+PUT		​/tpex-invoice-service​/invoice​/updateInvDetailsByInvNo
+
+inv-shipping-ctrl-mst-controller
+GET		​/tpex-invoice-service​/invoice​/consigneeAndNotifyPartyByBuyer
+DELETE	​/tpex-invoice-service​/invoice​/deleteShippingControlMaster
+POST	​/tpex-invoice-service​/invoice​/saveShippingControlMaster
+GET		​/tpex-invoice-service​/invoice​/shippingControlMasterList
+
+inv-vin-list-controller
+GET		​/tpex-invoice-service​/invoice​/vinList
+
+invoice-recalculate-controller
+GET		​/tpex-invoice-service​/invoice​/invoiceDetailsByInv
+POST	​/tpex-invoice-service​/invoice​/invrecalculatedetails
+
+invoice-setup-master-controller
+GET		​/tpex-invoice-service​/invoice​/invoiceSetupMaster
+POST	​/tpex-invoice-service​/invoice​/invoiceSetupMaster
+DELETE	​/tpex-invoice-service​/invoice​/invoiceSetupMaster
+
+lot-price-master-controller
+GET		​/tpex-invoice-service​/invoice​/destinationAndCarfamily
+POST	​/tpex-invoice-service​/invoice​/searchLotPartPricePopupDetails
+POST	​/tpex-invoice-service​/invoice​/searchLotPriceMasterDetails
+PUT		​/tpex-invoice-service​/invoice​/UpdateLotPartPricePopupDetails
+
+mix-privilege-master-controller
+DELETE	​/tpex-invoice-service​/invoice​/deleteMixPrivilegeMaster
+GET		​/tpex-invoice-service​/invoice​/fetchMixPrivilegeDetails
+POST	​/tpex-invoice-service​/invoice​/saveMixPrivilegeMaster
+
+part-price-master-controller
+POST	​/tpex-invoice-service​/invoice​/deletePxpPartPriceMaster
+GET		​/tpex-invoice-service​/invoice​/destinationAndCarfamilyCodes
+GET		​/tpex-invoice-service​/invoice​/downloadPartPriceMasterDetails
+GET		​/tpex-invoice-service​/invoice​/partName​/{partNo}
+POST	​/tpex-invoice-service​/invoice​/partPriceMasterList
+POST	​/tpex-invoice-service​/invoice​/savePxpPartPriceMaster
+POST	​/tpex-invoice-service​/invoice​/updatePxpPartPriceMaster
+
+renban-group-code-master-controller
+DELETE	​/tpex-invoice-service​/invoice​/renbanGroupCode
+POST	​/tpex-invoice-service​/invoice​/renbanGroupCodeByDestination
+POST	​/tpex-invoice-service​/invoice​/saveRenbanCodeMaster
+PUT		​/tpex-invoice-service​/invoice​/updateRenbanCodeMaster
+
+returnable-packing-master-controller
+GET		​/tpex-invoice-service​/invoice​/carFamilyAndDestinationMaster
+DELETE	​/tpex-invoice-service​/invoice​/deleteReturnablePackingMasterList
+GET		​/tpex-invoice-service​/invoice​/packingPlantAndImporterCode
+GET		​/tpex-invoice-service​/invoice​/returnablePackingMasterList
+POST	​/tpex-invoice-service​/invoice​/saveReturnablePackingMasterList
+
+seperate-inv-gen-controller
+GET		​/tpex-invoice-service​/invoice-generation​/searchInvoice
+

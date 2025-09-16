@@ -1,0 +1,41 @@
+{
+"columns": [
+    {
+        "id": "CD",
+        "name": "Port Code",
+        "type": "string",
+        "max": "3",
+        "min": "4",
+        "required": true,
+        "editable": true,
+        "unique": true,
+        "link": false
+    },
+    {
+        "id": "NAME",
+        "name": "Port Name",
+        "type": "string",
+        "max": "50",
+        "min": "2",
+        "required": true,
+        "editable": true,
+        "unique": false,
+        "link": false
+    },
+    {
+        "id": "COUNTRY",
+        "name": "Port Country",
+        "type": "string",
+        "max": "50",
+        "min": "2",
+        "required": true,
+        "editable": true,
+        "unique": false,
+        "link": false
+    }
+
+],
+
+"tableName": "TB_M_PORT",
+"primaryKey": "CD"
+}

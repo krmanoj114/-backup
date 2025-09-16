@@ -1,0 +1,21 @@
+CREATE TABLE `tb_m_process_controler` (
+  `PROGRAM_ID` varchar(15) DEFAULT NULL,
+  `STRT_TIME` timestamp(6) NULL DEFAULT NULL,
+  `END_TIME` timestamp(6) NULL DEFAULT NULL,
+  `BATCH_ID` varchar(15) NOT NULL,
+  `USER_ID` varchar(10) DEFAULT NULL,
+  `STATUS` decimal(1,0) DEFAULT NULL,
+  `PARAMETER` varchar(50) DEFAULT NULL,
+  `PKG_MTH` varchar(6) DEFAULT NULL,
+  `SUBMIT_TIME` timestamp(6) NULL DEFAULT NULL,
+  `DAEMON` varchar(1) DEFAULT NULL,
+  `PROCESS_CTRL_ID` decimal(10,0) NOT NULL,
+  `CMP_CD` varchar(10) DEFAULT NULL,
+  `SYSTEM_NM` varchar(45) DEFAULT NULL,
+  `PROGRAM_NM` varchar(100) DEFAULT NULL,
+  `ERROR_FILE_PATH` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`BATCH_ID`,`PROCESS_CTRL_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+

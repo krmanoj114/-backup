@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Address Master Error" pageWidth="2450" pageHeight="40" columnWidth="2410" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="7ecde1d2-275b-45dd-84c3-96162e62ab21">
+	<property name="net.sf.jasperreports.style.evaluation.time.enabled" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<style name="Heading_Style" backcolor="#EDFBFF" fontSize="10">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{headingFontSize}==6]]></conditionExpression>
+			<style fontSize="6"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{headingFontSize}==8]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{headingFontSize}==10]]></conditionExpression>
+			<style fontSize="10"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{headingFontSize}==12]]></conditionExpression>
+			<style fontSize="12"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{headingFontSize}==14]]></conditionExpression>
+			<style fontSize="14"/>
+		</conditionalStyle>
+	</style>
+	<style name="Detail_Style" fontSize="10">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{detailFontSize}==6]]></conditionExpression>
+			<style fontSize="6"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{detailFontSize}==8]]></conditionExpression>
+			<style fontSize="8"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{detailFontSize}==10]]></conditionExpression>
+			<style fontSize="10"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{detailFontSize}==12]]></conditionExpression>
+			<style fontSize="12"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{detailFontSize}==14]]></conditionExpression>
+			<style fontSize="14"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="headingFontSize" class="java.lang.Integer"/>
+	<parameter name="detailFontSize" class="java.lang.Integer"/>
+	<parameter name="headingFontColor" class="java.lang.String"/>
+	<parameter name="detailFontColor" class="java.lang.String"/>
+	<parameter name="headingBGColor" class="java.lang.String"/>
+	<parameter name="detailBGColor" class="java.lang.String"/>
+	<parameter name="detailVAlign" class="java.lang.String"/>
+	<field name="companyCode" class="java.lang.String"/>
+	<field name="branch" class="java.lang.String"/>
+	<field name="companyName" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="address3" class="java.lang.String"/>
+	<field name="address4" class="java.lang.String"/>
+	<field name="zipCode" class="java.lang.String"/>
+	<field name="shortName" class="java.lang.String"/>
+	<field name="sapAcCode" class="java.lang.String"/>
+	<field name="consignee" class="java.lang.String"/>
+	<field name="countryCode" class="java.lang.String"/>
+	<field name="telephoneNo" class="java.lang.String"/>
+	<field name="faxNo" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="telexNo" class="java.lang.String"/>
+	<field name="contactPerson" class="java.lang.String"/>
+	<field name="defaultInvoiceAddress" class="java.lang.String"/>
+	<field name="scFlag" class="java.lang.String"/>
+	<field name="scRemark" class="java.lang.String"/>
+	<field name="employee1" class="java.lang.String"/>
+	<field name="employee2" class="java.lang.String"/>
+	<field name="employee3" class="java.lang.String"/>
+	<field name="errorReason" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="-20" y="-20" width="100" height="20" uuid="cdbc7285-f3f4-4bfa-9379-50d58e6fd8a2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Company Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="80" y="-20" width="100" height="20" uuid="30764e72-b602-4bf3-aec1-990eed4161ac">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Branch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="180" y="-20" width="120" height="20" uuid="1571de0f-3a51-449f-ad42-fef4d9e701af">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Company Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="300" y="-20" width="120" height="20" uuid="35bdcc12-31d2-4216-b2f6-f4e5112419f4">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Address 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="420" y="-20" width="120" height="20" uuid="27dd0c14-b437-4c21-9e04-025504efae3e">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Address 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="540" y="-20" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Address 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="660" y="-20" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Address 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="780" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Zip Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="880" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Short Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="980" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[SAP A/C Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1080" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Consignee]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1180" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Country Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1280" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Telephone No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1380" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Fax No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1480" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[EMail Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1580" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Telex No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1680" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Contact Person]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1780" y="-20" width="130" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Default Invoice Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1910" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[SC Flag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2010" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[SC Remark]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2110" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Employee 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2210" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Employee 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2310" y="-20" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Employee 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2410" y="-20" width="200" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Error Reason]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="-20" y="0" width="100" height="20" uuid="cdbc7285-f3f4-4bfa-9379-50d58e6fd8a2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(3)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="80" y="0" width="100" height="20" uuid="30764e72-b602-4bf3-aec1-990eed4161ac">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(3)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="180" y="0" width="120" height="20" uuid="1571de0f-3a51-449f-ad42-fef4d9e701af">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(80)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="300" y="0" width="120" height="20" uuid="35bdcc12-31d2-4216-b2f6-f4e5112419f4">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(40)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="420" y="0" width="120" height="20" uuid="27dd0c14-b437-4c21-9e04-025504efae3e">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(40)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="540" y="0" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(40)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="660" y="0" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(40)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="780" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx.(10)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="880" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(15)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="980" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(4)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1080" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(3)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1180" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(3)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1280" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(30)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1380" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(15)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1480" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(60)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1580" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(20)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1680" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(30)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1780" y="0" width="130" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Y or N, One per company]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="1910" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[Y or N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2010" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(400)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2110" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(50)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2210" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(50)/Key]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Heading_Style" mode="Opaque" x="2310" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.style.isBold" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{headingFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{headingBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid" lineColor="#A9EBFF"/>
+				</box>
+				<text><![CDATA[xx..(50)/Key]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail_Style" x="-20" y="0" width="100" height="20" uuid="cdbc7285-f3f4-4bfa-9379-50d58e6fd8a2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{companyCode} == null ? "" : $F{companyCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="80" y="0" width="100" height="20" uuid="30764e72-b602-4bf3-aec1-990eed4161ac">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{branch} == null ? "" : $F{branch}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="180" y="0" width="120" height="20" uuid="1571de0f-3a51-449f-ad42-fef4d9e701af">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{companyName} == null ? "" : $F{companyName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="300" y="-1" width="120" height="20" uuid="35bdcc12-31d2-4216-b2f6-f4e5112419f4">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{address1} == null ? "" : $F{address1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="420" y="0" width="120" height="20" uuid="27dd0c14-b437-4c21-9e04-025504efae3e">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{address2} == null ? "" : $F{address2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="540" y="0" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<property name="net.sf.jasperreports.export.xls.auto.fit.row" value="true"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{address3} == null ? "" : $F{address3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="660" y="0" width="120" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{address4} == null ? "" : $F{address4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="780" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{zipCode} == null ? "" : $F{zipCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="880" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{shortName} == null ? "" : $F{shortName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="980" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{sapAcCode} == null ? "" : $F{sapAcCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1080" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{consignee} == null ? "" : $F{consignee}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1180" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{countryCode} == null ? "" : $F{countryCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1280" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{telephoneNo} == null ? "" : $F{telephoneNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1380" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{faxNo} == null ? "" : $F{faxNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1480" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{email} == null ? "" : $F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1580" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{telexNo} == null ? "" : $F{telexNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1680" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{contactPerson} == null ? "" : $F{contactPerson}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1780" y="0" width="130" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{defaultInvoiceAddress} == null ? "" : $F{defaultInvoiceAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="1910" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{scFlag} == null ? "" : $F{scFlag}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="2010" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{scRemark} == null ? "" : $F{scRemark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="2110" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee1} == null ? "" : $F{employee1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="2210" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee2} == null ? "" : $F{employee2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="2310" y="0" width="100" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{employee3} == null ? "" : $F{employee3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail_Style" x="2410" y="0" width="200" height="20" uuid="baab7267-ec6d-41dc-ab49-03fb0386f3e2">
+					<property name="net.sf.jasperreports.style.fontName" value="Arial"/>
+					<property name="net.sf.jasperreports.style.hTextAlign" value="Left"/>
+					<propertyExpression name="net.sf.jasperreports.style.forecolor"><![CDATA[$P{detailFontColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.backcolor"><![CDATA[$P{detailBGColor}]]></propertyExpression>
+					<propertyExpression name="net.sf.jasperreports.style.vTextAlign"><![CDATA[$P{detailVAlign}]]></propertyExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#DADADA"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8DAFB"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{errorReason} == null ? "" : $F{errorReason}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

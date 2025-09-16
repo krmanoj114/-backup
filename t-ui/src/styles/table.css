@@ -1,0 +1,400 @@
+/*Grid Panel section*/
+.table-responsive {
+  border-radius: 5px;
+}
+.table>:not(caption)>*>* {
+    border-bottom-width: 0;
+}
+.grid-panel {
+    padding: 10px 12px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  }
+  .grid-panel .filter-button {
+    background:url('../assets/images/icons/filter.svg') no-repeat;
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+  }
+  .grid-panel .button-filter {
+    color: #3A78F2;
+    background: white;
+    border: none;
+    font-size: 14px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  }
+  .grid-panel .grid-table {
+    border: 1px solid #00000029;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 0;
+  }
+  .grid-table .tpexTable > thead {
+    border-bottom: 2px solid #A9EBFF;
+    background: #D5F5FE;
+    z-index: 12;
+  }
+  .grid-table .tpexTable > thead > tr > th {
+    box-shadow: inset -2px 0 #A9EBFF;
+    background-color: #D5F5FE;
+    padding: 5px 10px;
+    line-height: 17px;  
+    color: #000;
+  }
+  .grid-table .tpexTable > thead > tr > th input {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    font-size: 20px;
+    color: #66000000;
+  }
+  .grid-table .tpexTable td {
+  min-width: 100px;
+  box-shadow: inset -2px 0 #DADADA;
+  border-bottom: 2px solid #DADADA;
+  font-size: 16px;
+  font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  height: 32px;
+  padding: 2px 10px;
+  vertical-align: middle;
+  line-height: 26px;
+  white-space: nowrap;
+  color: #000;
+  background-color: #FFF;
+  margin: 0;
+}
+  .grid-table .tpexTable th.checkboxCol {
+    box-shadow: none;  
+  }
+  .grid-table .tpexTable .form-control {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    line-height: 19px;
+    padding: 6px;
+    height: 26px;
+    color: #000;
+  }
+  .grid-table .tpexTable .form-select  {
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    line-height: 19px;
+    padding: 2px 16px 2px 6px;
+    height: 26px;
+    background-position: right 0px center;
+  }
+  .grid-table .tpexTable > thead > tr > th:last-child, .grid-table .tpexTable td:last-child {
+    box-shadow: none;
+    }
+  .grid-table .tpexTable {
+    margin-bottom: 4px;
+  }
+  .tableinvoice .tpexTable {
+    margin-bottom: 12px;
+  }
+  .grid-table .tpexTable th {
+    font-size: 14px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  }
+  .tableinvoice tbody tr:hover>*, .tpexTable tbody tr:hover td, .tpexTable tbody tr:hover td.checkboxCol {
+  background-color: #EFF1F9;
+  }
+  .tpexTable tbody tr.nonEditable:hover>* {
+    background-color: #F7F7F7;
+  }
+  .tpexTable.tpexTableEdit tbody tr.editTableRow:hover td:nth-of-type(3) {
+    background: url('../assets/images/icons/edit.svg') no-repeat right, #EFF1F9;
+    background-position: right 5px top 7px;
+  }
+  .tableWithChecbox .checkboxCol .form-check {
+    margin-right: 0;
+    display: inline-block;
+  }
+  .tableWithChecbox .checkboxCol .form-check .form-check-input {
+    margin-left: -28px;
+    margin-top: 8px;
+  }
+  .tpexTable.tpexTableEdit.tableWithChecbox .checkboxCol, .tpexTable.tableWithChecbox .checkboxCol {
+    min-width: 25px;
+    width: 25px;
+    padding-right: 0;
+    padding-top: 0;
+  }
+  table.tpexTable a {
+    font-size: 16px;
+    color: #3A78F2;
+  }
+  .tpexTable>tbody>tr.nonEditable > * {
+    background-color: #F7F7F7;
+  }
+  .grid-table .arrow-down {
+  background:url('../assets/images/icons/arrow-down-short.svg') no-repeat;
+  height: 14px;
+  width: 14px;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  }
+  .grid-table .arrow-up {
+    background:url('../assets/images/icons/arrow-down-short.svg') no-repeat;
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    transform: rotate(180deg);
+    }
+  .grid-table .tpexTable td.noData {
+    width: 100%;
+    height: 28px;
+    border-bottom: none;
+    background-color: #FFF;
+    text-align: center;
+    padding-top: 5px;
+    cursor: default;
+  }
+  .grid-table .tpexTable tbody tr:hover .noData {
+    background-color: #FFF;
+  }
+  .table-responsive::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    z-index: 1;
+  }
+  .table-responsive::-webkit-scrollbar-corner {
+    border-radius: 5px;
+  }
+  .table-responsive::-webkit-scrollbar-track {
+    background-color: #0000001A;
+    border-radius: 6px;
+    transform:rotate(-90deg) translateY(-100px);
+  }
+  .table-responsive::-webkit-scrollbar-thumb {
+    background: #3A78F2; 
+    border-radius: 6px;
+  }
+  .table-responsive::-webkit-scrollbar-width {
+    width: 100px;
+  }
+  .table-responsive-height {
+    max-height: 400px;
+    overflow-y: auto;
+  }    
+  .table-responsive-height thead {
+    position: sticky;
+    top: 0;
+  }
+  .filter-with-orderType {
+    margin-top: -27px;
+  }
+  .grid-table .tpexTable td span {
+    padding: 0;
+  }
+  .grid-table .tpexTable td.Error-status span, .tpexTable a.Error-status,
+  .grid-table .tpexTable td.Success-status span, .tpexTable a.Success-status,
+  .grid-table .tpexTable td.Info-status span, .tpexTable a.Info-status,
+  .grid-table .tpexTable td.Processing-status span, .tpexTable a.Processing-status,
+  .grid-table .tpexTable td.Warning-status span, .tpexTable a.Warning-status,
+  .grid-table .tpexTable td.Pending-status span, .tpexTable a.Pending-status
+   {
+    font-size: 18px;
+    font-family:'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    padding: 0 10px;
+    border-radius: 5px;
+    line-height: 22px;
+    text-decoration: none;
+  }
+  .grid-table .tpexTable td.Error-status span, .tpexTable a.Error-status {
+    background-color: #FF245914;
+    border: 1px solid #FF24591A;
+    color: #FF2459;
+  }
+  .grid-table .tpexTable td.Success-status span, .tpexTable a.Success-status, 
+  .grid-table .tpexTable td.Info-status span, .tpexTable a.Info-status {
+    background-color: #00C67D14;
+    border: 1px solid #00C67D1A;
+    color: #00C67D;
+  }
+  .grid-table .tpexTable td.Processing-status span, .tpexTable a.Processing-status,
+  .grid-table .tpexTable td.Warning-status span, .tpexTable a.Warning-status {
+    background-color: #FFC70014;
+    border: 1px solid #FFC7001A;
+    color: #FFC700;
+  }
+  .grid-table .tpexTable td.Pending-status span, .tpexTable a.Pending-status {
+    background-color: #009EF714;
+    border: 1px solid #009EF71A;
+    color: #009EF7;
+  }
+  .grid-table .tpexTable td.Error-status span:hover,
+  .grid-table .tpexTable td.Success-status span:hover,
+  .grid-table .tpexTable td.Info-status span:hover,
+  .tpexTable a.Error-status:hover,
+  .tpexTable a.Success-status:hover {
+    text-decoration: underline;
+  }
+
+  /*Custom FIle Button CSS starts*/
+  .custom-file-button {
+    border: 1px solid #00000029;
+    border-radius: 4px;
+  }
+  .custom-file-button input[type="file"].normalText {
+    text-transform: none;
+  }
+  .custom-file-button input[type="file"] {
+    font-size: 16px;
+    padding: 6px 10px;
+    line-height: 20px;
+    border: none;
+    text-transform: capitalize;
+  }
+  .custom-file-button input[type="file"]::-webkit-file-upload-button {
+    display: none;
+  }
+  .custom-file-button input[type="file"]::-webkit-file-selector-button {
+    display: none;
+  }
+  .custom-file-button.input-group .input-group-text {
+    font-size: 16px;
+    font-family:'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    background-color: #E4E6EF;
+    border-radius: 4px;
+    border: none;
+    margin: 3px;
+    padding: 6px 20px;
+    cursor: pointer;
+  }
+  .custom-file-button.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    border-radius: 4px;
+    margin-left: 0;
+  }
+  /*Custom FIle Button CSS ends*/
+  
+  
+  /*Pagination CSS*/
+  .paginationText {
+    color: #000;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 14px;
+    padding-left: 10px;
+    align-self: center;
+  }
+  .pagination {
+    border-radius: 4px;
+    padding-right: 10px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  .page-link {
+    border: 1px solid #DADADA;
+    color: #7E84A3;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+  .page-item:first-child .page-link {
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #DADADA;
+    color: #7E84A3
+  }
+  .page-item:first-child .page-link:hover {
+    color: #FFF;
+  }
+  .page-link:hover {
+    color: #FFF;
+    background: #3A78F2;
+  }
+  .page-link:focus {
+    box-shadow: none;
+  }
+  .pagination .pagination-left {
+    background:url('../assets/images/icons/pagination-left.svg') no-repeat;
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    }
+  .pagination .pagination-right {
+    background:url('../assets/images/icons/pagination-right.svg') no-repeat;
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    left: 2px;
+    }
+    .page-link:hover .pagination-right{
+      background:url('../assets/images/icons/pagination-right-white.svg') no-repeat;
+    }
+    .page-link:hover .pagination-left{
+      background:url('../assets/images/icons/pagination-left-white.svg') no-repeat;
+    }
+  .pagination .page-item:not(:first-child) .page-link {
+      margin-left: 0;
+      z-index: 0;
+  }
+    
+.active>.page-link, .page-link.active, .page-item.active {
+ border-color: #DADADA;
+ color: #7E84A3;
+ background-color: #FFF;
+ box-shadow: none;
+}
+
+.pagination .click-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+.checkboxCol .minus-icon {
+  background:url('../assets/images/icons/minus.svg') no-repeat;
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    left: 2px;
+    margin-left: -7px; 
+}
+.grid-table .tpexTable > thead > tr > th.checkboxCol {
+  border-right: 0;
+  padding: 0;
+  height: 28px;
+}
+.text-red{
+  color: red;
+}
+
+.tpexTable input[type="number"] {
+  text-align: right;
+  padding-right:10px;
+}
+.grid-table .css-b62m3t-container .css-13cymwt-control, .grid-table .css-b62m3t-container .css-t3ipsp-control {
+  min-height: 26px;
+}
+.grid-table .css-1hb7zxy-IndicatorsContainer .css-1xc3v61-indicatorContainer, .grid-table .css-1hb7zxy-IndicatorsContainer .css-15lsz6c-indicatorContainer {
+  padding: 0
+}
+.grid-table .css-13cymwt-control .css-1fdsijx-ValueContainer, .grid-table .css-t3ipsp-control .css-1fdsijx-ValueContainer {
+  padding: 0 0 0 5px;
+}
+.grid-table .css-1p3m7a8-multiValue {
+  height: 22px;
+  line-height: 22px;
+}
+.grid-table .tpexTable .buttonCell {
+  width: 70px;
+  min-width: 70px;
+}
+.grid-table .tpexTable .trselection td {
+  background-color: #D5E6FF
+}
+.grid-table .tpexTable .trselection td:first-child {
+  border-left: 4px solid #6396FB;
+}

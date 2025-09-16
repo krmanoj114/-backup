@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2016-12-08T17:17:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RINS002A" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="558" leftMargin="37" rightMargin="0" topMargin="37" bottomMargin="23" isFloatColumnFooter="true" scriptletClass="com.tpex.report.jasper.RINS002AScriptlet"  uuid="23cffbb2-0bd4-4d7d-9674-8a21446132f0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ROEM_STM_STT"/>
+	<parameter name="P_IO_V_PARAM" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="prmSysDate" class="java.lang.String"/>
+	<parameter name="P_I_V_INVOICE_NO" class="java.lang.String"/>
+	<parameter name="P_I_V_USER_ID" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{ call PINS002A($P{P_IO_V_PARAM}, $P{P_I_V_INVOICE_NO}, $P{P_I_V_USER_ID})}]]>
+	</queryString>
+	<field name="insCnsgName" class="java.lang.String"/>
+	<field name="insCnsgAdd1" class="java.lang.String"/>
+	<field name="insCnsgAdd2" class="java.lang.String"/>
+	<field name="insCnsgAdd3" class="java.lang.String"/>
+	<field name="insCnsgAdd4" class="java.lang.String"/>
+	<field name="insInvNo" class="java.lang.String"/>
+	<field name="insInvDt" class="java.lang.String"/>
+	<field name="insPartNo" class="java.lang.String"/>
+	<field name="insPartName" class="java.lang.String"/>
+	<field name="insSumTotUnit" class="java.lang.Double"/>
+	<field name="insIcoFlag" class="java.lang.String"/>
+	<field name="insPartPrice" class="java.lang.Double"/>
+	<field name="insUnitPerBox" class="java.lang.Double"/>
+	<field name="insPartWt" class="java.lang.Double"/>
+	<field name="insGrossWt" class="java.lang.Double"/>
+	<field name="insMeasurement" class="java.lang.Double"/>
+	<field name="insShipmark4" class="java.lang.String"/>
+	<field name="insShipmark5" class="java.lang.String"/>
+	<field name="shipMarkGp" class="java.lang.String"/>
+	<field name="caseMod" class="java.lang.String"/>
+	<field name="insCfCd" class="java.lang.String"/>
+	<field name="insSrsName" class="java.lang.String"/>
+	<field name="insNoOfCases" class="java.lang.Double"/>
+	<sortField name="fmlCFGroup" type="Variable"/>
+	<sortField name="caseMod"/>
+	<sortField name="insPartNo"/>
+	<variable name="fmlNetWeight" class="java.lang.Double">
+		<variableExpression><![CDATA[/*
+Round ({PINS002A.insSumTotUnit} * {PINS002A.insPartWt},3);
+
+
+
+
+
+*/
+$F{insSumTotUnit} != null && $F{insPartWt} != null ? $F{insSumTotUnit}* $F{insPartWt} : 0.0]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+Round ({PINS002A.insSumTotUnit} * {PINS002A.insPartWt},3);
+
+
+
+
+
+*/
+$F{insSumTotUnit} != null && $F{insPartWt} != null ? $F{insSumTotUnit}* $F{insPartWt} : 0.0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlPart" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+Left ( {PINS002A.insPartNo} , 5)
+
+*/
+$F{insPartNo} == null || $F{insPartNo}.length() < 5 ? "" : $F{insPartNo}.substring(0,5)]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+Left ( {PINS002A.insPartNo} , 5)
+
+*/
+$F{insPartNo} == null || $F{insPartNo}.length() < 5 ? "" : $F{insPartNo}.substring(0,5)]]></initialValueExpression>
+	</variable>
+	<variable name="fmlManu" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+stringVar strManu := Mid ( {PINS002A.insPartNo} , 6, 7);
+strManu;
+
+*/
+
+$F{insPartNo} == null || $F{insPartNo}.length() < 13 ? "" : $F{insPartNo}.substring(5,12)]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+stringVar strManu := Mid ( {PINS002A.insPartNo} , 6, 7);
+strManu;
+
+*/
+
+$F{insPartNo} == null || $F{insPartNo}.length() < 13 ? "" : $F{insPartNo}.substring(5,12)]]></initialValueExpression>
+	</variable>
+	<variable name="fmlPartName" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+Left({PINS002A.insPartName},40);
+
+*/
+$F{insPartName} == null ? "" : ($F{insPartName}.length() >= 40 ? $F{insPartName}.substring(0,40) : $F{insPartName})]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+Left({PINS002A.insPartName},40);
+
+*/
+$F{insPartName} == null ? "" : ($F{insPartName}.length() >= 40 ? $F{insPartName}.substring(0,40) : $F{insPartName})]]></initialValueExpression>
+	</variable>
+	<variable name="fmlAddress2" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+if IsNull ({PINS002A.insCnsgAdd2}) then
+    ''
+else
+    ', ' + {PINS002A.insCnsgAdd2}
+
+
+*/
+$F{insCnsgAdd2} == null ? "" : "," + $F{insCnsgAdd2}]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+if IsNull ({PINS002A.insCnsgAdd2}) then
+    ''
+else
+    ', ' + {PINS002A.insCnsgAdd2}
+
+
+*/
+$F{insCnsgAdd2} == null ? "" : "," + $F{insCnsgAdd2}]]></initialValueExpression>
+	</variable>
+	<variable name="fmlAddress4" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+if IsNull ({PINS002A.insCnsgAdd4}) then
+    ''
+else
+    ', ' + {PINS002A.insCnsgAdd4}
+
+
+*/
+$F{insCnsgAdd4} == null ? "" : "," + $F{insCnsgAdd4}]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+if IsNull ({PINS002A.insCnsgAdd4}) then
+    ''
+else
+    ', ' + {PINS002A.insCnsgAdd4}
+
+
+*/
+$F{insCnsgAdd4} == null ? "" : "," + $F{insCnsgAdd4}]]></initialValueExpression>
+	</variable>
+	<variable name="fmlCFGroup" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+//Changes made by Aarti for Isuue No.156 on 01-08-2005
+{PINS002A.insCfCd}+{PINS002A.insSrsName}
+//End Changes made by Aarti for Isuue No.156 on 01-08-2005
+
+*/ 
+($F{insCfCd} == null ? "" : $F{insCfCd} ) + ($F{insSrsName} == null ? "" : $F{insSrsName})]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+//Changes made by Aarti for Isuue No.156 on 01-08-2005
+{PINS002A.insCfCd}+{PINS002A.insSrsName}
+//End Changes made by Aarti for Isuue No.156 on 01-08-2005
+
+*/ 
+($F{insCfCd} == null ? "" : $F{insCfCd} ) + ($F{insSrsName} == null ? "" : $F{insSrsName})]]></initialValueExpression>
+	</variable>
+	<variable name="fmlNetWeight_Big_Decimal" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{fmlNetWeight} != null ? BigDecimal.valueOf($V{fmlNetWeight}).setScale(3, RoundingMode.HALF_UP).doubleValue() : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[$V{fmlNetWeight} != null ? BigDecimal.valueOf($V{fmlNetWeight}).setScale(3, RoundingMode.HALF_UP).doubleValue() : 0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlTotNetWtSHIP_MARK" class="java.lang.Double" resetType="Group" resetGroup="shipMarkGp" calculation="Sum">
+		<variableExpression><![CDATA[$V{fmlNetWeight_Big_Decimal}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlInsSumTotUnitSHIP_MARK" class="java.lang.Integer" resetType="Group" resetGroup="shipMarkGp" calculation="Sum">
+		<variableExpression><![CDATA[$F{insSumTotUnit}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlTotNetWt" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{fmlNetWeight_Big_Decimal}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlTotGrossWt" class="java.lang.Double" incrementType="Group" incrementGroup="shipMarkGp" calculation="Sum">
+		<variableExpression><![CDATA[$F{insGrossWt}!= null ? BigDecimal.valueOf($F{insGrossWt}).setScale(3, RoundingMode.HALF_UP).doubleValue() : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlTotMeasurement" class="java.lang.Double" incrementType="Group" incrementGroup="shipMarkGp" calculation="Sum">
+		<variableExpression><![CDATA[$F{insMeasurement} !=null ? BigDecimal.valueOf($F{insMeasurement}).setScale(3, RoundingMode.HALF_UP).doubleValue() : 0]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="fmlTotNoofCases" class="java.lang.Double" incrementType="Group" incrementGroup="shipMarkGp" calculation="Sum">
+		<variableExpression><![CDATA[$F{insNoOfCases}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="readMe" class="java.lang.String">
+		<variableExpression><![CDATA[/* 
+*/
+null]]></variableExpression>
+		<initialValueExpression><![CDATA[null]]></initialValueExpression>
+	</variable>
+	<group name="DummyGroup">
+		<groupFooter>
+			<band height="48" splitType="Prevent">
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="36" width="74" height="12" uuid="2de88343-76c0-4555-a835-e0ebb69da309">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlTotNoofCases}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="0" width="74" height="12" uuid="afab9f56-0963-469c-8c2a-6bad598a0da4">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlTotNetWt}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="24" width="434" height="12" uuid="2f429aee-33e3-411f-aac2-575ec3e30ab6">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[GRAND TOTAL MEASUREMENT(M3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="12" width="434" height="12" uuid="f4f5d8e2-b851-4b89-96ba-66332f97de62">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[GRAND TOTAL GROSS WEIGHT(KGS)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="36" width="434" height="12" uuid="11933e6a-f47a-48ee-ad0f-c5d46cad855c">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<text><![CDATA[GRAND TOTAL OF CASE(S)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="0" width="434" height="12" uuid="41c8f08c-6c51-4b42-a561-a3a3b5e3158b">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[GRAND TOTAL NET WEIGHT(KGS)]]></text>
+				</staticText>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="12" width="74" height="12" uuid="50c9207e-48de-4f9d-9377-142d0720f635">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlTotGrossWt}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="24" width="74" height="12" uuid="f0f035df-d7ec-41b2-8256-88fa6315068b">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlTotMeasurement}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="fmlCFGroup" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$V{fmlCFGroup}]]></groupExpression>
+		<groupHeader>
+			<band height="44">
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="14" width="70" height="30" uuid="aadd722a-3be2-432a-80ac-4f9988a870ec">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Part Number]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="78" y="14" width="202" height="30" uuid="9f63840f-3d5b-45d9-b276-fa0481be9cc9">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Part Description]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="14" width="74" height="30" uuid="09870b38-5e31-41fa-b9d7-d598cfd0acd2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Total N.W.
+ (Kgs.)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="366" y="14" width="76" height="30" uuid="e7e7a0e6-9afb-4688-9f6c-5e90035f8a2d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[N.W./Pc.
+ (Kgs.)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="312" y="14" width="54" height="30" uuid="f151eae8-1c96-4dca-a972-db6f771d9353">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Qty
+(Pc(s))]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="280" y="14" width="32" height="30" uuid="05fbe39c-53f6-46b5-8175-8037ad13f4c4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Qty/
+Box]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="2" width="62" height="10" uuid="ada344fb-a0b6-40d2-906f-2d8b24602464">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" isBold="true" />
+					</textElement>
+					<textFieldExpression><![CDATA["FOR SERIES :"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="76" y="2" width="161" height="10" isPrintWhenDetailOverflows="true" uuid="1c6907e1-4835-4e57-a2da-65cc40664d24">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insSrsName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="shipMarkGp" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{caseMod}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="8" y="0" width="69" height="12" uuid="f00ad8cb-a16e-476c-bf1e-d2b6b7e1517d">
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<leftPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph leftIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Case/Module : "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="8" y="12" width="49" height="11" uuid="44b25e3a-cc2f-4482-8b6b-7e9ddfd06993">
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph leftIndent="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Lot No. : "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="77" y="0" width="439" height="12" isPrintWhenDetailOverflows="true" uuid="c93ba0a8-21f4-475a-af6b-96a97c1990a0">
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" />
+						<paragraph spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{caseMod}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" x="57" y="12" width="459" height="11" isPrintWhenDetailOverflows="true" uuid="f0b7d43e-f460-4ab2-9c16-49eaff46f019">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="8" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insShipmark4}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="46" splitType="Prevent">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="36" width="74" height="10" uuid="b343b22c-dcbf-4a36-bdb6-95e2efc077de">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insNoOfCases}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="12" width="434" height="12" uuid="68a93c65-0828-4839-8f39-3e25e3d9a461">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<text><![CDATA[TOTAL GROSS WEIGHT(KGS)]]></text>
+				</staticText>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="24" width="74" height="12" uuid="6e21ac82-eaa5-44f0-86f0-333e45b68781">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insMeasurement}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="12" width="74" height="12" uuid="313d7f9f-0565-4790-b652-18135d276118">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insGrossWt}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="312" y="0" width="54" height="12" uuid="bcc21653-be90-4e45-984b-c420da03813f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="1" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlInsSumTotUnitSHIP_MARK}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="0" width="74" height="12" uuid="b540af84-4c75-48d0-85d9-34e22d14a234">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlTotNetWtSHIP_MARK}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="24" width="434" height="12" uuid="857058ea-db14-4d4b-9e54-70128cdae53f">
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<text><![CDATA[TOTAL MEASUREMENT(M3)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="36" width="434" height="10" uuid="d43ce90d-b46a-47c7-b955-a1a3453f1d0d">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="0"/>
+					</textElement>
+					<text><![CDATA[NUMBER OF CASE(S)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="0" width="304" height="12" uuid="c282e634-70e2-46ab-ab57-ecfa83c74ac6">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="2" spacingBefore="2"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField pattern="#,##0.0000" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="366" y="0" width="76" height="12" uuid="17b68886-2c10-462b-9b98-a85b68ec18d6">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="8" isBold="true" />
+						<paragraph rightIndent="1" spacingBefore="2"/>
+					</textElement>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{REPORT_SCRIPTLET}.putValueInMap($P{REPORT_PARAMETERS_MAP},"IS_LAST_PAGE","false",false)]]></printWhenExpression>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="119">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="3" y="27" width="514" height="12" isPrintWhenDetailOverflows="true" uuid="5ccd8e62-7bf2-4a1a-bbd9-2be51de19b35"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Courier New" size="10" />
+				</textElement>
+				<textFieldExpression><![CDATA[($F{insCnsgAdd1} == null  ? "" : $F{insCnsgAdd1} ) + ( $V{fmlAddress2} == null ? "" : $V{fmlAddress2})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="3" y="40" width="514" height="12" isPrintWhenDetailOverflows="true" uuid="54233e78-242e-4c4f-94c0-87fab9076f50"/>
+				<textElement textAlignment="Center" markup="styled">
+					<font fontName="Courier New" size="10" />
+				</textElement>
+				<textFieldExpression><![CDATA[($F{insCnsgAdd3} == null ? "" : $F{insCnsgAdd3} )+ ( $V{fmlAddress4} == null ? "" : $V{fmlAddress4})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="3" y="68" width="514" height="17" uuid="1f36b4eb-b00d-469b-a05e-560fb922139b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="14" isBold="true" />
+				</textElement>
+				<text><![CDATA[Packing List]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="14" y="107" width="49" height="10" uuid="888edcfa-2a28-43a1-b312-ee623babc2ad">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="Courier New" size="8" isBold="true" />
+				</textElement>
+				<textFieldExpression><![CDATA["Invoice : "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="153" y="107" width="35" height="10" uuid="706bf1c4-c140-4c3f-a48d-2d4864fa4e8f">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="Courier New" size="8" isBold="true" />
+				</textElement>
+				<textFieldExpression><![CDATA["Date : "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="3" y="9" width="514" height="16" uuid="b89b24ca-4c65-41f7-812e-172ea46ba879"/>
+				<textElement textAlignment="Center">
+					<font fontName="Courier New" size="14" isBold="true" />
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insCnsgName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="63" y="107" width="70" height="10" isPrintWhenDetailOverflows="true" uuid="1728ee10-04cd-4200-a908-e6aa7e6c1c45">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="Courier New" size="8" />
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_I_V_INVOICE_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="188" y="107" width="69" height="10" isPrintWhenDetailOverflows="true" uuid="3efea858-cba3-4cd1-ba5a-e27d58885b4c">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="Courier New" size="8" />
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insInvDt}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="366" y="104" width="66" height="14" uuid="dde16ab9-369c-4020-a8de-7bcf8f77306f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right" markup="styled">
+					<font fontName="Courier New" size="8" isBold="false" />
+				</textElement>
+				<textFieldExpression><![CDATA["<B>Page : </B>" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="432" y="104" width="66" height="14" uuid="9d2e587c-38d6-48a3-8676-4496efeab1d2">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" markup="styled">
+					<font fontName="Courier New" size="8" />
+				</textElement>
+				<textFieldExpression><![CDATA[" of "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Prevent">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="0" width="70" height="10" uuid="56d60ab3-6e04-4110-b894-c9e559916bf6">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" />
+					<paragraph leftIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insPartNo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.000" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="442" y="0" width="74" height="10" uuid="239e3912-5910-4295-8436-edcb855e1aac">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" />
+					<paragraph rightIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{fmlNetWeight_Big_Decimal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00000" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="366" y="0" width="76" height="10" uuid="019458b5-e506-487e-ae01-d84eb45fab1d">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" />
+					<paragraph rightIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insPartWt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="312" y="0" width="54" height="10" uuid="d3433ac7-2f1c-44d6-810f-20ac7cf455ea">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" />
+					<paragraph rightIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insSumTotUnit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="78" y="0" width="202" height="10" uuid="145a801f-3ea8-4b67-8a8e-bd0a7b31d940">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Courier New" size="8" />
+					<paragraph leftIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{fmlPartName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="280" y="0" width="32" height="10" uuid="f80dbc3c-0ec8-4da2-844a-b83f7b051555">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					 <font fontName="Courier New" size="8" /> 
+					<paragraph rightIndent="2" spacingBefore="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insUnitPerBox}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="0" width="508" height="1" uuid="48a008ba-bfb6-4e39-9984-6e9b16750178">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA["false".equals($P{REPORT_SCRIPTLET}.getValueFromMap($P{REPORT_PARAMETERS_MAP},"IS_LAST_PAGE"))]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Courier New" size="7" isBold="true" />
+				</textElement>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band splitType="Prevent">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[/*DummyGroup is used to display Summary */
+$P{REPORT_SCRIPTLET}.putValueInMap($P{REPORT_PARAMETERS_MAP},"IS_LAST_PAGE","true",false)]]></printWhenExpression>
+		</band>
+	</summary>
+	<noData>
+		<band/>
+	</noData>
+</jasperReport>

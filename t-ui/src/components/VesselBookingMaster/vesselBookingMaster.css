@@ -1,0 +1,140 @@
+.panel-scroll-wrapper.VMS-wrapper .custom-multiSelect .css-1nmdiq5-menu {
+  width: 72%;
+}
+.panel-scroll-wrapper.VMS-wrapper .custom-multiSelect.ship-comp .css-1nmdiq5-menu {
+  width: 22%;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th.rowSpan-th:last-child {
+  box-shadow: inset -2px 0 #A9EBFF;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th.colSpan-th {
+  text-align: center;
+  padding: 2px 0;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(5).colSpan-th {
+  box-shadow: inset 0 -2px #A9EBFF;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(6).colSpan-th {
+  box-shadow: inset -2px -2px #A9EBFF;
+  width: 100px;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(6) {
+  width: 100px;
+  min-width: 100px;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th {
+  vertical-align: middle;
+  padding: 0 10px 3px;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th span { 
+    top: -9px;
+    position: relative;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(5).colSpan-th span,
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(6).colSpan-th span,
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(5) span,
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(6) span
+{
+  top: 0;
+}
+.grid-table .tpexTable.tpexTableVMS > thead > tr > th:nth-of-type(5).colSpan-th span {
+  left: 43px;
+}
+.tpexTableVMS.tpexTable > tbody > tr.editTableRow {
+  z-index: 7;
+  position: relative;
+}
+.tpexTableVMS tbody tr:hover>* {
+  background-color: #EFF1F9;
+}
+.tpexTableVMS tbody tr:hover:not(tr.nonEditable) {
+  cursor: pointer;
+}
+.tpexTableVMS.tpexTable > tbody > tr.editable {
+  z-index: 7;
+  position: relative;
+}
+.tpexTableVMS.tpexTable > tbody > tr.editable:has(.react-datepicker__tab-loop) {
+  z-index: 10;
+}
+.tpexTableVMS.tpexTable > tbody > tr.nonEditable {
+  pointer-events: none;
+  z-index: 0;
+  position: relative;
+}
+.tpexTableVMS.tpexTable td:nth-of-type(1), .tpexTableVMS.tpexTable th:nth-of-type(1) {
+  position: sticky;
+  left: 0;
+  width: 110px;
+  min-width: 110px;
+  z-index: 2;
+}
+.tpexTableVMS.tpexTable td:nth-of-type(2), .tpexTableVMS.tpexTable th:nth-of-type(2) {
+  position: sticky;
+  left: 143px;
+  width: 110px;
+  min-width: 110px;
+  z-index: 2;  
+}
+.tpexTableVMS.tpexTable td:nth-of-type(3), .tpexTableVMS.tpexTable th:nth-of-type(3) {
+  position: sticky;
+  left: 253px;
+  z-index: 2;
+  width: 130px;
+  min-width: 130px;
+}
+.tpexTableVMS.tpexTable th:nth-of-type(4), .tpexTableVMS.tpexTable td:nth-of-type(4) {
+  padding-right: 23px;
+  position: sticky;
+  left: 383px;
+  box-shadow: 3px 0 3px 0px rgb(0 0 0 / 0.1), inset -2px 0 #DADADA;
+  z-index: 2;
+  width: 140px;
+  min-width: 140px;
+} 
+.tpexTableVMS.tpexTable td:nth-of-type(1), .tpexTableVMS.tpexTable  td:nth-of-type(2), .tpexTableVMS.tpexTable td:nth-of-type(3),
+.tpexTableVMS.tpexTable td:nth-of-type(4) {
+  background-color: #F2F9FF;
+  height: 32px;
+}
+.tpexTableVMS.tpexTable tr:hover td:nth-of-type(1), .tpexTableVMS.tpexTable tr:hover td:nth-of-type(2), .tpexTableVMS.tpexTable tr:hover td:nth-of-type(3),
+.tpexTableVMS.tpexTable tr:hover td:nth-of-type(4) {
+  background-color: #EFF1F9;
+}
+.tpexTableVMS.tpexTable tr.nonEditable td:nth-of-type(1), .tpexTableVMS.tpexTable tr.nonEditable td:nth-of-type(2),
+.tpexTableVMS.tpexTable tr.nonEditable td:nth-of-type(3), .tpexTableVMS.tpexTable tr.nonEditable td:nth-of-type(4) {
+  background-color: #F7F7F7;
+}
+.tpexTableVMS.tpexTable td:nth-of-type(3) {
+  padding-right: 30px;
+}
+.tpexTableVMS.tpexTable th:last-child, .tpexTableVMS.tpexTable td:last-child {
+  box-shadow: none;
+}
+.grid-table .tpexTableVMS-height {
+  position: relative;
+  border-radius: 5px;
+  overflow: auto;
+  max-height: 377px;
+}
+.grid-table .tpexTableVMS.tpexTable td.noData {
+  margin-left: 300px;
+  width: 100%;
+  background-color: #FFF;
+}
+.grid-table .tpexTableVMS.tpexTable tbody tr:hover .noData {
+  background-color: #FFF;
+}
+.grid-table .tpexTable.tpexTableVMS thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.tpexTableVMS tbody tr.red-row td:nth-of-type(5),
+.tpexTableVMS tbody tr.red-row td:nth-of-type(6){
+  color:red;
+}
+.VMS-wrapper .custom-multiSelect .css-1nmdiq5-menu {
+  position: absolute;
+  z-index: 13;
+}

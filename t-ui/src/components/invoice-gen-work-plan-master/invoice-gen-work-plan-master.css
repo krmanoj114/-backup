@@ -1,0 +1,370 @@
+/*Search Panel section CSS */
+.search-panel form {
+  padding: 0 12px;
+}
+
+/*Invoice Table CSS*/
+.tableinvoice {
+  border-radius: 5px;
+  }
+.tableinvoice .tpexTable th:nth-of-type(1) {
+  visibility: hidden;
+}
+.tableinvoice .tpexTable th:nth-of-type(1), .tableinvoice .tpexTable td:nth-of-type(1) {
+  left: 0;
+  width: 0;
+  min-width: 0;
+  background-color: transparent;
+  border:none;
+  padding: 0;
+  position: sticky;
+  display: inline-block;
+  z-index: 10;
+}
+.tableinvoice .tpexTable tbody tr.nonEditable:hover>td:nth-of-type(1), .tableinvoice.tpexTable tbody tr:hover>td:nth-of-type(1) {
+  background-color: transparent;
+}
+.invGenFlag th {
+  visibility: hidden;
+}
+.tableinvoice .tpexTable th:nth-of-type(2), .tableinvoice .tpexTable td:nth-of-type(2) {
+  position: sticky;
+  left: 0;
+  width: 138px;
+  display: inline-block;
+  z-index: 2;
+}
+.tableinvoice th:nth-of-type(3), .tableinvoice td:nth-of-type(3) {
+  position: sticky;
+  left: 138px;
+  width: 142px;
+  display: inline-block;
+  z-index: 2;
+}
+.tableinvoice th:nth-of-type(4), .tableinvoice td:nth-of-type(4) {
+  position: sticky;
+  left: 280px;
+  width: 115px;
+  display: inline-block;
+  z-index: 2;
+}
+.tableinvoice th:nth-of-type(5), .tableinvoice td:nth-of-type(5) {
+  position: sticky;
+  left: 395px;
+  width: 140px;
+  display: inline-block;
+  z-index: 2;
+}
+.tableinvoice th:nth-of-type(6), .tableinvoice td:nth-of-type(6) {
+  position: sticky;
+  left: 535px;
+  width: 120px;
+  display: inline-block;
+  z-index: 2;
+}
+.tableinvoice .tpexTable th:nth-of-type(7), .tableinvoice .tpexTable td:nth-of-type(7) {
+  position: sticky;
+  left: 655px;
+  padding-right: 30px;
+  width: 140px;
+  display: inline-block;
+  box-shadow: 3px 0 3px 0px rgb(0 0 0 / 0.1), inset -2px 0 #DADADA;
+  z-index: 2;
+} 
+.tableinvoice .tpexTable td:nth-of-type(1), .tableinvoice .tpexTable  td:nth-of-type(2), .tableinvoice .tpexTable td:nth-of-type(3),
+.tableinvoice .tpexTable td:nth-of-type(4), .tableinvoice .tpexTable td:nth-of-type(5), .tableinvoice .tpexTable td:nth-of-type(6) ,
+.tableinvoice .tpexTable td:nth-of-type(7) {
+  background-color: #F2F9FF;
+  height: 32px;
+}
+.tableinvoice .tpexTable tr:hover td:nth-of-type(1), .tableinvoice .tpexTable tr:hover td:nth-of-type(2), .tableinvoice .tpexTable tr:hover td:nth-of-type(3),
+.tableinvoice .tpexTable tr:hover td:nth-of-type(4), .tableinvoice .tpexTable tr:hover td:nth-of-type(5), .tableinvoice .tpexTable tr:hover td:nth-of-type(6) ,
+.tableinvoice .tpexTable tr:hover td:nth-of-type(7) {
+  background-color: #EFF1F9;
+}
+.tableinvoice .tpexTable tr.nonEditable td:nth-of-type(1), .tableinvoice .tpexTable tr.nonEditable td:nth-of-type(2),
+.tableinvoice .tpexTable tr.nonEditable td:nth-of-type(3), .tableinvoice .tpexTable tr.nonEditable td:nth-of-type(4),
+.tableinvoice .tpexTable tr.nonEditable td:nth-of-type(5), .tableinvoice .tpexTable tr.nonEditable td:nth-of-type(6),
+.tableinvoice .tpexTable tr.nonEditable td:nth-of-type(7) {
+  background-color: #F7F7F7;
+}
+.tableinvoice .tpexTable th:last-child, .tableinvoice .tpexTable td:last-child {
+  box-shadow: none;
+}
+
+.tableinvoice .editButton {
+  position: absolute;
+  left: 765px;
+  z-index: 4;
+  content: "";
+  height: 20px;
+  width: 20px;
+  top: 4px;
+}
+.tableinvoice .tpexTable > tbody > tr:hover .btn-edit {
+  background: url("../../assets/images/icons/edit.svg") no-repeat right;
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+}
+.tableinvoice .react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0;
+  margin-left: -86px;
+}
+.panelBox .order-type {
+  color: #253eae;
+  font-size: 14px;
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  display: inline-block;
+  margin-right: 21px;
+}
+.filter-with-orderType-invoice {
+  margin-top: -14px;
+}
+tbody tr:hover:not(tr.nonEditable) {
+  cursor: pointer;
+}
+.tpexTable > tbody > tr.nonEditable {
+  pointer-events: none;
+}
+.tableinvoice-height {
+  max-height: 495px;
+  overflow-y: auto;
+}
+.tableinvoice thead {
+  position: sticky;
+  top: 0;
+  z-index: 12;
+}
+.grid-table .tableinvoice .tpexTable td.noData {
+  margin-left: 200px;
+  width: 94%;
+}
+.tableinvoice .tableinvoice-height {
+  position: relative;
+  border-radius: 5px;
+  overflow: auto;
+  max-height: 359px;
+}
+
+
+/*React Date Picker CSS*/
+.customDatePicker .form-control {
+  background: url("../../assets/images/icons/calendar.svg") no-repeat;
+  background-position: right 7px top 6px;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  height: 34px;
+}
+.customDatePicker .form-control:hover {
+  border: 1px solid #3a78f2;
+}
+.customDatePicker .form-control:focus {
+  background: url("../../assets/images/icons/calendar-hover.svg") no-repeat;
+  background-position: right 7px top 6px;
+  border: 1px solid #3a78f2;
+}
+.mandatoryControl.customDatePicker .form-control:focus {
+  background-color: #b1dffc;
+}
+.search-panel .customDatePicker .react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0;
+  z-index: 13;
+}
+.customDatePicker label {
+  font-size: 14px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker-popper .react-datepicker {
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  box-shadow: 0px 3px 6px #272B30;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: normal;
+}
+.react-datepicker__month-container .react-datepicker__header {
+  background-color: white;
+  border: none;
+}
+.react-datepicker__header .react-datepicker__current-month {
+  color: #3a78f2;
+  font-size: 18px;
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  margin: 10px 0;
+}
+.react-datepicker__day-names .react-datepicker__day-name {
+  color: #0d1b3e8c;
+  font-size: 14px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker__week .react-datepicker__day {
+  color: #272b30;
+  font-size: 16px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker__week .react-datepicker__day:hover,
+.react-datepicker__month-wrapper .react-datepicker__month-text:hover, .react-datepicker__month-wrapper .react-datepicker__quarter-text:hover {
+  background: #0000000D;
+  border-radius: 4px;
+}
+.react-datepicker__week .react-datepicker__day--selected:hover {
+  background-color: #3a78f2;
+}
+.react-datepicker__week .react-datepicker__day--keyboard-selected, .react-datepicker__week .react-datepicker__day--selected, .react-datepicker__week .react-datepicker__day--keyboard-selected:hover,
+.react-datepicker__month-wrapper .react-datepicker__day--today,  .react-datepicker__month-wrapper .react-datepicker__quarter-text--today, .react-datepicker__month-wrapper .react-datepicker__year-text--today,
+.react-datepicker__month-wrapper .react-datepicker__month-text--keyboard-selected:hover, .react-datepicker__month-wrapper .react-datepicker__month-text--keyboard-selected,
+.react-datepicker__month-wrapper .react-datepicker__month-text.react-datepicker__month--selected:hover {
+  background-color: #3A78F2;
+  color: #fff;
+  font-weight: normal;
+}
+.react-datepicker__month .react-datepicker__month-text, .react-datepicker__month .react-datepicker__quarter-text,
+.react-datepicker__year .react-datepicker__year-text {
+  padding: 2px 0
+}
+.react-datepicker__month-wrapper .react-datepicker__month-text--today {
+  font-weight: normal;
+}
+.react-datepicker__month-wrapper .react-datepicker__month.react-datepicker__month-text, .react-datepicker__month-wrapper .react-datepicker__month .react-datepicker__quarter-text {
+  border-radius: 4px;
+}
+.react-datepicker__navigation .react-datepicker__navigation-icon::before, .react-datepicker .react-datepicker__navigation:hover *::before {
+  border-color: #6A7178;
+}
+.react-datepicker .react-datepicker__navigation {
+  top: 10px;
+}
+.react-datepicker .react-datepicker__navigation:hover {
+  background-color: #00000014;
+  border-radius: 4px;
+  top: 10px;
+}
+.react-datepicker .react-datepicker__navigation-icon {
+  font-size: 14px;
+}
+.react-datepicker .react-datepicker__navigation--next {
+  right: 11px;
+}
+.react-datepicker .react-datepicker__navigation--previous {
+  left: 11px;
+}
+.react-datepicker .react-datepicker__navigation-icon--previous::before {
+  right: -4px;
+}
+.react-datepicker .react-datepicker__navigation-icon--next::before {
+  left: -4px;
+}
+.react-datepicker .react-datepicker__navigation-icon::before {
+  border-width: 2px 2px 0 0;
+}
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker
+  .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker
+  .react-datepicker__triangle::after {
+  border: none;
+}
+.react-datepicker-time__caption {
+  font-size: 18px;
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  color: #3A78F2;
+}
+.react-datepicker__input-time-container .react-datepicker-time__input-container .react-datepicker-time__input input[type=time] {
+  font-size: 16px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  color: #272B30;
+  border: 1px solid #0D1B3E4D;
+  border-radius: 4px;
+  height: 32px;
+  padding: 6px 10px;
+}
+
+.mandatoryControl .form-control,
+.mandatoryControl .form-select {
+  background-color: #b1dffc;
+  border-radius: 4px;
+}
+.eta1.custom-mandatory,
+.etd1.custom-mandatory {
+  background-color: #b1dffc;
+}
+.tableinvoice tbody tr:hover:not(tr.nonEditable) {
+  cursor: pointer;
+}
+.tableinvoice .tpexTable > tbody > tr.editable {
+  z-index: 9;
+  position: relative;
+}
+.tableinvoice .tpexTable > tbody > tr.editable:has(.react-datepicker__tab-loop) {
+  z-index: 10;
+}
+.tableinvoice .tpexTable > tbody > tr.nonEditable {
+  pointer-events: none;
+  z-index: 0;
+  position: relative;
+}
+.pagination.pagination-server li:nth-child(n+3) {
+  display: none;
+}
+.pagination.pagination-server li:nth-last-child(2), .pagination.pagination-server li:nth-last-child(1) {
+  display: block;
+}
+.pagination.pagination-server .page-item a, .pagination.pagination-server .page-item.active a:hover {
+  color: #FFF;
+  border-radius: 0;
+}
+.pagination.pagination-server .page-item a:hover {
+  color: #3A78F2;
+}
+.pagination.pagination-server li.break {
+  display: none;
+}
+.pagination.pagination-server li:nth-child(2) .page-link::before {
+  content: "First";
+  color:#7E84A3;
+ }
+ .pagination.pagination-server li:nth-last-child(2) .page-link::before {
+  content: "Last";
+  color:#7E84A3;
+ }
+ .pagination.pagination-server li.page-item.active:nth-child(2):hover a.page-link::before,
+ .pagination.pagination-server li.page-item.active:nth-last-child(2):hover .page-link::before {
+  color: #7E84A3;
+ }
+ .pagination.pagination-server li:nth-child(2):hover .page-link::before,
+ .pagination.pagination-server li:nth-last-child(2):hover .page-link::before {
+  color:#FFF;
+ }
+ .pagination.pagination-server li:first-child {
+  position: relative;
+  left: 60px;
+  width: 35px;
+ }
+ .pagination.pagination-server li:last-child {
+  position: relative;
+  right: 54px;
+  width: 35px;
+ }
+ .pagination.pagination-server li:nth-last-child(2) {
+  position: relative;
+  right: -35px;
+  width: 55px;
+ }
+ .pagination.pagination-server > li:nth-child(2) {
+  position: relative;
+  right: 32px;
+  width: 58px;
+ }
+ .pagination.pagination-server li:nth-child(2) .page-link, .pagination.pagination-server li:nth-child(2) .page-link:hover {
+  border-radius: 4px 0 0 4px;
+ }
+ .pagination.pagination-server li:nth-last-child(2) .page-link, .pagination.pagination-server li:nth-last-child(2) .page-link:hover {
+  border-radius: 0 4px 4px 0;
+ }
+ .errLink{
+    margin: 0 25px;
+    font-weight: bold;
+ }

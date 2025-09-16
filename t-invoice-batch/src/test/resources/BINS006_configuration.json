@@ -1,0 +1,44 @@
+{
+	"batchId" : "BINS006",
+	"fileInfo" : {
+		"outputFileNames" : [
+			{
+				"company"  : "TMT",
+				"fileName" : "DA09100_YYYYMMDDHHMISS_D",
+				"outputFolder" : "D://BINS006/TMT",
+				"ftp" : [
+					{
+						"ipaddress" :"1.1.1.1",
+						"port" :"22",
+						"user" :"test",
+						"password" :"test",
+						"targetDirectory" :"",
+						"targetFileName" :""
+					}
+				],
+				"archiveFolder" : "D://BINS006/TMT/archive"
+			},
+			{
+				"company"  : "STM",
+				"fileName" : "DA10100_YYYYMMDDHHMISS_D",
+				"outputFolder" : "D://BINS006/STM",
+				"ftp" : [
+					{
+						"ipaddress" :"1.1.1.1",
+						"port" :"22",
+						"user" :"test",
+						"password" :"test",
+						"targetDirectory" :"",
+						"targetFileName" :""
+					}
+				],
+				"archiveFolder" : "D://BINS006/STM/archive"
+			}
+		]
+	},
+	"lineSeparator": {
+		"data" : "|",
+		"header" : "#",
+		"trailer" : "#"
+	}
+}

@@ -1,0 +1,3174 @@
+{
+	"batchId" : "BINF005",
+
+	"fileInfo" : {
+
+		"inputFileNames" : [
+			{
+				"beginWith" : "GBF3LG33",
+				"company" : "TMT"
+			},
+			{
+				"beginWith" : "GBFCLG33",
+				"company" : "STM"
+			},
+			{
+				"beginWith" : "GBF4LG33",
+				"company" : "TMMIN"
+			}
+		],
+
+		"inputFileFolder" : "/home/TMAP/DSD/shared/batch/BINF005/input",
+		"processingFolder" : "/home/TMAP/DSD/shared/batch/BINF005/input/tmp",
+		"archiveFolderName" : "/home/TMAP/DSD/shared/batch/BINF005/archive",
+		"errorFolderName" : "/home/TMAP/DSD/shared/batch/BINF005/error"
+	
+	},
+
+	"fileStructure" : {
+
+		"gatewayHeader" : {
+			"recordLength" : "200",
+			"tokens" : [
+				{
+					"name" : "beginningOfRecord",
+					"desc" : "Beginning of Record",
+					"dataType" : "Char",
+					"length" : "2",
+					"startDigit" : "1",
+					"endDigit" : "2",
+					"mandatory" : "Y",
+					"fixValue" : "##"
+				},
+				{
+					"name" : "Record ID",
+					"desc" : "recordId",
+					"dataType" : "Char",
+					"length" : "1",
+					"startDigit" : "3",
+					"endDigit" : "3",
+					"mandatory" : "Y",
+					"fixValue" : "H"
+				},
+				{
+					"name" : "separator",
+					"desc" : "Separator",
+					"dataType" : "Char",
+					"length" : "2",
+					"startDigit" : "4",
+					"endDigit" : "5",
+					"mandatory" : "Y",
+					"fixValue" : "##"
+				},
+				{
+					"name" : "divisionClassificationInGW",
+					"desc" : "Division classification in GW",
+					"dataType" : "Char",
+					"length" : "6",
+					"startDigit" : "6",
+					"endDigit" : "11",
+					"mandatory" : "Y"
+				},
+				{
+					"name" : "fileName",
+					"desc" : "File Name",
+					"dataType" : "Char",
+					"length" : "26",
+					"startDigit" : "12",
+					"endDigit" : "37",
+					"mandatory" : "Y"
+				},
+				{
+					"name" : "fileSequenceNo",
+					"desc" : "File Sequence No.",
+					"dataType" : "Char",
+					"length" : "4",
+					"startDigit" : "38",
+					"endDigit" : "41",
+					"mandatory" : "Y",
+					"format" : "9999"
+				},
+				{
+					"name" : "dummy",
+					"desc" : "Dummy",
+					"dataType" : "Char",
+					"length" : "159",
+					"startDigit" : "42",
+					"endDigit" : "200",
+					"mandatory" : "N"
+				}
+			]
+		},
+		"fileHeader" : {
+			"recordLength" : "6",
+			"tokens" : [
+				{
+					"name" : "beginningOfRecord",
+					"desc" : "Beginning of Record",
+					"dataType" : "Char",
+					"length" : "2",
+					"startDigit" : "1",
+					"endDigit" : "2",
+					"mandatory" : "Y",
+					"fixValue" : "H",
+					"notTrim" : "Y"
+				},
+				{
+					"name" : "recordId",
+					"desc" : "Record Id",
+					"dataType" : "Char",
+					"length" : "4",
+					"startDigit" : "3",
+					"endDigit" : "6",
+					"mandatory" : "Y",
+					"fixValue" : "GPA3"
+				}
+			]
+		},
+
+		"containers" : [
+
+			{
+				"containerHeader" : {
+					"recordLength" : "3",
+					"tokens" : [
+						{
+							"name" : "dataId",
+							"desc" : "Data Id",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "1",
+							"endDigit" : "2",
+							"mandatory" : "Y",
+							"fixValue" : "H1"					
+						},
+						{
+							"name" : "maintenanceFlag",
+							"desc" : "Maintenance Flag",
+							"dataType" : "Char",
+							"length" : "1",
+							"startDigit" : "3",
+							"endDigit" : "3",
+							"mandatory" : "Y",
+							"fixValue" : "R"
+						}
+					]
+				},
+
+				"containerDetail" : {
+					"recordLength" : "461",
+					"tokens" : [
+						{
+							"name" : "Data Id",
+							"desc" : "Data Id",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "1",
+							"endDigit" : "2",
+							"mandatory" : "N",
+							"fixValue" : "D1"					
+						},
+						{
+							"name" : "Operating Exporter Company Code",
+							"desc" : "Operating Exporter Company Code",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "3",
+							"endDigit" : "4",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Vanning Exporter Company Code",
+							"desc" : "Vanning Exporter Company Code",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "5",
+							"endDigit" : "6",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Container Destination Country Code",
+							"desc" : "Container Destination Code",
+							"dataType" : "Char",
+							"length" : "3",
+							"startDigit" : "7",
+							"endDigit" : "9",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Container Destination Plant Code",
+							"desc" : "Container Destination Code",
+							"dataType" : "Char",
+							"length" : "1",
+							"startDigit" : "10",
+							"endDigit" : "10",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Container Recv. Plant Code",
+							"desc" : "Container Recv. Plant Code",
+							"dataType" : "Char",
+							"length" : "1",
+							"startDigit" : "11",
+							"endDigit" : "11",
+							"mandatory" : "N"
+						},
+						{
+							"name" : "Container Serial No.",
+							"desc" : "Container Serial No.",
+							"dataType" : "Char",
+							"length" : "9",
+							"startDigit" : "12",
+							"endDigit" : "20",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Vanning Plant Code",
+							"desc" : "Vanning Plant Code",
+							"dataType" : "Char",
+							"length" : "1",
+							"startDigit" : "21",
+							"endDigit" : "21",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Vanning Plant Name",
+							"desc" : "Vanning Plant Name",
+							"dataType" : "Char",
+							"length" : "10",
+							"startDigit" : "22",
+							"endDigit" : "31",
+							"mandatory" : "N"
+						},
+						{
+							"name" : "ISO Container No.",
+							"desc" : "ISO Container No.",
+							"dataType" : "Char",
+							"length" : "11",
+							"startDigit" : "32",
+							"endDigit" : "42",
+							"mandatory" : "Y"
+						},
+						{
+							"name" : "Container Seal No.",
+							"desc" : "Container Seal No.",
+							"dataType" : "Char",
+							"length" : "12",
+							"startDigit" : "43",
+							"endDigit" : "54",
+							"mandatory" : "N"
+						},
+						{
+							"name" : "Plan Vanning Start Date",
+							"desc" : "Plan Vanning Start Date",
+							"dataType" : "Date",
+							"length" : "8",
+							"startDigit" : "55",
+							"endDigit" : "62",
+							"mandatory" : "Y",
+							"format" : "yyyyMMdd"
+						},
+						{
+							"name" : "Plan Vanning Start Time",
+							"desc" : "Plan Vanning Start Time",
+							"dataType" : "Char",
+							"length" : "4",
+							"startDigit" : "63",
+							"endDigit" : "66",
+							"mandatory" : "N"
+						},
+						{
+							"name" : "Plan Vanning Finish Date",
+							"desc" : "Plan Vanning Finish Date",
+							"dataType" : "Date",
+							"length" : "8",
+							"startDigit" : "67",
+							"endDigit" : "74",
+							"mandatory" : "N",
+							"format" : "yyyyMMdd"
+						},
+						{
+							"name" : "Plan Vanning Finish Time",
+							"desc" : "Plan Vanning Finish Time",
+							"dataType" : "Char",
+							"length" : "4",
+							"startDigit" : "75",
+							"endDigit" : "78",
+							"mandatory" : "N"
+						},
+						{
+							"name" : "Actual Vanning Date",
+							"desc" : "Actual Vanning Date",
+							"dataType" : "Date",
+							"length" : "8",
+							"startDigit" : "79",
+							"endDigit" : "86",
+							"mandatory" : "Y",
+							"format" : "yyyyMMdd"
+						},
+						{
+							"name": "Actual Vanning Time",
+							"desc": "Actual Vanning Time",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "87",
+							"endDigit": "90",
+							"mandatory": "N"
+						},
+						{
+							"name": "Vanning Line Code",
+							"desc": "Vanning Line Code",
+							"dataType": "Char",
+							"length": "2",
+							"startDigit": "91",
+							"endDigit": "92",
+							"mandatory": "N"
+						},
+						{
+							"name": "Vanning Seq. No.",
+							"desc": "Vanning Seq. No.",
+							"dataType": "Number",
+							"length": "3",
+							"startDigit": "93",
+							"endDigit": "95",
+							"mandatory": "N"
+						},
+						{
+							"name": "PAC Table Seq. G C-1",
+							"desc": "PAC Table Seq. G C-1",
+							"dataType": "Number",
+							"length": "2",
+							"startDigit": "96",
+							"endDigit": "97",
+							"mandatory": "N"
+						},
+						{
+							"name": "Vanning Group Code",
+							"desc": "Vanning Group Code",
+							"dataType": "Char",
+							"length": "2",
+							"startDigit": "98",
+							"endDigit": "99",
+							"mandatory": "N"
+						},
+						{
+							"name": "Vanning Group Seq. No.",
+							"desc": "Vanning Group Seq. No.",
+							"dataType": "Number",
+							"length": "3",
+							"startDigit": "100",
+							"endDigit": "102",
+							"mandatory": "N"
+						},
+						{
+							"name": "Transportation Code",
+							"desc": "Transportation Code",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "103",
+							"endDigit": "103",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Container Type",
+							"desc": "Container Type",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "104",
+							"endDigit": "104",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Container Size",
+							"desc": "Container Size",
+							"dataType": "Char",
+							"length": "2",
+							"startDigit": "105",
+							"endDigit": "106",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Container Set Group",
+							"desc": "Container Set Group",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "107",
+							"endDigit": "107",
+							"mandatory": "N"
+						},
+						{
+							"name": "Container Net Weight",
+							"desc": "Container Net Weight",
+							"dataType": "Number",
+							"length": "8",
+							"startDigit": "108",
+							"endDigit": "115",
+							"mandatory": "Y",
+							"decimalPlaces": "3"
+						},
+						{
+							"name": "Container Gross Weight",
+							"desc": "Container Gross Weight",
+							"dataType": "Number",
+							"length": "8",
+							"startDigit": "116",
+							"endDigit": "123",
+							"mandatory": "Y",
+							"decimalPlaces": "3"
+						},
+						{
+							"name": "Container Tare Weight",
+							"desc": "Container Tare Weight",
+							"dataType": "Number",
+							"length": "5",
+							"startDigit": "124",
+							"endDigit": "128",
+							"mandatory": "N"
+						},
+						{
+							"name": "Container Max Weight",
+							"desc": "Container Max Weight",
+							"dataType": "Number",
+							"length": "5",
+							"startDigit": "129",
+							"endDigit": "133",
+							"mandatory": "N"
+						},
+						{
+							"name": "Container Efficiency Ratio",
+							"desc": "Weight capacity",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "134",
+							"endDigit": "136",
+							"mandatory": "N"
+						},
+						{
+							"name": "Container MAX Coefficient of M3",
+							"desc": "Container MAX Coefficient of M3",
+							"dataType": "Number",
+							"length": "4",
+							"startDigit": "137",
+							"endDigit": "140",
+							"mandatory": "N"
+						},
+						{
+							"name": "Container Efficiency Ratio",
+							"desc": "Measurement capacity",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "141",
+							"endDigit": "143",
+							"mandatory": "N"
+						},
+						{
+							"name": "X-dock Code Flag",
+							"desc": "X-dock Code Flag",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "144",
+							"endDigit": "144",
+							"mandatory": "N"
+						},
+						{
+							"name": "Status Flag1",
+							"desc": "Status Flag1",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "145",
+							"endDigit": "145",
+							"mandatory": "N"
+						},
+						{
+							"name": "Barcode Flag",
+							"desc": "Barcode Flag",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "146",
+							"endDigit": "146",
+							"mandatory": "N"
+						},
+						{
+							"name": "Port of loading",
+							"desc": "Port of loading",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "147",
+							"endDigit": "149",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Port of dischage",
+							"desc": "Port of dischage",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "150",
+							"endDigit": "152",
+							"mandatory": "Y"
+						},
+						{
+							"name": "1st Vessel - Vessel Serial No. 1",
+							"desc": "1st Vessel - Vessel Serial No. 1",
+							"dataType": "Char",
+							"length": "5",
+							"startDigit": "153",
+							"endDigit": "157",
+							"mandatory": "Y"
+						},
+						{
+							"name": "1st Vessel - Vessel Name 1",
+							"desc": "1st Vessel - Vessel Name 1",
+							"dataType": "Char",
+							"length": "30",
+							"startDigit": "158",
+							"endDigit": "187",
+							"mandatory": "Y"
+						},
+						{
+							"name": "1st Vessel - Shipping Company Name1",
+							"desc": "1st Vessel - Shipping Company Name1",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "188",
+							"endDigit": "191",
+							"mandatory": "Y"
+						},
+						{
+							"name": "1st Vessel - Voyage No. 1",
+							"desc": "1st Vessel - Voyage No. 1",
+							"dataType": "Char",
+							"length": "10",
+							"startDigit": "192",
+							"endDigit": "201",
+							"mandatory": "Y"
+						},
+						{
+							"name": "1st Vessel - ETD1",
+							"desc": "1st Vessel - ETD1",
+							"dataType": "Date",
+							"length": "8",
+							"startDigit": "202",
+							"endDigit": "209",
+							"mandatory": "Y",
+							"format" : "yyyyMMdd"
+						},
+						{
+							"name": "1st Vessel - ETA1",
+							"desc": "1st Vessel - ETA1",
+							"dataType": "Date",
+							"length": "8",
+							"startDigit": "210",
+							"endDigit": "217",
+							"mandatory": "Y",
+							"format" : "yyyyMMdd"
+						},
+						{
+							"name": "Trans-shipment port#1",
+							"desc": "Trans-shipment port#1",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "218",
+							"endDigit": "220",
+							"mandatory": "N"
+						},
+						{
+							"name": "2nd Vessel - Vessel Name 2",
+							"desc": "2nd Vessel - Vessel Name 2",
+							"dataType": "Char",
+							"length": "30",
+							"startDigit": "221",
+							"endDigit": "250",
+							"mandatory": "N"
+						},
+						{
+							"name": "2nd Vessel - Shipping Company Name2",
+							"desc": "2nd Vessel - Shipping Company Name2",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "251",
+							"endDigit": "254",
+							"mandatory": "N"
+						},
+						{
+							"name": "2nd Vessel - Voyage No. 2",
+							"desc": "2nd Vessel - Voyage No. 2",
+							"dataType": "Char",
+							"length": "10",
+							"startDigit": "255",
+							"endDigit": "264",
+							"mandatory": "N"
+						},
+						{
+							"name": "2nd Vessel - ETD2",
+							"desc": "2nd Vessel - ETD2",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "265",
+							"endDigit": "272",
+							"mandatory": "N"
+						},
+						{
+							"name": "2nd Vessel - ETA2",
+							"desc": "2nd Vessel - ETA2",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "273",
+							"endDigit": "280",
+							"mandatory": "N"
+						},
+						{
+							"name": "Trans-shipment port#2",
+							"desc": "Trans-shipment port#2",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "281",
+							"endDigit": "283",
+							"mandatory": "N"
+						},
+						{
+							"name": "3rd Vessel - Vessel Name 3",
+							"desc": "3rd Vessel - Vessel Name 3",
+							"dataType": "Char",
+							"length": "30",
+							"startDigit": "284",
+							"endDigit": "313",
+							"mandatory": "N"
+						},
+						{
+							"name": "3rd Vessel - Shipping Company Name3",
+							"desc": "3rd Vessel - Shipping Company Name3",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "314",
+							"endDigit": "317",
+							"mandatory": "N"
+						},
+						{
+							"name": "3rd Vessel - Voyage No. 3",
+							"desc": "3rd Vessel - Voyage No. 3",
+							"dataType": "Char",
+							"length": "10",
+							"startDigit": "318",
+							"endDigit": "327",
+							"mandatory": "N"
+						},
+						{
+							"name": "3rd Vessel - ETD3",
+							"desc": "3rd Vessel - ETD3",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "328",
+							"endDigit": "335",
+							"mandatory": "N"
+						},
+						{
+							"name": "3rd Vessel - ETA3",
+							"desc": "3rd Vessel - ETA3",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "336",
+							"endDigit": "343",
+							"mandatory": "N"
+						},
+						{
+							"name": "Trans-shipment port#3",
+							"desc": "Trans-shipment port#3",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "344",
+							"endDigit": "346",
+							"mandatory": "N"
+						},
+						{
+							"name": "4th Vessel - Vessel Name4",
+							"desc": "4th Vessel - Vessel Name4",
+							"dataType": "Char",
+							"length": "30",
+							"startDigit": "347",
+							"endDigit": "376",
+							"mandatory": "N"
+						},
+						{
+							"name": "4th Vessel - Shipping Company Name4",
+							"desc": "4th Vessel - Shipping Company Name4",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "377",
+							"endDigit": "380",
+							"mandatory": "N"
+						},
+						{
+							"name": "4th Vessel - Voyage No 4",
+							"desc": "4th Vessel - Voyage No 4",
+							"dataType": "Char",
+							"length": "10",
+							"startDigit": "381",
+							"endDigit": "390",
+							"mandatory": "N"
+						},
+						{
+							"name": "4th Vessel - ETD4",
+							"desc": "4th Vessel - ETD4",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "391",
+							"endDigit": "398",
+							"mandatory": "N"
+						},
+						{
+							"name": "4th Vessel - ETA4",
+							"desc": "4th Vessel - ETA4",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "399",
+							"endDigit": "406",
+							"mandatory": "N"
+						},
+						{
+							"name": "For TMC SYS : V-Line(p)",
+							"desc": "For TMC SYS : V-Line(p)",
+							"dataType": "Char",
+							"length": "2",
+							"startDigit": "407",
+							"endDigit": "408",
+							"mandatory": "N"
+						},
+						{
+							"name": "Destination Name",
+							"desc": "Destination Name",
+							"dataType": "Char",
+							"length": "10",
+							"startDigit": "409",
+							"endDigit": "418",
+							"mandatory": "N"
+						},
+						{
+							"name": "T/L ship date",
+							"desc": "T/L ship date",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "419",
+							"endDigit": "426",
+							"mandatory": "N"
+						},
+						{
+							"name": "T/L ship time",
+							"desc": "T/L ship time",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "427",
+							"endDigit": "430",
+							"mandatory": "N"
+						},
+						{
+							"name": "T/L Vanning date",
+							"desc": "T/L Vanning date",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "431",
+							"endDigit": "438",
+							"mandatory": "N"
+						},
+						{
+							"name": "T/L Vanning time",
+							"desc": "T/L Vanning time",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "439",
+							"endDigit": "442",
+							"mandatory": "N"
+						},
+						{
+							"name": "PAC tbl seq G M-Start",
+							"desc": "PAC tbl seq G M-Start",
+							"dataType": "Number",
+							"length": "2",
+							"startDigit": "443",
+							"endDigit": "444",
+							"mandatory": "N"
+						},
+						{
+							"name": "PAC tbl seq G M-Last",
+							"desc": "PAC tbl seq G M-Last",
+							"dataType": "Number",
+							"length": "2",
+							"startDigit": "445",
+							"endDigit": "446",
+							"mandatory": "N"
+						},
+						{
+							"name": "Operation Date",
+							"desc": "Operation Date",
+							"dataType": "Char",
+							"length": "8",
+							"startDigit": "447",
+							"endDigit": "454",
+							"mandatory": "N"
+						},
+						{
+							"name": "Operation Time",
+							"desc": "Operation Time",
+							"dataType": "Char",
+							"length": "6",
+							"startDigit": "455",
+							"endDigit": "460",
+							"mandatory": "N"
+						},
+						{
+							"name": "Operation User ID",
+							"desc": "Operation User ID",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "461",
+							"endDigit": "461",
+							"mandatory": "N"
+						}
+					]
+				},
+
+				"containerModules" : [
+					{
+						"moduleHeader" :  {
+							"recordLength" : "2",
+							"tokens" : [
+								{
+									"name" : "Data Id",
+									"desc" : "Data Id",
+									"dataType" : "Char",
+									"length" : "2",
+									"startDigit" : "1",
+									"endDigit" : "2",
+									"mandatory" : "Y",
+									"fixValue" : "H2"					
+								}
+							]
+						},
+						
+						"moduleDetail" : {
+							"recordLength" : "548",
+							"tokens" : [
+								{
+									"name" : "Data Id",
+									"desc" : "Data Id",
+									"dataType" : "Char",
+									"length" : "2",
+									"startDigit" : "1",
+									"endDigit" : "2",
+									"mandatory" : "Y",
+									"fixValue" : "D2"					
+								},
+								{
+									"name" : "Module Importer Country Code",
+									"desc" : "Module Importer Code",
+									"dataType" : "Char",
+									"length" : "3",
+									"startDigit" : "3",
+									"endDigit" : "5",
+									"mandatory" : "Y"					
+								},
+								{
+									"name" : "Module Importer Country Plant Code",
+									"desc" : "Module Importer Code",
+									"dataType" : "Char",
+									"length" : "1",
+									"startDigit" : "6",
+									"endDigit" : "6",
+									"mandatory" : "Y"					
+								},
+								{
+									"name": "Module Receiving Plant",
+									"desc": "Module Receiving Plant",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "7",
+									"endDigit": "7",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Importer dock",
+									"desc": "Module Importer dock",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "8",
+									"endDigit": "9",
+									"mandatory": "N"
+								},
+								{
+									"name": "Lot/Module No.",
+									"desc": "Lot/Module No.",
+									"dataType": "Char",
+									"length": "6",
+									"startDigit": "10",
+									"endDigit": "15",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Case No./Case SFX",
+									"desc": "Case No./Case SFX",
+									"dataType": "Char",
+									"length": "3",
+									"startDigit": "16",
+									"endDigit": "18",
+									"mandatory": "N"
+								},
+								{
+									"name": "Exporter Code",
+									"desc": "Exporter Code",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "19",
+									"endDigit": "22",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Exporter Company Code",
+									"desc": "Exporter Company Code",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "23",
+									"endDigit": "24",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Exporter Company Name",
+									"desc": "Exporter Company Name",
+									"dataType": "Char",
+									"length": "10",
+									"startDigit": "25",
+									"endDigit": "34",
+									"mandatory": "N"
+								},
+								{
+									"name": "SUB - Vanning Plant",
+									"desc": "SUB - Vanning Plant",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "35",
+									"endDigit": "35",
+									"mandatory": "N"
+								},
+								{
+									"name": "Importer Name",
+									"desc": "Importer Name",
+									"dataType": "Char",
+									"length": "10",
+									"startDigit": "36",
+									"endDigit": "45",
+									"mandatory": "N"
+								},
+								{
+									"name": "Car Family Code",
+									"desc": "Car Family Code",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "46",
+									"endDigit": "49",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Importer Line Code",
+									"desc": "Importer Line Code",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "50",
+									"endDigit": "50",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Re-expo Code",
+									"desc": "Re-expo Code",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "51",
+									"endDigit": "51",
+									"mandatory": "Y"
+								},
+								{
+									"name": "AICO Flag",
+									"desc": "AICO Flag",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "52",
+									"endDigit": "52",
+									"mandatory": "Y"
+								},
+								{
+									"name": "MSP Order Type",
+									"desc": "MSP Order Type",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "53",
+									"endDigit": "53",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Firm Packing Month",
+									"desc": "Firm Packing Month",
+									"dataType": "Char",
+									"length": "6",
+									"startDigit": "54",
+									"endDigit": "59",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Supplier Plant",
+									"desc": "Supplier Plant",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "60",
+									"endDigit": "60",
+									"mandatory": "N"
+								},
+								{
+									"name": "Supplier Dock Code",
+									"desc": "Supplier Dock Code",
+									"dataType": "Char",
+									"length": "3",
+									"startDigit": "61",
+									"endDigit": "63",
+									"mandatory": "N"
+								},
+								{
+									"name": "Bundle Module No.",
+									"desc": "Bundle Module No.",
+									"dataType": "Char",
+									"length": "6",
+									"startDigit": "64",
+									"endDigit": "69",
+									"mandatory": "N"
+								},
+								{
+									"name": "Bundle Module Flag",
+									"desc": "Bundle Module Flag",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "70",
+									"endDigit": "70",
+									"mandatory": "N"
+								},
+								{
+									"name": "Packing Plant",
+									"desc": "Packing Plant",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "71",
+									"endDigit": "71",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Packing Plant Name",
+									"desc": "Packing Plant Name",
+									"dataType": "Char",
+									"length": "10",
+									"startDigit": "72",
+									"endDigit": "81",
+									"mandatory": "N"
+								},
+								{
+									"name": "Order Type",
+									"desc": "Order Type",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "82",
+									"endDigit": "82",
+									"mandatory": "Y"
+								},
+								{
+									"name": "SS No.",
+									"desc": "SS No.",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "83",
+									"endDigit": "84",
+									"mandatory": "N"
+								},
+								{
+									"name": "Exterior Color Code",
+									"desc": "Exterior Color Code",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "85",
+									"endDigit": "88",
+									"mandatory": "N"
+								},
+								{
+									"name": "Interior Color Code",
+									"desc": "Interior Color Code",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "89",
+									"endDigit": "92",
+									"mandatory": "N"
+								},
+								{
+									"name": "e-kanban / Pams Order",
+									"desc": "e-kanban / Pams Order",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "93",
+									"endDigit": "93",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Container Loading Sequence No. 1",
+									"desc": "Container Loading Sequence No. 1",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "94",
+									"endDigit": "97",
+									"mandatory": "N"
+								},
+								{
+									"name": "Container Loading Sequence No. 2",
+									"desc": "Container Loading Sequence No. 2",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "98",
+									"endDigit": "101",
+									"mandatory": "N"
+								},
+								{
+									"name": "Container Loading Sequence No. 3",
+									"desc": "Container Loading Sequence No. 3",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "102",
+									"endDigit": "105",
+									"mandatory": "N"
+								},
+								{
+									"name": "Container Loading Sequence No. 4",
+									"desc": "Container Loading Sequence No. 4",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "106",
+									"endDigit": "109",
+									"mandatory": "N"
+								},
+								{
+									"name": "Container Loading Sequence No. 5",
+									"desc": "Container Loading Sequence No. 5",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "110",
+									"endDigit": "113",
+									"mandatory": "N"
+								},
+								{
+									"name": "Original Vanning Date(module)",
+									"desc": "Original Vanning Date(module)",
+									"dataType": "Date",
+									"length": "8",
+									"startDigit": "114",
+									"endDigit": "121",
+									"mandatory": "N",
+									"format" : "yyyyMMdd"
+								},
+								{
+									"name": "Planned Pack Date",
+									"desc": "Planned Pack Date",
+									"dataType": "Date",
+									"length": "8",
+									"startDigit": "122",
+									"endDigit": "129",
+									"mandatory": "Y",
+									"format" : "yyyyMMdd"
+								},
+								{
+									"name": "Planned Pack Time",
+									"desc": "Planned Pack Time",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "130",
+									"endDigit": "133",
+									"mandatory": "N"
+								},
+								{
+									"name": "Actual Pack Date",
+									"desc": "Actual Pack Date",
+									"dataType": "Date",
+									"length": "8",
+									"startDigit": "134",
+									"endDigit": "141",
+									"mandatory": "Y",
+									"format" : "yyyyMMdd"
+								},
+								{
+									"name": "Actual Pack Time",
+									"desc": "Actual Pack Time",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "142",
+									"endDigit": "145",
+									"mandatory": "N"
+								},
+								{
+									"name": "Packing Line Code",
+									"desc": "Packing Line Code",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "146",
+									"endDigit": "147",
+									"mandatory": "N"
+								},
+								{
+									"name": "Packing Seq. No",
+									"desc": "Packing Seq. No",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "148",
+									"endDigit": "150",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Standard Packing Time",
+									"desc": "Module Standard Packing Time",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "151",
+									"endDigit": "155",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Type",
+									"desc": "Module Type",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "156",
+									"endDigit": "157",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Module Size Code",
+									"desc": "Module Size Code",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "158",
+									"endDigit": "159",
+									"mandatory": "Y"
+								},
+								{
+									"name": "Module Group Name",
+									"desc": "Module Group Name",
+									"dataType": "Char",
+									"length": "25",
+									"startDigit": "160",
+									"endDigit": "184",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Net Weight",
+									"desc": "Module Net Weight",
+									"dataType": "Number",
+									"length": "8",
+									"startDigit": "185",
+									"endDigit": "192",
+									"mandatory": "Y",
+									"decimalPlaces": "3"
+								},
+								{
+									"name": "Module Gross Weight",
+									"desc": "Module Gross Weight",
+									"dataType": "Number",
+									"length": "8",
+									"startDigit": "193",
+									"endDigit": "200",
+									"mandatory": "Y",
+									"decimalPlaces": "3"
+								},
+								{
+									"name": "Module Tare Weight",
+									"desc": "Module Tare Weight",
+									"dataType": "Number",
+									"length": "8",
+									"startDigit": "201",
+									"endDigit": "208",
+									"mandatory": "Y",
+									"decimalPlaces": "3"
+								},
+								{
+									"name": "Module Dimension - Outer M3",
+									"desc": "Module Dimension - Outer M3",
+									"dataType": "Number",
+									"length": "6",
+									"startDigit": "209",
+									"endDigit": "214",
+									"mandatory": "Y",
+									"decimalPlaces": "4"
+								},
+								{
+									"name": "Module Dimension - Inner M3",
+									"desc": "Module Dimension - Inner M3",
+									"dataType": "Number",
+									"length": "6",
+									"startDigit": "215",
+									"endDigit": "220",
+									"mandatory": "N",
+									"decimalPlaces": "4"
+								},
+								{
+									"name": "Module Dimension - Length (Outer)",
+									"desc": "Module Dimension - Length (Outer)",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "221",
+									"endDigit": "225",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Dimension - Width (Outer)",
+									"desc": "Module Dimension - Width (Outer)",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "226",
+									"endDigit": "230",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Dimension - Height (Outer)",
+									"desc": "Module Dimension - Height (Outer)",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "231",
+									"endDigit": "235",
+									"mandatory": "N"
+								},
+								{
+									"name": "Loading Style",
+									"desc": "Loading Style",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "236",
+									"endDigit": "236",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Comment1",
+									"desc": "Module Comment1",
+									"dataType": "Char",
+									"length": "20",
+									"startDigit": "237",
+									"endDigit": "256",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Comment2",
+									"desc": "Module Comment2",
+									"dataType": "Char",
+									"length": "20",
+									"startDigit": "257",
+									"endDigit": "276",
+									"mandatory": "N"
+								},
+								{
+									"name": "Display Model Code",
+									"desc": "Display Model Code",
+									"dataType": "Char",
+									"length": "20",
+									"startDigit": "277",
+									"endDigit": "296",
+									"mandatory": "N"
+								},
+								{
+									"name": "Control Model Code",
+									"desc": "Control Model Code",
+									"dataType": "Char",
+									"length": "20",
+									"startDigit": "297",
+									"endDigit": "316",
+									"mandatory": "N"
+								},
+								{
+									"name": "Series Name",
+									"desc": "Series Name",
+									"dataType": "Char",
+									"length": "15",
+									"startDigit": "317",
+									"endDigit": "331",
+									"mandatory": "N"
+								},
+								{
+									"name": "R/R Type",
+									"desc": "R/R Type",
+									"dataType": "Char",
+									"length": "6",
+									"startDigit": "332",
+									"endDigit": "337",
+									"mandatory": "N"
+								},
+								{
+									"name": "Unit/Lot",
+									"desc": "Unit/Lot",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "338",
+									"endDigit": "342",
+									"mandatory": "N"
+								},
+								{
+									"name": "Unit/Case",
+									"desc": "Unit/Case",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "343",
+									"endDigit": "347",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Net M3",
+									"desc": "Module Net M3",
+									"dataType": "Number",
+									"length": "6",
+									"startDigit": "348",
+									"endDigit": "353",
+									"mandatory": "Y",
+									"decimalPlaces": "4"
+								},
+								{
+									"name": "Module Efficiency Ratio",
+									"desc": "(measurement capacity)",
+									"dataType": "Char",
+									"length": "3",
+									"startDigit": "354",
+									"endDigit": "356",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module  MAX Weght",
+									"desc": "Module  MAX Weght",
+									"dataType": "Number",
+									"length": "8",
+									"startDigit": "357",
+									"endDigit": "364",
+									"mandatory": "N",
+									"decimalPlaces": "3"
+								},
+								{
+									"name": "Module Efficiency ratio ",
+									"desc": "(weight capacity)",
+									"dataType": "Char",
+									"length": "3",
+									"startDigit": "365",
+									"endDigit": "367",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod M3 Coefficient",
+									"desc": "Mod M3 Coefficient",
+									"dataType": "Number",
+									"length": "4",
+									"startDigit": "368",
+									"endDigit": "371",
+									"mandatory": "N"
+								},
+								{
+									"name": "Barcode Flag",
+									"desc": "Barcode Flag",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "372",
+									"endDigit": "372",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-1",
+									"desc": "PAC tbl seq. G m-1",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "373",
+									"endDigit": "375",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-2",
+									"desc": "PAC tbl seq. G m-2",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "376",
+									"endDigit": "378",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-3",
+									"desc": "PAC tbl seq. G m-3",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "379",
+									"endDigit": "381",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-4",
+									"desc": "PAC tbl seq. G m-4",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "382",
+									"endDigit": "384",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-5",
+									"desc": "PAC tbl seq. G m-5",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "385",
+									"endDigit": "387",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-6",
+									"desc": "PAC tbl seq. G m-6",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "388",
+									"endDigit": "390",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-6 Date",
+									"desc": "PAC tbl seq. G m-6 Date",
+									"dataType": "Char",
+									"length": "8",
+									"startDigit": "391",
+									"endDigit": "398",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-7",
+									"desc": "PAC tbl seq. G m-7",
+									"dataType": "Number",
+									"length": "3",
+									"startDigit": "399",
+									"endDigit": "401",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-7 Date",
+									"desc": "PAC tbl seq. G m-7 Date",
+									"dataType": "Char",
+									"length": "8",
+									"startDigit": "402",
+									"endDigit": "409",
+									"mandatory": "N"
+								},
+								{
+									"name": "PAC tbl seq. G m-7 Time",
+									"desc": "PAC tbl seq. G m-7 Time",
+									"dataType": "Char",
+									"length": "4",
+									"startDigit": "410",
+									"endDigit": "413",
+									"mandatory": "N"
+								},
+								{
+									"name": "e-kanban Oder# (start)",
+									"desc": "e-kanban Oder# (start)",
+									"dataType": "Char",
+									"length": "12",
+									"startDigit": "414",
+									"endDigit": "425",
+									"mandatory": "N"
+								},
+								{
+									"name": "e-kanban Oder# (last)",
+									"desc": "e-kanban Oder# (last)",
+									"dataType": "Char",
+									"length": "12",
+									"startDigit": "426",
+									"endDigit": "437",
+									"mandatory": "N"
+								},
+								{
+									"name": "Status Flag1",
+									"desc": "Status Flag1",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "438",
+									"endDigit": "438",
+									"mandatory": "N"
+								},
+								{
+									"name": "Space Reserve FLG",
+									"desc": "Space Reserve FLG",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "439",
+									"endDigit": "439",
+									"mandatory": "N"
+								},
+								{
+									"name": "Destination Name",
+									"desc": "Destination Name",
+									"dataType": "Char",
+									"length": "10",
+									"startDigit": "440",
+									"endDigit": "449",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Material Code",
+									"desc": "Mod Material Info. - Material Code",
+									"dataType": "Char",
+									"length": "5",
+									"startDigit": "450",
+									"endDigit": "454",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Material Part No",
+									"desc": "Mod Material Info. - Material Part No",
+									"dataType": "Char",
+									"length": "12",
+									"startDigit": "455",
+									"endDigit": "466",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Material dock",
+									"desc": "Mod Material Info. - Material dock",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "467",
+									"endDigit": "468",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Material Address",
+									"desc": "Mod Material Info. - Material Address",
+									"dataType": "Char",
+									"length": "10",
+									"startDigit": "469",
+									"endDigit": "478",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Source Code",
+									"desc": "Mod Material Info. - Source Code",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "479",
+									"endDigit": "479",
+									"mandatory": "N"
+								},
+								{
+									"name": "Mod Material Info. - Quantity",
+									"desc": "Mod Material Info. - Quantity",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "480",
+									"endDigit": "484",
+									"mandatory": "N"
+								},
+								{
+									"name": "Loading Group",
+									"desc": "Loading Group",
+									"dataType": "Char",
+									"length": "2",
+									"startDigit": "485",
+									"endDigit": "486",
+									"mandatory": "N"
+								},
+								{
+									"name": "KIT Code",
+									"desc": "KIT Code",
+									"dataType": "Char",
+									"length": "5",
+									"startDigit": "487",
+									"endDigit": "491",
+									"mandatory": "N"
+								},
+								{
+									"name": "KIT Serial No.",
+									"desc": "KIT Serial No.",
+									"dataType": "Char",
+									"length": "3",
+									"startDigit": "492",
+									"endDigit": "494",
+									"mandatory": "N"
+								},
+								{
+									"name": "Pair  Loading Group",
+									"desc": "Pair  Loading Group",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "495",
+									"endDigit": "495",
+									"mandatory": "N"
+								},
+								{
+									"name": "DOUKON KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "496",
+									"endDigit": "496",
+									"mandatory": "N"
+								},
+								{
+									"name": "SET/BUHIN KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "497",
+									"endDigit": "497",
+									"mandatory": "N"
+								},
+								{
+									"name": "INVOICE BUNKATU KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "5",
+									"startDigit": "498",
+									"endDigit": "502",
+									"mandatory": "N"
+								},
+								{
+									"name": "NISUGATA",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "503",
+									"endDigit": "503",
+									"mandatory": "N"
+								},
+								{
+									"name": "TOUKEI KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "504",
+									"endDigit": "504",
+									"mandatory": "N"
+								},
+								{
+									"name": "ORDER NO.",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "12",
+									"startDigit": "505",
+									"endDigit": "516",
+									"mandatory": "N"
+								},
+								{
+									"name": "HASU KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "517",
+									"endDigit": "517",
+									"mandatory": "N"
+								},
+								{
+									"name": "CONTAINER SITEI KUBUN",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "518",
+									"endDigit": "518",
+									"mandatory": "N"
+								},
+								{
+									"name": "ED No.",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "5",
+									"startDigit": "519",
+									"endDigit": "523",
+									"mandatory": "N"
+								},
+								{
+									"name": "KATASHIKI Code",
+									"desc": "FOR TMS SYS",
+									"dataType": "Char",
+									"length": "5",
+									"startDigit": "524",
+									"endDigit": "528",
+									"mandatory": "N"
+								},
+								{
+									"name": "Module Stacking Time",
+									"desc": "Module Stacking Time",
+									"dataType": "Number",
+									"length": "5",
+									"startDigit": "529",
+									"endDigit": "533",
+									"mandatory": "N"
+								},
+								{
+									"name": "Operation Date",
+									"desc": "Operation Date",
+									"dataType": "Char",
+									"length": "8",
+									"startDigit": "534",
+									"endDigit": "541",
+									"mandatory": "N"
+								},
+								{
+									"name": "Operation Time",
+									"desc": "Operation Time",
+									"dataType": "Char",
+									"length": "6",
+									"startDigit": "542",
+									"endDigit": "547",
+									"mandatory": "N"
+								},
+								{
+									"name": "Operation User ID",
+									"desc": "Operation User ID",
+									"dataType": "Char",
+									"length": "1",
+									"startDigit": "548",
+									"endDigit": "548",
+									"mandatory": "N"
+								}
+							]
+						},
+						
+						"moduleParts" : [
+							{
+								"partHeader" : {
+									"recordLength" : "2",
+									"tokens" : [
+										{
+											"name" : "Data Id",
+											"desc" : "Data Id",
+											"dataType" : "Char",
+											"length" : "2",
+											"startDigit" : "1",
+											"endDigit" : "2",
+											"mandatory" : "Y",
+											"fixValue" : "H3"					
+										}
+									]
+								},
+								"partDetail" : {
+									"recordLength" : "746",
+									"tokens" : [
+										{
+											"name" : "Data Id",
+											"desc" : "Data Id",
+											"dataType" : "Char",
+											"length" : "2",
+											"startDigit" : "1",
+											"endDigit" : "2",
+											"mandatory" : "Y",
+											"fixValue" : "D3"					
+										},
+										{
+											"name": "Box Sequence No.",
+											"desc": "Box Sequence No.",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "3",
+											"endDigit": "5",
+											"mandatory": "Y"
+										},
+										{
+											"name": "Box No.",
+											"desc": "Box No.",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "6",
+											"endDigit": "8",
+											"mandatory": "N"
+										},
+										{
+											"name": "Part No.",
+											"desc": "Part No.",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "9",
+											"endDigit": "20",
+											"mandatory": "Y"
+										},
+										{
+											"name": "Packing Quantity By Box",
+											"desc": "Packing Quantity By Box",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "21",
+											"endDigit": "25",
+											"mandatory": "Y"
+										},
+										{
+											"name": "KANBAN#",
+											"desc": "KANBAN#",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "26",
+											"endDigit": "29",
+											"mandatory": "N"
+										},
+										{
+											"name": "Part Name1",
+											"desc": "Part Name1",
+											"dataType": "Char",
+											"length": "40",
+											"startDigit": "30",
+											"endDigit": "69",
+											"mandatory": "N"
+										},
+										{
+											"name": "Part Name2",
+											"desc": "Part Name2",
+											"dataType": "Char",
+											"length": "20",
+											"startDigit": "70",
+											"endDigit": "89",
+											"mandatory": "N"
+										},
+										{
+											"name": "Packing Zone Code",
+											"desc": "Packing Zone Code",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "90",
+											"endDigit": "91",
+											"mandatory": "N"
+										},
+										{
+											"name": "Stacking Zone Code",
+											"desc": "Stacking Zone Code",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "92",
+											"endDigit": "93",
+											"mandatory": "N"
+										},
+										{
+											"name": "Address",
+											"desc": "Address",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "94",
+											"endDigit": "103",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Gross Wgt.",
+											"desc": "Box Gross Wgt.",
+											"dataType": "Number",
+											"length": "8",
+											"startDigit": "104",
+											"endDigit": "111",
+											"mandatory": "Y"
+										},
+										{
+											"name": "Box M3",
+											"desc": "Box M3",
+											"dataType": "Number",
+											"length": "6",
+											"startDigit": "112",
+											"endDigit": "117",
+											"mandatory": "Y",
+											"decimalPlaces": "4"
+										},
+										{
+											"name": "Bar-code SFX #",
+											"desc": "Bar-code SFX #",
+											"dataType": "Char",
+											"length": "20",
+											"startDigit": "118",
+											"endDigit": "137",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info.",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "138",
+											"endDigit": "142",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info.",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "143",
+											"endDigit": "154",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info.",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "155",
+											"endDigit": "156",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info.",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "157",
+											"endDigit": "166",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info.",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "167",
+											"endDigit": "167",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info.",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "168",
+											"endDigit": "172",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info. 1",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "173",
+											"endDigit": "177",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info. 1",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "178",
+											"endDigit": "189",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info. 1",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "190",
+											"endDigit": "191",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info. 1",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "192",
+											"endDigit": "201",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info. 1",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "202",
+											"endDigit": "202",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info. 1",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "203",
+											"endDigit": "207",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info. 2",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "208",
+											"endDigit": "212",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info. 2",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "213",
+											"endDigit": "224",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info. 2",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "225",
+											"endDigit": "226",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info. 2",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "227",
+											"endDigit": "236",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info. 2",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "237",
+											"endDigit": "237",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info. 2",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "238",
+											"endDigit": "242",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info. 3",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "243",
+											"endDigit": "247",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info. 3",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "248",
+											"endDigit": "259",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info. 3",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "260",
+											"endDigit": "261",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info. 3",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "262",
+											"endDigit": "271",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info. 3",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "272",
+											"endDigit": "272",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info. 3",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "273",
+											"endDigit": "277",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info. 4",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "278",
+											"endDigit": "282",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info. 4",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "283",
+											"endDigit": "294",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info. 4",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "295",
+											"endDigit": "296",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info. 4",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "297",
+											"endDigit": "306",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info. 4",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "307",
+											"endDigit": "307",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info. 4",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "308",
+											"endDigit": "312",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Code",
+											"desc": "Part Material Info. 5",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "313",
+											"endDigit": "317",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Part No",
+											"desc": "Part Material Info. 5",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "318",
+											"endDigit": "329",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material dock",
+											"desc": "Part Material Info. 5",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "330",
+											"endDigit": "331",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Material Address",
+											"desc": "Part Material Info. 5",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "332",
+											"endDigit": "341",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Source Code",
+											"desc": "Part Material Info. 5",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "342",
+											"endDigit": "342",
+											"mandatory": "N"
+										},
+										{
+											"name": "Box Material Info. - Quantity",
+											"desc": "Part Material Info. 5",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "343",
+											"endDigit": "347",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Type",
+											"desc": "Order Type",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "348",
+											"endDigit": "348",
+											"mandatory": "Y"
+										},
+										{
+											"name": "Importer Code",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "349",
+											"endDigit": "352",
+											"mandatory": "N"
+										},
+										{
+											"name": "Exporter Code",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "353",
+											"endDigit": "356",
+											"mandatory": "N"
+										},
+										{
+											"name": "MSP Order Type",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "357",
+											"endDigit": "357",
+											"mandatory": "N"
+										},
+										{
+											"name": "Firm Packing Month",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "6",
+											"startDigit": "358",
+											"endDigit": "363",
+											"mandatory": "N"
+										},
+										{
+											"name": "Car Family Code ",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "364",
+											"endDigit": "367",
+											"mandatory": "N"
+										},
+										{
+											"name": "Re-export Code",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "368",
+											"endDigit": "368",
+											"mandatory": "N"
+										},
+										{
+											"name": "AICO Flg",
+											"desc": "PAMS Order Control No (OCN)",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "369",
+											"endDigit": "369",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Part No.",
+											"desc": "Order Part No.",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "370",
+											"endDigit": "381",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Lot",
+											"desc": "Order Lot",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "382",
+											"endDigit": "386",
+											"mandatory": "N"
+										},
+										{
+											"name": "Importer line Code",
+											"desc": "Importer line Code",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "387",
+											"endDigit": "387",
+											"mandatory": "N"
+										},
+										{
+											"name": "Set / Part flag",
+											"desc": "Set / Part flag",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "388",
+											"endDigit": "388",
+											"mandatory": "N"
+										},
+										{
+											"name": "Series Name",
+											"desc": "Series Name",
+											"dataType": "Char",
+											"length": "15",
+											"startDigit": "389",
+											"endDigit": "403",
+											"mandatory": "N"
+										},
+										{
+											"name": "Supplier code",
+											"desc": "Supplier code",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "404",
+											"endDigit": "407",
+											"mandatory": "N"
+										},
+										{
+											"name": "Supplier Plant",
+											"desc": "Supplier Plant",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "408",
+											"endDigit": "408",
+											"mandatory": "N"
+										},
+										{
+											"name": "Supplier Shipping Dock",
+											"desc": "Supplier Shipping Dock",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "409",
+											"endDigit": "411",
+											"mandatory": "N"
+										},
+										{
+											"name": "Part Arrival date & time",
+											"desc": "Part Arrival date & time",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "412",
+											"endDigit": "423",
+											"mandatory": "N"
+										},
+										{
+											"name": "Main Route group code",
+											"desc": "Main Route group code",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "424",
+											"endDigit": "433",
+											"mandatory": "N"
+										},
+										{
+											"name": "Main Route date",
+											"desc": "Main Route date",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "434",
+											"endDigit": "437",
+											"mandatory": "N"
+										},
+										{
+											"name": "Main Route Order Seq. ",
+											"desc": "Main Route Order Seq. ",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "438",
+											"endDigit": "439",
+											"mandatory": "N"
+										},
+										{
+											"name": "Last cross dock arrival D&T",
+											"desc": "Last cross dock arrival D&T",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "440",
+											"endDigit": "451",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Release date",
+											"desc": "Order Release date",
+											"dataType": "Date",
+											"length": "8",
+											"startDigit": "452",
+											"endDigit": "459",
+											"mandatory": "N",
+											"format" : "yyyyMMdd"
+										},
+										{
+											"name": "Order Release time",
+											"desc": "Order Release time",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "460",
+											"endDigit": "463",
+											"mandatory": "N"
+										},
+										{
+											"name": "Build Out Flag",
+											"desc": "Build Out Flag",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "464",
+											"endDigit": "464",
+											"mandatory": "N"
+										},
+										{
+											"name": "Build Out Qty",
+											"desc": "Build Out Qty",
+											"dataType": "Number",
+											"length": "7",
+											"startDigit": "465",
+											"endDigit": "471",
+											"mandatory": "N"
+										},
+										{
+											"name": "Shipping DateTime (Vanning Plant)",
+											"desc": "Shipping DateTime (Vanning Plant)",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "472",
+											"endDigit": "483",
+											"mandatory": "N"
+										},
+										{
+											"name": "Ferry Port Dep. Date Time",
+											"desc": "Ferry Port Dep. Date Time",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "484",
+											"endDigit": "495",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Plan qty.(Piecies)",
+											"desc": "Order Plan qty.(Piecies)",
+											"dataType": "Number",
+											"length": "7",
+											"startDigit": "496",
+											"endDigit": "502",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order plan qty.(Lot)",
+											"desc": "Order plan qty.(Lot)",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "503",
+											"endDigit": "507",
+											"mandatory": "N"
+										},
+										{
+											"name": "Kanban Print Address",
+											"desc": "Kanban Print Address",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "508",
+											"endDigit": "517",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order # (e-kanban)",
+											"desc": "Order # (e-kanban)",
+											"dataType": "Char",
+											"length": "12",
+											"startDigit": "518",
+											"endDigit": "529",
+											"mandatory": "N"
+										},
+										{
+											"name": "kanaban#(for importer)",
+											"desc": "kanaban#(for importer)",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "530",
+											"endDigit": "533",
+											"mandatory": "N"
+										},
+										{
+											"name": "Q'ty per container",
+											"desc": "Q'ty per container",
+											"dataType": "Number",
+											"length": "5",
+											"startDigit": "534",
+											"endDigit": "538",
+											"mandatory": "N"
+										},
+										{
+											"name": "Order Mode",
+											"desc": "Order Mode",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "539",
+											"endDigit": "539",
+											"mandatory": "N"
+										},
+										{
+											"name": "Conveyance Route",
+											"desc": "Conveyance Route",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "540",
+											"endDigit": "540",
+											"mandatory": "N"
+										},
+										{
+											"name": "Dangerous part code ",
+											"desc": "Description",
+											"dataType": "Char",
+											"length": "30",
+											"startDigit": "541",
+											"endDigit": "570",
+											"mandatory": "N"
+										},
+										{
+											"name": "Dangerous part code - IMO Code",
+											"desc": "Dangerous part code - IMO Code",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "571",
+											"endDigit": "574",
+											"mandatory": "N"
+										},
+										{
+											"name": "Dangerous part code - Class",
+											"desc": "Dangerous part code - Class",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "575",
+											"endDigit": "575",
+											"mandatory": "N"
+										},
+										{
+											"name": "Dangerous part code - Level",
+											"desc": "Dangerous part code - Level",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "576",
+											"endDigit": "580",
+											"mandatory": "N"
+										},
+										{
+											"name": "Dangerous part code - Label Code",
+											"desc": "Dangerous part code - Label Code",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "581",
+											"endDigit": "585",
+											"mandatory": "N"
+										},
+										{
+											"name": "Label O/P Control",
+											"desc": "Label O/P Control",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "586",
+											"endDigit": "588",
+											"mandatory": "N"
+										},
+										{
+											"name": "Imporer Info#1",
+											"desc": "Imporer Info#1",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "589",
+											"endDigit": "598",
+											"mandatory": "N"
+										},
+										{
+											"name": "Imporer Info#2",
+											"desc": "Imporer Info#2",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "599",
+											"endDigit": "608",
+											"mandatory": "N"
+										},
+										{
+											"name": "Imporer Info#3",
+											"desc": "Imporer Info#3",
+											"dataType": "Char",
+											"length": "10",
+											"startDigit": "609",
+											"endDigit": "618",
+											"mandatory": "N"
+										},
+										{
+											"name": "Imporer Info#4",
+											"desc": "Imporer Info#4",
+											"dataType": "Char",
+											"length": "30",
+											"startDigit": "619",
+											"endDigit": "648",
+											"mandatory": "N"
+										},
+										{
+											"name": "PAC tbl seq. G p-1",
+											"desc": "PAC tbl seq. G p-1",
+											"dataType": "Number",
+											"length": "3",
+											"startDigit": "649",
+											"endDigit": "651",
+											"mandatory": "N"
+										},
+										{
+											"name": "KANRI CODE",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "652",
+											"endDigit": "655",
+											"mandatory": "N"
+										},
+										{
+											"name": "HS Code",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "656",
+											"endDigit": "658",
+											"mandatory": "N"
+										},
+										{
+											"name": "HINBAN ORDER KUBUN",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "659",
+											"endDigit": "659",
+											"mandatory": "N"
+										},
+										{
+											"name": "ORIGINAL SYASHU",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "4",
+											"startDigit": "660",
+											"endDigit": "663",
+											"mandatory": "N"
+										},
+										{
+											"name": "ORIGINAL L/O DATE",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "8",
+											"startDigit": "664",
+											"endDigit": "671",
+											"mandatory": "N"
+										},
+										{
+											"name": "HOJYU KAKAKU MITUMORIBI",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "8",
+											"startDigit": "672",
+											"endDigit": "679",
+											"mandatory": "N"
+										},
+										{
+											"name": "HOJYU TYUMON BANGOU",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "8",
+											"startDigit": "680",
+											"endDigit": "687",
+											"mandatory": "N"
+										},
+										{
+											"name": "JISYA B/M KUBUN",
+											"desc": "FOR TMS SYS",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "688",
+											"endDigit": "688",
+											"mandatory": "N"
+										},
+										{
+											"name": "KIT code",
+											"desc": "KIT code",
+											"dataType": "Char",
+											"length": "5",
+											"startDigit": "689",
+											"endDigit": "693",
+											"mandatory": "N"
+										},
+										{
+											"name": "KIT Serial No.",
+											"desc": "KIT Serial No.",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "694",
+											"endDigit": "696",
+											"mandatory": "N"
+										},
+										{
+											"name": "KIT m3",
+											"desc": "KIT m3",
+											"dataType": "Number",
+											"length": "6",
+											"startDigit": "697",
+											"endDigit": "702",
+											"mandatory": "N",
+											"decimalPlaces": "4"
+										},
+										{
+											"name": "Parts Net Weight by piece",
+											"desc": "Parts Net Weight by piece",
+											"dataType": "Number",
+											"length": "9",
+											"startDigit": "703",
+											"endDigit": "711",
+											"mandatory": "Y",
+											"decimalPlaces": "2"
+										},
+										{
+											"name": "order Vanning Date",
+											"desc": "order Vanning Date",
+											"dataType": "Date",
+											"length": "8",
+											"startDigit": "712",
+											"endDigit": "719",
+											"mandatory": "N",
+											"format" : "yyyyMMdd"
+										},
+										{
+											"name": "Order Renban",
+											"desc": "Order Renban",
+											"dataType": "Char",
+											"length": "3",
+											"startDigit": "720",
+											"endDigit": "722",
+											"mandatory": "N"
+										},
+										{
+											"name": "CPO Control No.",
+											"desc": "CPO Control No.",
+											"dataType": "Char",
+											"length": "6",
+											"startDigit": "723",
+											"endDigit": "728",
+											"mandatory": "N"
+										},
+										{
+											"name": "CPO Reason Code",
+											"desc": "CPO Reason Code",
+											"dataType": "Char",
+											"length": "2",
+											"startDigit": "729",
+											"endDigit": "730",
+											"mandatory": "N"
+										},
+										{
+											"name": "CPO Reason Suffix No.",
+											"desc": "CPO Reason Suffix No.",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "731",
+											"endDigit": "731",
+											"mandatory": "N"
+										},
+										{
+											"name": "Operation Date",
+											"desc": "Operation Date",
+											"dataType": "Char",
+											"length": "8",
+											"startDigit": "732",
+											"endDigit": "739",
+											"mandatory": "N"
+										},
+										{
+											"name": "Operation Time",
+											"desc": "Operation Time",
+											"dataType": "Char",
+											"length": "6",
+											"startDigit": "740",
+											"endDigit": "745",
+											"mandatory": "N"
+										},
+										{
+											"name": "Operation User ID",
+											"desc": "Operation User ID",
+											"dataType": "Char",
+											"length": "1",
+											"startDigit": "746",
+											"endDigit": "746",
+											"mandatory": "N"
+										}
+									]
+								},
+								"partFooter" : {
+									"recordLength" : "10",
+									"tokens" : [
+										{
+											"name" : "Data Id",
+											"desc" : "Data Id",
+											"dataType" : "Char",
+											"length" : "2",
+											"startDigit" : "1",
+											"endDigit" : "2",
+											"mandatory" : "Y",
+											"fixValue" : "T3"					
+										},
+										{
+											"name" : "Number of recrods",
+											"desc" : "Number of recrods",
+											"dataType" : "Number",
+											"length" : "8",
+											"startDigit" : "3",
+											"endDigit" : "10",
+											"mandatory" : "Y"					
+										}
+									]
+								}
+							}
+						],
+						
+						"moduleFooter" : {
+							"recordLength" : "10",
+							"tokens" : [
+								{
+									"name" : "Data Id",
+									"desc" : "Data Id",
+									"dataType" : "Char",
+									"length" : "2",
+									"startDigit" : "1",
+									"endDigit" : "2",
+									"mandatory" : "Y",
+									"fixValue" : "T2"					
+								},
+								{
+									"name" : "Number of recrods",
+									"desc" : "Number of recrods",
+									"dataType" : "Number",
+									"length" : "8",
+									"startDigit" : "3",
+									"endDigit" : "10",
+									"mandatory" : "Y"					
+								}
+							]
+						}
+					}
+				],
+				
+				"containerFooter" : {
+					"recordLength" : "10",
+					"tokens" : [
+						{
+							"name" : "Data Id",
+							"desc" : "Data Id",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "1",
+							"endDigit" : "2",
+							"mandatory" : "N",
+							"fixValue" : "T1"					
+						},
+						{
+							"name" : "Record Count",
+							"desc" : "Record Count",
+							"dataType" : "Number",
+							"length" : "8",
+							"startDigit" : "3",
+							"endDigit" : "10",
+							"mandatory" : "Y"
+						}
+					]
+				}
+			}
+		],
+		
+		"lot" : {
+			"lotHeader" : {
+				"recordLength" : "2",
+				"tokens" : [
+					{
+						"name" : "Data Id",
+						"desc" : "Data Id",
+						"dataType" : "Char",
+						"length" : "2",
+						"startDigit" : "1",
+						"endDigit" : "2",
+						"mandatory" : "N",
+						"fixValue" : "H4"					
+					}
+				]
+			},
+			"lotDetails" : [
+				{
+					"recordLength" : "49",
+					"tokens" : [
+						{
+							"name" : "Data Id",
+							"desc" : "Data Id",
+							"dataType" : "Char",
+							"length" : "2",
+							"startDigit" : "1",
+							"endDigit" : "2",
+							"mandatory" : "N",
+							"fixValue" : "D4"					
+						},
+						{
+							"name": "Exporter Code",
+							"desc": "Exporter Code",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "3",
+							"endDigit": "6",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Importer Code",
+							"desc": "Importer Code",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "7",
+							"endDigit": "10",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Lot No.",
+							"desc": "Lot No.",
+							"dataType": "Char",
+							"length": "6",
+							"startDigit": "11",
+							"endDigit": "16",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Record No.",
+							"desc": "Record No.",
+							"dataType": "Number",
+							"length": "3",
+							"startDigit": "17",
+							"endDigit": "19",
+							"mandatory": "N"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "VIN Type",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "20",
+							"endDigit": "20",
+							"mandatory": "Y"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "WMI",
+							"dataType": "Char",
+							"length": "3",
+							"startDigit": "21",
+							"endDigit": "23",
+							"mandatory": "N"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "VDS",
+							"dataType": "Char",
+							"length": "6",
+							"startDigit": "24",
+							"endDigit": "29",
+							"mandatory": "Y"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "Model Year",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "30",
+							"endDigit": "30",
+							"mandatory": "N"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "Check Digit",
+							"dataType": "Char",
+							"length": "1",
+							"startDigit": "31",
+							"endDigit": "31",
+							"mandatory": "N"
+						},
+						{
+							"name": "VIN Info.",
+							"desc": "Frame Sequence No.",
+							"dataType": "Char",
+							"length": "7",
+							"startDigit": "32",
+							"endDigit": "38",
+							"mandatory": "Y"
+						},
+						{
+							"name": "Engine No.",
+							"desc": "Engine No.",
+							"dataType": "Char",
+							"length": "7",
+							"startDigit": "39",
+							"endDigit": "45",
+							"mandatory": "N"
+						},
+						{
+							"name": "Engine Prefix",
+							"desc": "Engine Prefix",
+							"dataType": "Char",
+							"length": "4",
+							"startDigit": "46",
+							"endDigit": "49",
+							"mandatory": "N"
+						}
+					]
+				}
+			],
+			"lotFooter" : {
+				"recordLength" : "10",
+				"tokens" : [
+					{
+						"name" : "Data Id",
+						"desc" : "Data Id",
+						"dataType" : "Char",
+						"length" : "2",
+						"startDigit" : "1",
+						"endDigit" : "2",
+						"mandatory" : "N",
+						"fixValue" : "T4"					
+					},
+					{
+						"name" : "Record Count",
+						"desc" : "Record Count",
+						"dataType" : "Number",
+						"length" : "8",
+						"startDigit" : "3",
+						"endDigit" : "10",
+						"mandatory" : "Y"
+					}
+				]
+			}
+		},
+		
+		"fileFooter" : {
+			"recordLength" : "10",
+			"tokens" : [
+				{
+					"name" : "Data Id",
+					"desc" : "Data Id",
+					"dataType" : "Char",
+					"length" : "2",
+					"startDigit" : "1",
+					"endDigit" : "2",
+					"mandatory" : "N",
+					"fixValue" : "T",
+					"notTrim" : "Y"					
+				},
+				{
+					"name" : "Record Count",
+					"desc" : "Record Count",
+					"dataType" : "Number",
+					"length" : "8",
+					"startDigit" : "3",
+					"endDigit" : "10",
+					"mandatory" : "Y"
+				}
+			]
+		}
+	}
+	
+}

@@ -1,0 +1,16 @@
+.mb-10{margin-bottom: 10px;}
+.pb-10{padding-bottom: 10px;}
+.btn-container{display: flex;justify-content: flex-end;align-items: flex-start;margin-bottom: 12px;}
+.error-msg{margin-left: 50px;}
+.erro-lbl{background-color: #FF245914;border: 1px solid #FF24591A;color: #FF2459;text-decoration: none;
+    padding: 6px 11px;display: flex;align-items: center;border-radius: 5px;font-size: 16px;font-weight: bold;justify-content: center;cursor: pointer;}
+.part-master-inquiry .table-responsive .table tr th:nth-of-type(3),
+.part-master-inquiry .table-responsive .table tr td:nth-of-type(3){
+    min-width: 450px;
+    width: 450px;
+}
+.part-master-inquiry .table-responsive .table tr th:nth-of-type(6),
+.part-master-inquiry .table-responsive .table tr td:nth-of-type(6){
+    min-width: 120px;
+    width: 120px;
+}

@@ -1,0 +1,15 @@
+ .footer {
+   position: fixed;
+   bottom: 0;
+   width: 100%;
+ }
+ .footer .footer-content {
+    background-color: #FFF;
+    font-size: 20px;
+    font-family:'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    color: #000;
+    border-top: 1px solid #00000033;
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+  }

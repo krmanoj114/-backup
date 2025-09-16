@@ -1,0 +1,30 @@
+
+		
+		{
+	"columns": [
+		{
+			"id": "id",
+			"name": "Effective Month From",
+			"type": "string",
+			"max": "7",
+			"min": "7",
+			"required": true,
+			"editable": false,
+			"unique": true,
+			"link": false
+		},{
+			"id": "id",
+			"name": "Effective Month To",
+			"type": "string",
+			"max": "7",
+			"min": "7",
+			"required": true,
+			"editable": false,
+			"unique": true,
+			"link": false
+		}
+	],
+	"tableName":"TB_M_COUNTRY_ORIGIN",
+	"primaryKey":"PART_NO"
+	
+}

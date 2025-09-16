@@ -1,0 +1,219 @@
+default:
+  tags:
+    - docker
+  cache:
+      paths:
+        - .m2/repository    
+stages:
+  - compile
+  - code scan  
+  - image build
+  - image scan
+  - image push
+  - dev deployment
+  - sit deployment
+  - uat approval
+  - uat promote
+  - uat deployment
+  - prod approval
+  - prod deployment
+  - testing
+
+variables:
+  ### PROJECT_NAME and SERVICE_NAME cannot use underscore "_"
+  PROJECT_NAME: "toyota-part-export-system" # Harbor repository name
+  SERVICE_NAME: "tpex-month-service" #  OpenShift service name
+  SERVICE_VERSION: "v1.0.0" # Service version using for tagging on Harbor
+  
+  #MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  #MAVEN_CLI_OPTS: "-P otherOutputDir -DskipTests"
+  MAVEN_CLI_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Djavax.net.ssl.trustStore=/etc/ssl/certs/cacerts -Dserver.username=$ARTIFACTORY_USER -Dserver.password=$ARTIFACTORY_PASS -DskipTests"
+  MAVEN_CLI_OPTS_TEST: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Djavax.net.ssl.trustStore=/etc/ssl/certs/cacerts -Dserver.username=$ARTIFACTORY_USER -Dserver.password=$ARTIFACTORY_PASS"
+
+
+  DIRECTORY_BUILD: "build/libs"
+  SOURCE_SCAN_PATH: "."
+  #SONAR_CONFIG : "-Dsonar.java.binaries=./build/libs/ -Dsonar.qualitygate.timeout=360"
+  SONAR_CONFIG : "-Dsonar.qualitygate.timeout=360 -Dsonar.java.binaries=. -Dsonar.java.libraries=."
+  SONAR_HOST_URL : "https://sast.ap.toyota-asia.com"
+  SONAR_TOKEN : "sqp_70b84c94aa7981a4aaad12ebae677fb912e3caa1"
+  SONAR_PROJECT_KEY : "toyota-part-export-system-tpex-month-service"
+
+
+
+
+include:
+  - project: "DevSecOps/cicd-template"
+    ref: master
+    file: "/templates/DS9/template-pipeline-v1.0.0.yml"
+
+  # REMOVE! : Create new template on here https://scm.ap.toyota-asia.com/devsecops/cicd-template/-/tree/master/templates/<project_name>
+  # REMOVE! : Jobs template for Build NodeJS for 4 Environment template-pipeline-v1.0.0.yml https://scm.ap.toyota-asia.com/devsecops/cicd-template/-/blob/master/templates/ep0/template-pipeline-v1.0.0.yml    
+
+
+compile:
+  stage: compile
+  image: $DOMAIN_NAME_TCR/hubdocker/library/maven:3-jdk-11
+  script:
+    #- sed -i "s/SERVICE_VERSION/$SERVICE_VERSION/" ./src/main/resources/application.properties
+    #- chmod +x mvnw
+    #- echo "add a comment after Gitlab migrate"
+    #- ./mvnw package
+    #- ./mvnw $MAVEN_CLI_OPTS package
+    #- ls -la && ls -la $DIRECTORY_BUILD && pwd
+    #- ls ./target/apwarrantydemo-0.0.1-SNAPSHOT.jar
+    #- mkdir build && mkdir ./build/libs
+    #- mv ./build/libs/*.jar $DIRECTORY_BUILD/app.jar
+    #- echo $SONAR_CONFIG
+    - set -x
+    - java --version
+    - mvn -version
+    - mvn $MAVEN_CLI_OPTS clean package -s settings.xml
+    - mkdir -p $DIRECTORY_BUILD
+    - mv ./target/*.jar $DIRECTORY_BUILD/app.jar
+    - ls -la && ls -la $DIRECTORY_BUILD && pwd
+  artifacts:
+    paths:
+      - $DIRECTORY_BUILD
+  only:
+    - develop
+    - release
+    - /^hotfix-v[0-9]\d*(\.[0-9]\d*)*$/
+
+code coverage:
+  stage: code scan 
+  image: $DOMAIN_NAME_TCR/hubdocker/library/maven:3-jdk-11
+  script:
+    - set -x
+    - keytool -importcert -noprompt -file ./sast.ap.toyota-asia.com.crt -keystore $JAVA_HOME/lib/security/cacerts -alias "sonar202306" -storepass changeit
+    - mvn $MAVEN_CLI_OPTS_TEST clean verify -s settings.xml sonar:sonar -Dsonar.host.url=https://$DOMAIN_NAME_SAST -Dsonar.login=$SONARQUBE_TOKEN -Dsonar.projectKey=$PROJECT_NAME-$SERVICE_NAME -Dsonar.projectName=$PROJECT_NAME-$SERVICE_NAME -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  artifacts:
+    paths:
+      - target/site/jacoco/jacoco.xml
+
+.version checking:
+  stage: testing
+  image: $DOMAIN_NAME_TCR/hubdocker/everpeace/curl-jq:latest
+  tags:
+    - docker
+  script:
+    #- curl -k $SERVICE_URL/actuator/info | jq -r .app.version | grep $SERVICE_VERSION
+    - echo "version checking.."
+
+.smoke test:
+  stage: testing
+  image: $DOMAIN_NAME_TCR/hubdocker/everpeace/curl-jq:latest
+  tags:
+    - docker
+  script:
+    #- curl -k $SERVICE_URL/actuator/health | jq -r .status |grep "UP"
+    - echo "smoke testing.."
+.api test:
+  stage: testing
+  image:
+    name: $DOMAIN_NAME_TCR/hubdocker/postman/newman:latest
+    entrypoint: [""]
+  tags:
+    - docker
+  before_script:
+    - apk add sed
+    - npm i -g newman-reporter-htmlextra
+  script:
+    #- sed -i 's~${SERVICE_URL}~'"$SERVICE_URL"'~' ./test/apitesting/Moderna_OpenShift_SIT.postman_environment.json
+    #- newman --version
+    #- newman run "./test/apitesting/Cars_API_SpringBoot.postman_collection.json" -k --environment "./test/apitesting/Moderna_OpenShift_SIT.postman_environment.json" --reporters cli,htmlextra,junit --reporter-htmlextra-export "newman/report.html" --reporter-junit-export "newman/report.xml"
+    - echo "api testing..."
+  artifacts:
+    when: always
+    paths:
+      - newman/
+    reports:
+      junit: newman/report.xml
+
+# DEV Testing
+version checking:develop:
+  extends: .version checking
+  variables:
+    SERVICE_URL: $SERVICE_DEV_URL
+  only:
+    - develop
+
+smoke test:develop:
+  extends: .smoke test
+  variables:
+    SERVICE_URL: $SERVICE_DEV_URL
+  only:
+    - develop
+
+api test:develop:
+  extends: .api test
+  variables:
+    SERVICE_URL: $SERVICE_DEV_URL
+  only:
+    - develop
+
+# SIT Testing
+version checking:sit:
+  extends: .version checking
+  variables:
+    SERVICE_URL: $SERVICE_SIT_URL
+  only:
+    - release
+
+smoke test:sit:
+  extends: .smoke test
+  variables:
+    SERVICE_URL: $SERVICE_SIT_URL
+  only:
+    - release
+
+api test:sit:
+  extends: .api test
+  variables:
+    SERVICE_URL: $SERVICE_SIT_URL
+  only:
+    - release
+
+# UAT Testing
+version checking:uat:
+  extends: .version checking
+  variables:
+    SERVICE_URL: $SERVICE_UAT_URL
+  only:
+    #- release
+    - /^v[0-9]\d*(\.[0-9]\d*)+-rc\d*$/
+    - /^hotfix-v[0-9]\d*(\.[0-9]\d*)*$/
+
+smoke test:uat:
+  extends: .smoke test
+  variables:
+    SERVICE_URL: $SERVICE_UAT_URL
+  only:
+    #- release
+    - /^v[0-9]\d*(\.[0-9]\d*)+-rc\d*$/
+    - /^hotfix-v[0-9]\d*(\.[0-9]\d*)*$/
+
+api test:uat:
+  extends: .api test
+  variables:
+    SERVICE_URL: $SERVICE_UAT_URL
+  only:
+    #- release
+    - /^v[0-9]\d*(\.[0-9]\d*)+-rc\d*$/
+    - /^hotfix-v[0-9]\d*(\.[0-9]\d*)*$/
+
+# PROD Testing
+version checking:prod:
+  extends: .version checking
+  variables:
+    SERVICE_URL: $SERVICE_PROD_URL
+  only:
+    - /^v[0-9]\d*(\.[0-9]\d*)*$/
+
+smoke test:prod:
+  extends: .smoke test
+  variables:
+    SERVICE_URL: $SERVICE_PROD_URL
+  only:
+    - /^v[0-9]\d*(\.[0-9]\d*)*$/

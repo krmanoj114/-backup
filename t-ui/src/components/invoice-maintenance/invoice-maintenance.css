@@ -1,0 +1,71 @@
+.heading-left-space{
+    padding-left: 0;
+}
+.custom-multiSelect[data-title]:not(.custom-multiSelect[data-title=""]):hover:after,
+.custom-multiSelect[data-title]:not(.custom-multiSelect[data-title=""]):hover::before {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+.custom-multiSelect[data-title]:not(.custom-multiSelect[data-title=""])::before{
+    content: "";
+    position: absolute;
+    /* top: 84%;
+    left: 25px; */
+    top: 10px;
+    left: 6%;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #999 transparent transparent transparent; /*transparent transparent #999 transparent;*/
+    z-index: 11;
+    visibility: hidden;
+}
+.custom-multiSelect[data-title]:not(.custom-multiSelect[data-title=""]):after {
+    content: attr(data-title);
+    text-transform: capitalize;
+    visibility: hidden;
+    display: inline-block;
+    /* white-space: nowrap; */
+    width: auto;
+    background-color: #FFF;
+    box-shadow: 0px 3px 6px #00000029;
+    color: #000;
+    border-radius: 4px;
+    padding: 3px 10px;
+    position: absolute;
+    z-index: 1;
+    /* bottom: -35px;
+    left: 15px; */
+    max-width: 1120px;
+    bottom: 45px;
+    left: 4%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    border: 1px solid #999;
+}
+.custom-multiSelect[data-title] {
+    position: relative;
+}
+.grid-table .displayTable td {
+    background-color: #E9ECEF;
+    color: #868D96;
+    max-width: 100px;
+}
+.grid-table .displayTable tr:hover> td {
+    background-color: #E3EBF9;
+    color: #000000;
+    cursor: default;
+}
+.grid-table .displayTable tr:hover .noData {
+    background-color: #E9ECEF;
+    color: #868D96;
+}
+.grid-table .displayTable {
+    margin-bottom: 0px;
+}
+.grid-table .tpexTable.displayTable td.noData{
+padding-left: 0;
+text-align: center;
+}

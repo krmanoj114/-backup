@@ -1,0 +1,177 @@
+package com.tpex.repository;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.tpex.entity.NoemVprDlyContEntity;
+import com.tpex.entity.NoemVprDlyContIdEntity;
+
+@Repository
+public interface NoemVprDlyContRepository extends JpaRepository<NoemVprDlyContEntity, NoemVprDlyContIdEntity>{
+
+	
+	/**
+	 * @param containerDestination
+	 * @param etdFrom
+	 * @param etdTo
+	 * @param bookingNo
+	 * @param renbanCode
+	 * @return
+	 */
+	@Query(
+	        value = "   SELECT\r\n"
+	        		+ "        ROW_NUMBER() OVER (       \r\n"
+	        		+ "    ORDER BY\r\n"
+	        		+ "        ETD_1 ,\r\n"
+	        		+ "        CONT_SNO ,\r\n"
+	        		+ "        PLN_VAN_END_DT ) AS SR_NO,\r\n"
+	        		+ "        ETD_1,\r\n"
+	        		+ "        CONCAT(CONCAT(SUBSTR(CONT_SNO,\r\n"
+	        		+ "        2,\r\n"
+	        		+ "        1),\r\n"
+	        		+ "        '-'),\r\n"
+	        		+ "        SUBSTR(CONT_SNO,\r\n"
+	        		+ "        3,\r\n"
+	        		+ "        4)) AS CONT_RENBAN_NO,\r\n"
+	        		+ "        CONT_SIZE,\r\n"
+	        		+ "        DG_FLG,\r\n"
+	        		+ "        VAN_DT,\r\n"
+	        		+ "        INV_DATA_CAME,\r\n"
+	        		+ "        IFNULL(INV_GEN_FLG,\r\n"
+	        		+ "        'Not Yet') AS INV_GEN_FLG,\r\n"
+	        		+ "        BOOKING_NO,\r\n"
+	        		+ "        ISO_CONT_NO,\r\n"
+	        		+ "        SEAL_NO,\r\n"
+	        		+ "        CONT_GRP_CD       \r\n"
+	        		+ "    from\r\n"
+	        		+ "        (SELECT\r\n"
+	        		+ "            DISTINCT date_format(A.ETD_1,\r\n"
+	        		+ "            '%d/%m/%Y') AS ETD_1,\r\n"
+	        		+ "            A.CONT_SNO AS CONT_SNO,\r\n"
+	        		+ "            A.CONT_SIZE AS CONT_SIZE,\r\n"
+	        		+ "            case                     \r\n"
+	        		+ "                when sum(NVIP_DG_FLG) > 0 then 'Y'                    \r\n"
+	        		+ "                else 'N/A'                \r\n"
+	        		+ "            end AS DG_FLG,\r\n"
+	        		+ "            date_format(A.PLN_VAN_END_DT,\r\n"
+	        		+ "            '%d/%m/%Y') AS VAN_DT,\r\n"
+	        		+ "            case                   \r\n"
+	        		+ "                when B.SNO IS NULL then 'No'                   \r\n"
+	        		+ "                else 'Yes'               \r\n"
+	        		+ "            end AS INV_DATA_CAME,\r\n"
+	        		+ "            B.INV_GEN_FLG,\r\n"
+	        		+ "            A.PLN_VAN_END_DT AS PLN_VAN_END_DT,\r\n"
+	        		+ "            C.BOOKING_NO AS BOOKING_NO,\r\n"
+	        		+ "            C.ISO_CONT_NO AS ISO_CONT_NO,\r\n"
+	        		+ "            A.SEAL_NO AS SEAL_NO,\r\n"
+	        		+ "            A.CONT_GRP_CD AS CONT_GRP_CD            \r\n"
+	        		+ "        FROM\r\n"
+	        		+ "            TB_R_DLY_VPR_CONTAINER A,\r\n"
+	        		+ "            (SELECT\r\n"
+	        		+ "                DISTINCT NVIM.CONT_DST_CD AS DST_CD,\r\n"
+	        		+ "                NVIM.CONT_SNO AS SNO,\r\n"
+	        		+ "                NVIC.CONT_SIZE,\r\n"
+	        		+ "                (case                       \r\n"
+	        		+ "                    when DNG_PART_IMO IS NULL then (case                           \r\n"
+	        		+ "                        when DNG_PART_DST IS NULL then '0'                           \r\n"
+	        		+ "                        else '1'                       \r\n"
+	        		+ "                    end)                       \r\n"
+	        		+ "                    else '1'                   \r\n"
+	        		+ "                end) AS NVIP_DG_FLG,\r\n"
+	        		+ "                case                        \r\n"
+	        		+ "                    when (sum(case                           \r\n"
+	        		+ "                        when(NVIM.INV_FLG = 'N'                           \r\n"
+	        		+ "                        OR NVIM.INV_FLG IS NULL) then 1                           \r\n"
+	        		+ "                        else 0                       \r\n"
+	        		+ "                    end) > 0                        \r\n"
+	        		+ "                    AND sum(case                           \r\n"
+	        		+ "                        when NVIM.INV_FLG = 'Y' then 1                           \r\n"
+	        		+ "                        else 0                       \r\n"
+	        		+ "                    end) > 0) then 'Partially'                        \r\n"
+	        		+ "                    when sum(case                           \r\n"
+	        		+ "                        when(NVIM.INV_FLG = 'N'                           \r\n"
+	        		+ "                        OR NVIM.INV_FLG IS NULL) then 1                           \r\n"
+	        		+ "                        else 0                       \r\n"
+	        		+ "                    end) > 0 then 'Not Yet'                        \r\n"
+	        		+ "                    else 'Completed'                    \r\n"
+	        		+ "                end AS INV_GEN_FLG                \r\n"
+	        		+ "            FROM\r\n"
+	        		+ "                TB_R_INV_VPR_CONTAINER NVIC,\r\n"
+	        		+ "                TB_R_INV_VPR_MODULE NVIM,\r\n"
+	        		+ "                TB_R_INV_VPR_PART NVIP               \r\n"
+	        		+ "            WHERE\r\n"
+	        		+ "                NVIC.CONT_DST_CD                    = :containerDestination                    \r\n"
+	        		+ "                AND (\r\n"
+	        		+ "                    ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN) >= ifnull(:etdFrom, ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN))                        \r\n"
+	        		+ "                    AND ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN)  <= ifnull(:etdTo, ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN))                   \r\n"
+	        		+ "                )                    \r\n"
+	        		+ "                AND NVIC.CONT_DST_CD                      = NVIM.CONT_DST_CD                    \r\n"
+	        		+ "                AND NVIC.CONT_SNO                         = NVIM.CONT_SNO                    \r\n"
+	        		+ "                AND NVIP.CONT_DST_CD                      = NVIM.CONT_DST_CD                    \r\n"
+	        		+ "                AND NVIP.CONT_SNO                         = NVIM.CONT_SNO                    \r\n"
+	        		+ "                AND NVIP.MOD_DST_CD                       = NVIM.MOD_DST_CD                    \r\n"
+	        		+ "                AND NVIP.LOT_MOD_NO                       = NVIM.LOT_MOD_NO                    \r\n"
+	        		+ "                AND NVIP.CASE_NO                          = NVIM.CASE_NO                    \r\n"
+	        		+ "                AND NVIP.VAN_MTH                          = NVIM.VAN_MTH                \r\n"
+	        		+ "            GROUP BY\r\n"
+	        		+ "                NVIM.CONT_DST_CD,\r\n"
+	        		+ "                NVIM.CONT_SNO,\r\n"
+	        		+ "                NVIC.CONT_SIZE,\r\n"
+	        		+ "                (case                       \r\n"
+	        		+ "                    when DNG_PART_IMO IS NULL then (case                           \r\n"
+	        		+ "                        when DNG_PART_DST IS NULL then '0'                           \r\n"
+	        		+ "                        else '1'                       \r\n"
+	        		+ "                    end)                       \r\n"
+	        		+ "                    else '1'                   \r\n"
+	        		+ "                end)) B,\r\n"
+	        		+ "            TB_M_ISO_CONTAINER C            \r\n"
+	        		+ "        WHERE\r\n"
+	        		+ "            A.CONT_DST_CD = :containerDestination               \r\n"
+	        		+ "            AND A.ETD_1        >= ifnull(:etdFrom, A.ETD_1)                \r\n"
+	        		+ "            AND A.ETD_1        <= ifnull(:etdTo, A.ETD_1)                \r\n"
+	        		+ "            AND (\r\n"
+	        		+ "                :renbanCodeEmpty = 'Y'                   \r\n"
+	        		+ "                OR A.CONT_GRP_CD IN (\r\n"
+	        		+ "                    :renbanCodes                  \r\n"
+	        		+ "                )              \r\n"
+	        		+ "            )                \r\n"
+	        		+ "            AND C.BOOKING_NO   = ifnull(:bookingNo, C.BOOKING_NO)                \r\n"
+	        		+ "            AND A.CONT_DST_CD  = B.DST_CD               \r\n"
+	        		+ "            AND A.CONT_SNO     = B.SNO               \r\n"
+	        		+ "            AND A.CONT_DST_CD  = C.CONT_DST_CD                \r\n"
+	        		+ "            AND A.ETD_1       = C.ETD1                \r\n"
+	        		+ "            AND A.CONT_SNO   = C.CONT_SNO           \r\n"
+	        		+ "        group by\r\n"
+	        		+ "            date_format(A.ETD_1,\r\n"
+	        		+ "            '%d/%m/%Y'),\r\n"
+	        		+ "            A.CONT_SNO,\r\n"
+	        		+ "            A.CONT_SIZE,\r\n"
+	        		+ "            date_format(A.PLN_VAN_END_DT,\r\n"
+	        		+ "            '%d/%m/%Y'),\r\n"
+	        		+ "            case                   \r\n"
+	        		+ "                when B.SNO IS NULL then 'No'                   \r\n"
+	        		+ "                else 'Yes'               \r\n"
+	        		+ "            end,\r\n"
+	        		+ "            B.INV_GEN_FLG,\r\n"
+	        		+ "            A.PLN_VAN_END_DT,\r\n"
+	        		+ "            C.BOOKING_NO,\r\n"
+	        		+ "            C.ISO_CONT_NO,\r\n"
+	        		+ "            A.SEAL_NO,\r\n"
+	        		+ "            A.CONT_GRP_CD            \r\n"
+	        		+ "        ORDER BY\r\n"
+	        		+ "            date_format(A.ETD_1,\r\n"
+	        		+ "            '%d/%m/%Y'),\r\n"
+	        		+ "            C.BOOKING_NO,\r\n"
+	        		+ "            A.CONT_SNO) X;",nativeQuery = true
+	)
+	List<Map<String, Object>> findDetails(@Param("containerDestination") String containerDestination,
+			@Param("etdFrom") Date etdFrom, @Param("etdTo") Date etdTo,
+			@Param("bookingNo") String bookingNo, @Param("renbanCodes") List<String> renbanCodes, 
+			@Param("renbanCodeEmpty") String renbanCodeEmpty);
+}

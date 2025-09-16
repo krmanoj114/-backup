@@ -1,0 +1,5 @@
+engine-part-master-controller
+DELETE		​/tpex-daily-service​/enginePartMaster​/deleteEnginePartMaster
+GET			​/tpex-daily-service​/enginePartMaster​/destinationCode
+POST		​/tpex-daily-service​/enginePartMaster​/enginePartMasterSearch
+POST		​/tpex-daily-service​/enginePartMaster​/saveEnginePartMaster

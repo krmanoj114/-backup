@@ -1,0 +1,21 @@
+.manual-invoice-gen .grid-table .tpexTable th.checkboxCol {
+     box-shadow: inset -2px 0 #A9EBFF; 
+}
+
+.manual-invoice-gen .grid-table .tableWithChecbox .checkboxCol .form-check .form-check-input{
+    margin: 0;
+}
+
+.manual-invoice-gen .tpexTable.tableWithChecbox .checkboxCol{
+    width: 40px;
+    min-width: 40px;
+    padding: 5px 0 0 10px
+}
+.manual-invoice-gen .tpexTable.tableWithChecbox .checkboxCol .form-check{
+    padding: 0;
+}
+.manual-invoice-gen .grid-table .tpexTable th:nth-of-type(2),
+.manual-invoice-gen .grid-table .tpexTable td:nth-of-type(2){
+    min-width: 80px;
+    width: 80px;
+}

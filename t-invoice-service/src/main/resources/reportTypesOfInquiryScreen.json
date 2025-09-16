@@ -1,0 +1,50 @@
+[
+    {
+        "reportTypeId":"1",
+        "reportTypeName":"Invoice Header Page"
+    },
+	{
+        "reportTypeId":"2",
+        "reportTypeName":"Attached Invoice Header Page"
+    },
+    {
+        "reportTypeId":"3",
+        "reportTypeName":"Packing List"
+    },
+	{
+        "reportTypeId":"4",
+        "reportTypeName":"Packing List (for Custom Broker)"
+    },
+    {
+        "reportTypeId":"5",
+        "reportTypeName":"DG Packing List"
+    },
+	{
+        "reportTypeId":"6",
+        "reportTypeName":"Invoice Header Page with Privilege"
+    },
+	{
+        "reportTypeId":"7",
+        "reportTypeName":"Attached Sheet"
+    },
+    {
+        "reportTypeId":"8",
+        "reportTypeName":"Vin No. List"
+    },
+	{
+        "reportTypeId":"9",
+        "reportTypeName":"SC Invoice Attached Sheet"
+    },
+    {
+        "reportTypeId":"10",
+        "reportTypeName":"Country of Origins(COO)"
+    },
+	{
+        "reportTypeId":"11",
+        "reportTypeName":"DG Declaration Report"
+    },
+	{
+        "reportTypeId":"12",
+        "reportTypeName":"Work Instruction Report"
+    }
+]

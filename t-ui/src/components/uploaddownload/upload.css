@@ -1,0 +1,120 @@
+.panelBox .nav-tabs {
+    border-top: 1px solid #EBEDF3;
+    border-bottom: 2px solid #C2C2C2
+}
+.nav-tabs .nav-link {
+    border: none;
+    font-size: 18px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    color: #C2C2C2;
+    padding: 10px;
+}
+.nav-tabs .nav-link.active {
+    border-bottom: 2px solid #253EAE;
+    margin-bottom: -2px;
+    color: #253EAE;
+}
+.nav-item-report {
+    flex-grow: 1;
+    text-align: right;
+}
+.nav-item-report  .report-links {
+    padding-right: 20px;
+}
+.panelBox .tab-content {
+    position: relative;
+}
+.tab-content .download-link {
+    position: absolute;
+    top: -47px;
+    right: 20px;
+}
+.download-link a {
+    padding: 8px;
+    display: inline-block;
+    color: #253EAE;
+    font-size: 16px;
+    font-family: 'LatoBold', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.download-link a:hover {
+    color: #253EAE;
+}
+.download-link .downloadIcon {
+    background:url('../../assets/images/icons/download.svg') no-repeat;
+    height: 15px;
+    width: 16px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+.tab-content .upload-status {
+    position: absolute;
+    top: -40px;
+    right: 10px;
+}
+.tab-content .download-format {
+    position: absolute;
+    top: -48px;
+    right: 135px;
+}
+.report-panel.grid-panel {
+  padding: 10px 10px 0;
+}
+.download-format:hover .btn-link-with-icon{
+  color: #253EAE;
+  text-decoration: underline;
+}
+
+/*Custom FIle Button CSS starts*/
+.custom-upload-button {
+    border: 1px solid #0D1B3E4D;
+    border-radius: 4px;
+    height: 34px;
+  }
+  .custom-upload-button .form-control{
+    border: none;
+  }
+  .custom-upload-button input[type="file"] {
+    font-size: 16px;
+    padding: 6px 10px;
+    line-height: 20px;
+    color: #868E96;
+    height: 32px;
+  }
+  .custom-upload-button input[type="file"]::-webkit-file-upload-button {
+    display: none;
+  }
+  .custom-upload-button input[type="file"]::-webkit-file-selector-button {
+    display: none;
+  }
+  .custom-upload-button.input-group .input-group-text {
+    font-size: 16px;
+    line-height: 18px;
+    font-family:'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    background-color: #E4E6EF;
+    border-radius: 4px;
+    border: none;
+    margin: 0;
+    padding: 6px;
+    cursor: pointer;
+    height: 32px;
+    border-left: 1px solid #0D1B3E4D;
+    color: #000;
+  }
+  .custom-upload-button.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    border-radius: 0 4px 4px 0;
+    margin-left: 0;
+  }
+  .download-format .fileFormat{
+    background:url('../../assets/images/icons/file.svg') no-repeat;
+    height: 16px;
+    width: 15px;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    margin-right: 15px;
+  }
+  .download-format:hover .fileFormat{
+    background:url('../../assets/images/icons/file-hover.svg') no-repeat;
+  }

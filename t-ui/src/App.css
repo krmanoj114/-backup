@@ -1,0 +1,325 @@
+@font-face {
+  font-family: LatoRegular;
+  src: url("./assets/fonts/Lato/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: LatoBold;
+  src: url("./assets/fonts/Lato/Lato-Bold.ttf");
+}
+body {
+  background-color: #f5f8fa;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+body div::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  z-index: 1;
+}
+body div::-webkit-scrollbar-corner {
+  border-radius: 5px;
+}
+body div::-webkit-scrollbar-track {
+  background-color: #0000001A;
+  border-radius: 6px;
+  transform:rotate(-90deg) translateY(-100px);
+}
+body div::-webkit-scrollbar-thumb {
+  background: #3A78F2; 
+  border-radius: 6px;
+}
+body div::-webkit-scrollbar-width {
+  width: 100px;
+}
+
+
+h1 {
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  font-size: 20px;
+  line-height: 26px;
+}
+h2 {
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  font-size: 18px;
+  line-height: 22px;
+}
+label {
+  font-size: 14px;
+  font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  line-height: 17px;
+  margin-bottom: 4px;
+}
+.container-padding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-12 {
+  margin-top: 12px;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.pb-10 {
+  padding-bottom: 10px;
+}
+.pt-20 {
+  padding-top: 20px;
+}
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  box-shadow: none;
+}
+
+/*Panel Heading*/
+main {
+  /* padding-bottom: 68px; */
+  padding-bottom: 10px;
+}
+.panelBox {
+  background-color: #fff;
+  box-shadow: 0px 1px 4px #15223229;
+  border-radius: 6px;
+}
+.heading {
+  display: flex;
+  color: #253eae;
+  background-color: #f2f9ff;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 1px solid #eeeeee;
+}
+.sub-heading {
+  display: flex;
+  color: #253eae;
+}
+.heading .bg-border, .sub-heading .bg-border, .modal-header .bg-border {
+  background-color: #253EAE;
+  width: 4px;
+  border-radius: 2px;
+}
+.modal-header .bg-border {
+  height: 34px
+}
+.heading h1 {
+  margin-bottom: 0;
+  padding-left: 12px;
+  line-height: 36px;
+}
+.heading h2, .sub-heading h2 {
+  margin-bottom: 0;
+  padding-left: 12px;
+  line-height: 28px;
+  font-size: 18px;
+}
+
+/*React Date Picker CSS*/
+.customDatePicker .form-control {
+  background: url("assets/images/icons/calendar.svg") no-repeat;
+  background-position: right 7px top 8px;
+  display: inline-block;
+  font-size: 24px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  height: 38px;
+}
+.customDatePicker .form-control:focus {
+  background: url("assets/images/icons/calendar-hover.svg") no-repeat;
+  background-position: right 7px top 8px;
+}
+.mandatoryControl.customDatePicker .form-control:focus {
+  background-color: #ffffe5;
+}
+.customDatePicker .react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0;
+}
+.customDatePicker label {
+  font-size: 24px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker-popper .react-datepicker {
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 22px;
+  font-weight: normal;
+}
+.react-datepicker__month-container .react-datepicker__header,
+.react-datepicker .react-datepicker-year-header {
+  background-color: white;
+  border: none;
+}
+.react-datepicker__header .react-datepicker__current-month,
+.react-datepicker .react-datepicker-year-header {
+  color: #3a78f2;
+  font-size: 18px;
+  font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  margin: 10px 0;
+  font-weight: normal;
+}
+.react-datepicker__day-names .react-datepicker__day-name {
+  color: #0d1b3e8c;
+  font-size: 18px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker__week .react-datepicker__day {
+  color: #272b30;
+  font-size: 22px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.react-datepicker__week .react-datepicker__day:hover {
+  background: #0000000d;
+  border-radius: 4px;
+}
+.react-datepicker__week .react-datepicker__day--selected:hover {
+  background-color: #3a78f2;
+}
+.react-datepicker__week .react-datepicker__day--keyboard-selected,
+.react-datepicker__week .react-datepicker__day--selected,
+.react-datepicker__week .react-datepicker__day--keyboard-selected:hover,
+.react-datepicker__year .react-datepicker__year-text--keyboard-selected,
+.react-datepicker__year .react-datepicker__year-text--selected,
+.react-datepicker__year .react-datepicker__year-text--keyboard-selected:hover {
+  background-color: #3a78f2;
+  color: #fff;
+  font-weight: normal;
+}
+.react-datepicker__navigation .react-datepicker__navigation-icon::before,
+.react-datepicker .react-datepicker__navigation:hover *::before {
+  border-color: #6a7178;
+}
+.react-datepicker .react-datepicker__navigation {
+  top: 15px;
+}
+.react-datepicker .react-datepicker__navigation:hover {
+  background-color: #00000014;
+  border-radius: 4px;
+  top: 15px;
+}
+.react-datepicker .react-datepicker__navigation-icon {
+  font-size: 14px;
+}
+.react-datepicker .react-datepicker__navigation--next {
+  right: 11px;
+}
+.react-datepicker .react-datepicker__navigation--previous {
+  left: 11px;
+}
+.react-datepicker .react-datepicker__navigation-icon--previous::before {
+  right: -4px;
+}
+.react-datepicker .react-datepicker__navigation-icon--next::before {
+  left: -4px;
+}
+.react-datepicker .react-datepicker__navigation-icon::before {
+  border-width: 2px 2px 0 0;
+}
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker
+  .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker
+  .react-datepicker__triangle::after {
+  border: none;
+}
+
+.mandatoryControl .form-control,
+.mandatoryControl .form-select,
+.mandatoryControl .form-check-input,
+.mandatoryControl .css-13cymwt-control,
+.mandatoryControl .css-t3ipsp-control {
+  background-color: #b1dffc;
+  border: 1px solid #0d1b3e4d;
+}
+.mandatoryControl label,
+.form-group label {
+  font-size: 14px;
+  line-height: 17px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  margin-bottom: 4px;
+}
+.react-datepicker .react-datepicker__year-wrapper {
+  max-width: 205px;
+}
+.form-control:hover {
+  border: 1px solid #3a78f2;
+}
+.form-control {
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "LatoRegular", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  height: 34px;
+  padding: 5px 10px;
+  line-height: 18px;
+  border: 1px solid #0d1b3e4d;
+}
+.form-control:disabled:hover {
+  border: 1px solid #0d1b3e4d;
+}
+select.form-control {
+  height: 36px;
+}
+.form-check-input[type="radio"] {
+  border: 2px solid #b5bac4;
+}
+.panel-scroll-container {
+  position: relative;
+}
+.panel-scroll-wrapper {
+  height: 76px;
+  overflow-y: auto;
+  padding: 0 12px;
+}
+.panel-scroll-wrapper::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  z-index: 1;
+}
+.panel-scroll-wrapper::-webkit-scrollbar-track {
+  background-color: #0000001A;
+  border-radius: 6px;
+}
+.panel-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #3A78F2; 
+  border-radius: 6px;
+}
+.link-to-error {
+  color: #FF2459;
+  font-size: 16px;
+  font-family:'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+.link-to-error:hover {
+  text-decoration: underline;
+}
+.react-datepicker-wrapper .react-datepicker__input-container {
+  position: inherit;
+}
+.search-panel .react-datepicker-wrapper {
+  width: 100%;
+}
+.react-datepicker__tab-loop .react-datepicker-popper {
+  z-index: 13;
+}
+.iso-main-con .tableWithChecbox .checkboxCol .form-check .form-check-input {
+  margin: 0px 0px 2px -14px !important;
+}
+.main-content {
+  width: calc(100% - 70px);
+  margin-left: 70px;
+}

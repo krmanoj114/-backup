@@ -1,0 +1,49 @@
+.dropdownLabelWidth {
+  min-width: 80px;
+  text-align: right;
+}
+
+.app-select-dropdown .dropdown-menu[data-bs-popper] {
+  left: -53px;
+  width: 152px;
+  padding: 0;
+}
+
+.app-select-dropdown .dropdown-menu:after {
+  right: 38px;
+}
+
+ul.app-select-dropdown-list {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+ul.app-select-dropdown-list li {
+  font-size: 14px;
+  font-family: 'LatoRegular', Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  list-style: none;
+  position: relative;
+  padding: 4px 10px;
+  color: #7A7A7A;
+  line-height: 26px;
+}
+
+.app-select-dropdown .dropdown-toggle::after,
+.app-select-dropdown .dropdown-toggle.show::after {
+  border: solid #0D1B3E66;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.app-select-dropdown .dropdown-toggle::after {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  vertical-align: 3px;
+}
+
+.app-select-dropdown .dropdown-toggle.show::after {
+  transform: rotate(224deg);
+  -webkit-transform: rotate(224deg);
+  vertical-align: 0;
+}

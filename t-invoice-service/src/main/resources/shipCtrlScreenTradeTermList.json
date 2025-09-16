@@ -1,0 +1,14 @@
+[
+    {
+        "id":"FOB",
+        "name":"FOB"
+    },
+    {
+        "id":"C&F",
+        "name":"C&F"
+    },
+    {
+        "id":"CIF",
+        "name":"CIF"
+    }
+]

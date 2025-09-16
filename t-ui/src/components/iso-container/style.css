@@ -1,0 +1,23 @@
+.editTableRow.disableClick{
+    pointer-events: none;
+}
+.grid-table .ISO_CONTAINER .editTableRow.disableClick td {
+    background-color: #DBDBDB;
+    box-shadow: inset -2px 0 #B3B3B3;
+    border-bottom: 2px solid #B3B3B3;
+}
+.grid-table .ISO_CONTAINER .editTableRow.disableClick td:last-child {
+    box-shadow: none; 
+}
+.editTableRow.disableClick .checkboxCol .form-check .form-check-input {
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+.iso-main-con .row .form-group button{
+    visibility: hidden;
+}
+
+.iso-main-con .gridfooter .row .form-group button{
+    visibility: visible;
+}

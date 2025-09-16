@@ -1,0 +1,312 @@
+[{
+  "id": "A100",
+  "label": "Master - ST",
+  "routeLink": null,
+  "imgClass": "master",
+  "iconUrl": "/assets/images/icon/stacked-files.svg",
+  "subMenu": [{
+    "id": "A101",
+    "label": "Code Master",
+    "routeLink": "/codemaster",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A102",  
+    "label": "Shipping Control",
+    "routeLink": "/shipping-control-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A103",  
+    "label": "Renban Group Code",
+    "routeLink": "/renban-group-code-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A104",  
+    "label": "Returnable Packing",
+    "routeLink": "/returnable-packing-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A105",
+    "label": "Invoice Work Plan",
+    "routeLink": "/invoice-gen-work-plan-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A106",
+    "label": "Lot Price",
+    "routeLink": "/lot-price-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A107",
+    "label": "Vessel Booking",
+    "routeLink": "/vesselBookingMaster",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A108",
+    "label": "Mix Privilage",
+    "routeLink": "/mix-privilege-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A109",
+    "label": "Invoice Setup",
+    "routeLink": "/invoice-setup-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A110",
+    "label": "Engine Part",
+    "routeLink": "/engine-part-master",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A111",
+    "label": "ISO Container No. Master Search",
+    "routeLink": "/iso-container-no-master-search",
+    "imgClass": "master",
+    "iconUrl": "/assets/images/icon/stacked-files.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }]
+}, {
+  "id": "A200",
+  "label": "Invoice Operation",
+  "routeLink": null,
+  "imgClass": "invoice",
+  "iconUrl": "/assets/images/icon/invoice.svg",
+  "subMenu": [{
+    "id": "A201",
+    "label": "Invoice & Maintainance",
+    "routeLink": "/invoice-maintenance",
+    "imgClass": "invoice",
+    "iconUrl": "/assets/images/icon/invoice.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A202",
+    "label": "Invoice Shipping",
+    "routeLink": "/report/invoice-shipping",
+    "imgClass": "invoice",
+    "iconUrl": "/assets/images/icon/invoice.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A203",
+    "label": "Invoice Recalculation",
+    "routeLink": "/invoice-recalculation",
+    "imgClass": "invoice",
+    "iconUrl": "/assets/images/icon/invoice.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A204",
+    "label": "Manual Invoice Generation",
+    "routeLink": "/manual-invoice-generation",
+    "imgClass": "invoice",
+    "iconUrl": "/assets/images/icon/invoice.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }]
+}, {
+  "id": "A300",
+  "label": "Reports",
+  "routeLink": null,
+  "imgClass": "report",
+  "iconUrl": "/assets/images/icon/import.svg",
+  "subMenu": [{
+    "id": "A302",
+    "label": "On Demand Download",
+    "routeLink": "/ondemanddownload",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A303",
+    "label": "Upload & Download",
+    "routeLink": "/uploaddownload",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A304",
+    "label": "Shipping Container",
+    "routeLink": "/invoice/shipping-container-result",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A305",
+    "label": "Inquirey Process Status",
+    "routeLink": "/inquiry-for-process-status",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A306",
+    "label": "Haisen Detials",
+    "routeLink": "/haisen-details",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A307",
+    "label": "PXP Price Maintanance",
+    "routeLink": "/pxp-part-price-maintenance",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A308",
+    "label": "Part Master Inquiry",
+    "routeLink": "/part-master-inquiry",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }, {
+    "id": "A309",
+    "label": "Packing and Vanning Instruction Report",
+    "routeLink": "/packing-vanning-instruction-report",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }
+  , {
+    "id": "A301",
+    "label": "Report view",
+    "routeLink": "report/view",
+    "imgClass": "report",
+    "iconUrl": "/assets/images/icon/import.svg",
+    "allowedOperations": {
+      "create": true,
+      "retrieve": true,
+      "update": true,
+      "delete": true
+    }
+  }
+]
+}]

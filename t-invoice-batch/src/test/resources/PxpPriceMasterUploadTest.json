@@ -1,0 +1,11 @@
+
+	{
+		"batchJobId": "123",
+		"batchJobName": "123",
+		"batchJobFileName": "",
+		"batchJobFixedLengthMappingFileName": "",
+		"batchJobInputFilePath": "classpath:",
+		"batchJobInputTargetType": "",
+		"batchJobRowMapper": "com.tpex.batchjob.pxpprice.PxpPriceMasterUploadRowMapper",
+		"chunkSize": 5
+	}

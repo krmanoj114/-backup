@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RINS001A" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="543" leftMargin="43" rightMargin="9" topMargin="37" bottomMargin="23" isFloatColumnFooter="true" scriptletClass="com.tpex.report.jasper.RINS001AScriptlet" uuid="76c01fbe-aca0-4611-9f29-56860daf8e6c">
+	<parameter name="P_IO_V_PARAM" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="prmSysDate" class="java.lang.String"/>
+	<parameter name="P_I_V_INVOICE_NO" class="java.lang.String"/>
+	<parameter name="P_I_V_USER_ID" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[{ call PINS001A($P{P_IO_V_PARAM}, $P{P_I_V_INVOICE_NO}, $P{P_I_V_USER_ID})}]]>
+	</queryString>
+	<field name="INV_DT" class="java.lang.String"/>
+	<field name="CMP_NAME" class="java.lang.String"/>
+	<field name="CMP_ADD_1" class="java.lang.String"/>
+	<field name="CMP_ADD_2" class="java.lang.String"/>
+	<field name="CMP_ADD_3" class="java.lang.String"/>
+	<field name="CMP_ADD_4" class="java.lang.String"/>
+	<field name="IND_MARK1" class="java.lang.String"/>
+	<field name="IND_MARK2" class="java.lang.String"/>
+	<field name="IND_MARK3" class="java.lang.String"/>
+	<field name="IND_MARK4_1" class="java.lang.String"/>
+	<field name="IND_MARK4_2" class="java.lang.String"/>
+	<field name="IND_MARK4_3" class="java.lang.String"/>
+	<field name="IND_MARK4_4" class="java.lang.String"/>
+	<field name="IND_MARK4_5" class="java.lang.String"/>
+	<field name="IND_MARK4_6" class="java.lang.String"/>
+	<field name="IND_MARK4_7" class="java.lang.String"/>
+	<field name="IND_MARK4_8" class="java.lang.String"/>
+	<field name="IND_MARK4_9" class="java.lang.String"/>
+	<field name="IND_MARK4_10" class="java.lang.String"/>
+	<field name="IND_MARK4_11" class="java.lang.String"/>
+	<field name="IND_MARK4_12" class="java.lang.String"/>
+	<field name="IND_MARK5_1" class="java.lang.String"/>
+	<field name="IND_MARK5_2" class="java.lang.String"/>
+	<field name="IND_MARK5_3" class="java.lang.String"/>
+	<field name="IND_MARK5_4" class="java.lang.String"/>
+	<field name="IND_MARK5_5" class="java.lang.String"/>
+	<field name="IND_MARK5_6" class="java.lang.String"/>
+	<field name="IND_MARK5_7" class="java.lang.String"/>
+	<field name="IND_MARK5_8" class="java.lang.String"/>
+	<field name="IND_MARK5_9" class="java.lang.String"/>
+	<field name="IND_MARK5_10" class="java.lang.String"/>
+	<field name="IND_MARK5_11" class="java.lang.String"/>
+	<field name="IND_MARK5_12" class="java.lang.String"/>
+	<field name="IND_MARK6_1" class="java.lang.String"/>
+	<field name="IND_MARK6_2" class="java.lang.String"/>
+	<field name="IND_MARK6_3" class="java.lang.String"/>
+	<field name="IND_MARK6_4" class="java.lang.String"/>
+	<field name="IND_MARK6_5" class="java.lang.String"/>
+	<field name="IND_MARK6_6" class="java.lang.String"/>
+	<field name="IND_MARK6_7" class="java.lang.String"/>
+	<field name="IND_MARK6_8" class="java.lang.String"/>
+	<field name="IND_MARK6_9" class="java.lang.String"/>
+	<field name="IND_MARK6_10" class="java.lang.String"/>
+	<field name="IND_MARK6_11" class="java.lang.String"/>
+	<field name="IND_MARK6_12" class="java.lang.String"/>
+	<field name="IND_MARK7" class="java.lang.String"/>
+	<field name="IND_MARK8" class="java.lang.String"/>
+	<field name="BUYER_CNTRY_FINAL" class="java.lang.String"/>
+	<field name="CNTRY_ORG" class="java.lang.String"/>
+	<variable name="fmlAddress2" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+if IsNull ({PINS001A.CMP_ADD_2}) then
+    ''
+else 
+    ', ' + {PINS001A.CMP_ADD_2}
+
+*/
+$F{CMP_ADD_2} == null ? "" : ", " + $F{CMP_ADD_2}]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+if IsNull ({PINS001A.CMP_ADD_2}) then
+    ''
+else 
+    ', ' + {PINS001A.CMP_ADD_2}
+
+*/
+$F{CMP_ADD_2} == null ? "" : ", " + $F{CMP_ADD_2}]]></initialValueExpression>
+	</variable>
+	<variable name="fmlAddress4" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+if IsNull ({PINS001A.CMP_ADD_4}) then
+    ''
+else 
+    ', ' + {PINS001A.CMP_ADD_4}
+
+*/
+$F{CMP_ADD_4} == null ? "" : ", " + $F{CMP_ADD_4}]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+if IsNull ({PINS001A.CMP_ADD_4}) then
+    ''
+else 
+    ', ' + {PINS001A.CMP_ADD_4}
+
+*/
+$F{CMP_ADD_4} == null ? "" : ", " + $F{CMP_ADD_4}]]></initialValueExpression>
+	</variable>
+	<variable name="fmlPortDischarge" class="java.lang.String">
+		<variableExpression><![CDATA[/*
+{PINS001A.IND_MARK7}
+
+*/
+$F{IND_MARK7}]]></variableExpression>
+		<initialValueExpression><![CDATA[/*
+{PINS001A.IND_MARK7}
+
+*/
+$F{IND_MARK7}]]></initialValueExpression>
+	</variable>
+	<variable name="readME" class="java.lang.String">
+		<variableExpression><![CDATA[/* i have removed stretch with over flow from the field CMP_NAME as it was giving error "infinite loop creating new page due to page header over flow"  and extended the height of the field to 32 px so that iw will come as per crystal */
+null]]></variableExpression>
+		<initialValueExpression><![CDATA[/* i have removed stretch with over flow from the field CMP_NAME as it was giving error "infinite loop creating new page due to page header over flow"  and extended the height of the field to 32 px so that iw will come as per crystal */
+null]]></initialValueExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band height="760">
+			<frame>
+				<reportElement positionType="Float" mode="Transparent" x="0" y="0" width="544" height="760" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF" uuid="147e7cd4-2f55-4a1a-8665-b4974f4af8e4"/>
+				<rectangle>
+					<reportElement mode="Transparent" x="1" y="101" width="524" height="658" uuid="8441b19b-6bf3-4181-943b-868da813c90f"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineColor="#000000"/>
+					</graphicElement>
+				</rectangle>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="377" width="513" height="12" uuid="9a21ea72-9f11-4f18-9fdd-72a5daf8c4ca"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_7}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="391" width="513" height="12" uuid="be99699c-baef-4c0d-82c7-4b633f34e0fa"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_8}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="366" width="513" height="12" uuid="7168ad7a-fea2-458a-b331-15e3d1345de6"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_6}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="68" y="663" width="454" height="12" uuid="4370df85-fc60-4571-8148-6cb68bde23e6"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="405" width="513" height="12" uuid="65690ff2-d737-474d-9951-462a537d1a0b"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_9}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="417" width="513" height="12" uuid="fc7c250d-3f17-4390-be4a-113d23de8831"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_10}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="626" width="513" height="12" uuid="6310341b-efbe-4f7c-9cb8-128d99004062"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_12}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="496" width="513" height="12" uuid="8f40153c-8a30-4a73-a9c3-d1076336745e"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="510" width="513" height="12" uuid="49097fcb-c161-435b-9f3d-29bc74c06153"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="130" y="675" width="391" height="12" uuid="36a529ac-017d-4ed6-85a1-53164fe60b37"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$V{fmlPortDischarge}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="522" width="513" height="12" uuid="afaf4b63-b5f7-4125-85c0-c580e438aa76"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_4}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="561" width="513" height="12" uuid="846ee39f-6ac4-4cce-b3be-bd34ca9a84f3"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_7}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="573" width="513" height="12" uuid="675cc4c1-de36-41f1-9568-f9464060494f"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_8}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="57" width="513" height="17" uuid="8ad077f2-936c-4bab-bb50-bf00829dcfa0"/>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="14" isBold="true" />
+					</textElement>
+					<text><![CDATA[Invoice - Attached Mark & Nos.]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="8" y="87" width="64" height="12" uuid="6fa65b3e-32aa-4344-bc1e-3a91e17ef0be">
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="10" isBold="true" />
+					</textElement>
+					<textFieldExpression><![CDATA["Invoice : "]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="417" y="87" width="42" height="12" isPrintWhenDetailOverflows="true" uuid="08e39a9f-f353-4222-b8b7-20917251023a">
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="10" isBold="true" />
+					</textElement>
+					<textFieldExpression><![CDATA["Date :"]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="27" width="513" height="12" isPrintWhenDetailOverflows="true" uuid="1869220c-0d8d-4193-81bc-aa38c6b35587"/>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[($F{CMP_ADD_1} == null ? "" : $F{CMP_ADD_1}) + ($V{fmlAddress2} == null ? "" :$V{fmlAddress2})]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="41" width="513" height="12" isPrintWhenDetailOverflows="true" uuid="4c73e523-5ef1-4fe4-b5a6-a2ed2a750758"/>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[($F{CMP_ADD_3} == null ? "" : $F{CMP_ADD_3})  + ($V{fmlAddress4} == null ? "" : $V{fmlAddress4})]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="8" width="533" height="32" uuid="876f94dc-d2bd-4acd-a730-c69669f8bc68">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" size="14" isBold="true" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CMP_NAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="105" width="77" height="14" uuid="1ac62c61-bb28-49f8-8b81-35fce1bed7cc"/>
+					<textElement textAlignment="Left">
+						<font fontName="Courier New" size="9" isBold="true" />
+					</textElement>
+					<text><![CDATA[Mark & Nos.]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="587" width="513" height="12" uuid="beb2b643-ad53-4abb-a687-9554cdff7762"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_9}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="326" width="513" height="12" uuid="c970e984-88d0-47b2-af60-961d77a58f3a"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="340" width="513" height="12" uuid="66419f6a-82f7-4d9a-8126-447db7b7215a"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_4}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="601" width="513" height="12" uuid="d52055cd-7a0f-4e4d-a45a-cccd84f7c43a"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_10}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="315" width="513" height="12" uuid="5d80d0b8-0ab9-49cb-b97a-a6c27ff4c9b9"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="156" width="520" height="12" uuid="f2f757ee-6d2a-436b-82f9-81a4d85c1ba6"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_4}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="612" width="513" height="12" uuid="741528dc-be02-49a0-8fe8-d3f875f5b929"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_11}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="145" width="520" height="12" uuid="b69624b5-787a-4ee8-9409-640bc04ba5cf"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="9" y="300" width="513" height="12" backcolor="#FFFFFF" uuid="43ba29e8-4f81-4022-98a6-64c273dd7962"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="485" width="513" height="12" uuid="6d38bdd7-f37f-4066-b9ad-6a49cfac53ff"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" mode="Transparent" x="9" y="119" width="520" height="12" backcolor="#FFFFFF" uuid="a2efacc2-3e61-4ccc-8261-c935fa190029"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_1}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="130" width="520" height="12" uuid="16b86fab-4393-4331-9e00-f6747e98dc69"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="663" width="60" height="12" uuid="03ebcea2-39d1-4873-957a-bdeda402c817"/>
+					<textElement textAlignment="Left">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<text><![CDATA[Exp/Imp : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="675" width="122" height="12" uuid="db12d30b-6694-49b4-920f-ff31c7f9964f"/>
+					<textElement textAlignment="Left">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<text><![CDATA[Port of Discharge : ]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="210" width="520" height="12" uuid="a9c16209-b039-4399-908a-7492e1ca8131"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_8}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="221" width="520" height="12" uuid="869662f8-ba61-4b0c-a0f5-969826864a9f"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_9}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="181" width="520" height="12" uuid="c007fe8a-97b0-440a-a910-871e136881aa"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_6}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="196" width="520" height="12" uuid="125f618a-f239-495e-88fa-262d1f4e4708"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_7}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="261" width="518" height="12" uuid="ed68d30a-2e38-4e96-a789-245956f98bb0"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_12}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="351" width="513" height="12" uuid="ed3aa74e-76ba-4a86-9941-40f169cf87cc"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_5}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="235" width="518" height="12" uuid="7f4fe4a6-0b8c-4552-bf1d-b59fb5e74e2a"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_10}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="247" width="520" height="12" uuid="8b9c193c-fd29-4965-9ea3-e069d183964b"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_11}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="442" width="513" height="12" uuid="bda49936-bc7b-4418-ba1e-1a8b61e5a9d7"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_12}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="431" width="513" height="12" uuid="38fba1c0-39cd-4354-bfbd-c2609f20e08d"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK4_11}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="689" width="513" height="12" uuid="1ece7704-e27f-425c-acdc-fa29237c72b3">
+						<printWhenExpression><![CDATA["Y".equals($F{CNTRY_ORG}) ? true : false]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK8}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="23" y="79" width="43" height="12" isPrintInFirstWholeBand="true" uuid="6ca78752-c319-4cde-8101-38b4ecbf0c00">
+						<printWhenExpression><![CDATA[false]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$P{prmSysDate}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="170" width="520" height="12" uuid="589aeccf-6d79-414f-9808-7993b29f1821"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK5_5}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="547" width="513" height="12" uuid="ef620b2c-4470-492d-877f-848328bae72d"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_6}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="9" y="536" width="513" height="12" uuid="551f7e69-7870-4714-8726-a355f6d4aac4"/>
+					<textElement>
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IND_MARK6_5}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="71" y="87" width="179" height="12" isPrintWhenDetailOverflows="true" uuid="d9ced519-0f97-4ac2-8d72-97b4cdcdd4ec">
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$P{P_I_V_INVOICE_NO}]]></textFieldExpression>
+				</textField>
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="456" y="87" width="66" height="12" isPrintWhenDetailOverflows="true" uuid="56999bfc-9228-4d45-bc90-f983acab5d80">
+						<property name="local_mesure_unitx" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="local_mesure_unitwidth" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="local_mesure_unity" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" markup="styled">
+						<font fontName="Courier New" size="10" />
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INV_DT}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band/>
+	</summary>
+	<noData>
+		<band/>
+	</noData>
+</jasperReport>

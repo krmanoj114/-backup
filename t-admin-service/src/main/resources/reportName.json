@@ -1,0 +1,33 @@
+{
+	"reportNames": [
+		
+		{
+			"reportId": "1",
+			"reportName": "Master-Address",
+			"reportJsonPath" : "MasterAddress",
+			"excelName" :"MasterAddress",
+			"excelHeaderNames" :"Class Name, Branch Name,First Name, Last Name"
+		},
+		{
+			"reportId": "2",
+			"reportName": "Master-Country of Origin",
+			"reportJsonPath" : "CountryOfOriginMaster",
+			"excelName" :"CountryOfOriginMaster",
+			"excelHeaderNames" :"Class Name, Branch Name,First Name, Last Name"
+		},
+		{
+			"reportId": "3",
+			"reportName": "Master - Lot Part Price",
+			"reportJsonPath" : "MasterLotPartPrice",
+			"excelName" :"MasterLotPartPrice",
+			"excelHeaderNames" :"Class Name, Branch Name,First Name, Last Name"
+		},
+		{
+			"reportId": "4",
+			"reportName": "NationalCalendarMaster",
+			"reportJsonPath" : "NationalCalendarMasterJson",
+			"excelName" :"NationalCalendarMaster",
+			"excelHeaderNames" :"Name,Id,Address,Location,Full Name"
+		}
+	]
+}

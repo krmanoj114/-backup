@@ -1,0 +1,11 @@
+
+	{
+		"batchJobId": "123",
+		"batchJobName": "123",
+		"batchJobFileName": "",
+		"batchJobFixedLengthMappingFileName": "",
+		"batchJobInputFilePath": "classpath:",
+		"batchJobInputTargetType": "import com.tpex.entity.InvGenWorkPlanMstEntity",
+		"batchJobRowMapper": "com.tpex.batchjob.workplanmasterupload.WrkPlanMasterUploadBatchRowMapper",
+		"chunkSize": 5
+	}

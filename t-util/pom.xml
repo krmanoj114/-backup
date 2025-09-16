@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.tpex.util</groupId>
+	<artifactId>tpex.util</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>tpex-util</name>
+	<description>tpex util</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.5</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<java.version>11</java.version>
+		<spring-cloud.version>2021.0.3</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.apache-commons-codec</groupId>
+			<artifactId>com.tpex.util.pache-commons-codec</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/apache-commons-codec-1.4.jar
+			</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.tpex.util.Arial</groupId>
+			<artifactId>com.tpex.util.Arial</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/Arial.jar
+			</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.tpex.util.arialNarrow</groupId>
+			<artifactId>com.tpex.util.arialNarrow</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/arialNarrow.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.barbecue-1.5-beta1_NIITModified</groupId>
+			<artifactId>com.tpex.util.barbecue-1.5-beta1_NIITModified</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/barbecue-1.5-beta1_NIITModified.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.barcode4j-jasper</groupId>
+			<artifactId>com.tpex.util.barcode4j-jasper</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/barcode4j-jasper-1.0.0.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.batik-all</groupId>
+			<artifactId>com.tpex.util.batik-all</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/batik-all-1.7.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.batik-ext</groupId>
+			<artifactId>com.tpex.util.batik-ext</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/batik-ext-1.6-1.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.commons-beanutils</groupId>
+			<artifactId>com.tpex.util.commons-beanutils</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-beanutils-1.8.2.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.commons-beanutils</groupId>
+			<artifactId>com.tpex.util.commons-beanutils</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-beanutils-1.8.2.jar
+			</systemPath>
+		</dependency>
+
+		<!--
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-collections.jar
+			</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-logging-1.1.jar
+			</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/javax.servlet.jar
+			</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/log4j-1.2.13.jar
+			</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jasperreports-6.0.0.jar
+			</systemPath>
+		</dependency>
+		
+			
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/ojdbc6.jar
+			</systemPath>
+		</dependency>
+		
+		<dependency>
+			<groupId>custamJars</groupId>
+			<artifactId>custamJars</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/spring.jar
+			</systemPath>
+		</dependency>
+		-->
+
+		<dependency>
+			<groupId>com.tpex.util.commons-digester</groupId>
+			<artifactId>com.tpex.util.commons-digester</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/commons-digester-2.1.jar
+			</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.tpex.util.consolas</groupId>
+			<artifactId>com.tpex.util.consolas</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/Consolas.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.cordiaNew</groupId>
+			<artifactId>com.tpex.util.cordiaNew</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/Cordia New.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.courierNew</groupId>
+			<artifactId>com.tpex.util.courierNew</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/CourierNew.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.iText-4.2.0</groupId>
+			<artifactId>com.tpex.util.iText-4.2.0</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/iText-4.2.0.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.itextpdf</groupId>
+			<artifactId>com.tpex.util.itextpdf</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/itextpdf-5.5.6.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.itext-pdfa</groupId>
+			<artifactId>com.tpex.util.itext-pdfa</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/itext-pdfa-5.4.0.jar
+			</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.tpex.util.jasperreports-extensions</groupId>
+			<artifactId>com.tpex.util.jasperreports-extensions</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jasperreports-extensions-3.5.3.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.jasperreports-fonts</groupId>
+			<artifactId>com.tpex.util.jasperreports-fonts</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jasperreports-fonts-6.0.0.jar
+			</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.tpex.util.poi-3.11-20141221</groupId>
+			<artifactId>com.tpex.util.poi-3.11-20141221</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/poi-3.11-20141221.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.QRCode</groupId>
+			<artifactId>com.tpex.util.QRCode</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/QRCode.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.qrgen</groupId>
+			<artifactId>com.tpex.util.qrgen</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/qrgen-1.0.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.saysetthaMX</groupId>
+			<artifactId>com.tpex.util.saysetthaMX</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/SaysetthaMX.jar
+			</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.tpex.util.THSarabunNewItalic</groupId>
+			<artifactId>com.tpex.util.THSarabunNewItalic</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/THSarabunNewItalic.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.THSarabunPSK</groupId>
+			<artifactId>com.tpex.util.THSarabunPSK</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/THSarabunPSK.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.timesNewRoman</groupId>
+			<artifactId>com.tpex.util.timesNewRoman</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/TimesNewRoman.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.wingDing2</groupId>
+			<artifactId>com.tpex.util.wingDing2</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/WingDing2.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.zxing</groupId>
+			<artifactId>com.tpex.util.zxing</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/zxing-2.1.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.zxing-core</groupId>
+			<artifactId>com.tpex.util.zxing-core</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/zxing-core-1.7.jar
+			</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.tpex.util.zxing-core</groupId>
+			<artifactId>com.tpex.util.zxing-core</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/zxing-j2se-1.7.jar
+			</systemPath>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

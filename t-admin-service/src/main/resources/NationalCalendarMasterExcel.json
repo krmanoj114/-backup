@@ -1,0 +1,10 @@
+
+	{
+		"batchJobId": "",
+		"batchJobName": "NationalCalendarexcelBatchReceiving",
+		"batchJobFileName": "",
+		"batchJobFixedLengthMappingFileName": "",
+		"batchJobInputFilePath": "D:/home/TMAP/DSD/shared/report/TPEXConfig/SaveFile",
+		"batchJobInputTargetType": "import com.tpex.entity.NatCalEntity",
+		"batchJobRowMapper": "com.tpex.admin.batchJob.NatiCalMastRowMapper"
+	}

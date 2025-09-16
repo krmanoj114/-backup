@@ -1,0 +1,51 @@
+.grid-table .mixPriviligeMaster td {
+    white-space: normal;
+    line-height: 20px;
+    vertical-align: top;
+}
+.grid-table .mixPriviligeMaster th:nth-of-type(2), .grid-table .mixPriviligeMaster td:nth-of-type(2) {
+    width: 90px;
+    min-width: 90px;
+}
+.grid-table .mixPriviligeMaster th:nth-of-type(3), .grid-table .mixPriviligeMaster td:nth-of-type(3) {
+    width: 90px;
+    min-width: 90px;
+}
+.grid-table .mixPriviligeMaster th:nth-of-type(4), .grid-table .mixPriviligeMaster td:nth-of-type(4) {
+    width: 90px;
+    min-width: 90px;
+}
+.grid-table .mixPriviligeMaster th:nth-of-type(5), .grid-table .mixPriviligeMaster td:nth-of-type(5),
+.grid-table .mixPriviligeMaster th:nth-of-type(6), .grid-table .mixPriviligeMaster td:nth-of-type(6),
+.grid-table .mixPriviligeMaster th:nth-of-type(7), .grid-table .mixPriviligeMaster td:nth-of-type(7),
+.grid-table .mixPriviligeMaster th:nth-of-type(8), .grid-table .mixPriviligeMaster td:nth-of-type(8),
+.grid-table .mixPriviligeMaster th:nth-of-type(9), .grid-table .mixPriviligeMaster td:nth-of-type(9) {
+    width: 140px;
+    min-width: 140px;
+}
+.editTableRow.disableClick{
+    pointer-events: none;
+}
+.grid-table .mixPriviligeMaster .editTableRow.disableClick td {
+    background-color: #DBDBDB;
+    box-shadow: inset -2px 0 #B3B3B3;
+    border-bottom: 2px solid #B3B3B3;
+}
+.grid-table .mixPriviligeMaster .editTableRow.disableClick td:last-child {
+    box-shadow: none; 
+}
+.editTableRow.disableClick .checkboxCol .form-check .form-check-input {
+    pointer-events: none;
+    filter: none;
+    opacity: .5;
+}
+.grid-table .mixPriviligeMaster .custom-multiSelect .css-1nmdiq5-menu {
+    position: relative;
+}
+.grid-table .mixPriviligeMaster .custom-multiSelect .css-1n6sfyn-MenuList {
+    max-height: 150px;
+}
+.grid-table .mixPriviligeMaster tbody tr.editTableRow:hover td:nth-of-type(4) {
+    background: url('../../assets/images/icons/edit.svg') no-repeat right, #EFF1F9;
+    background-position: right 3px top 4px;
+}

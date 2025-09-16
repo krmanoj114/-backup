@@ -1,0 +1,144 @@
+  SELECT 
+	        		         ROW_NUMBER() OVER (        
+	        		     ORDER BY 
+	        		         ETD_1 , 
+	        		         CONT_SNO , 
+	        		         PLN_VAN_END_DT ) AS SR_NO, 
+	        		         ETD_1, 
+	        		         CONCAT(CONCAT(SUBSTR(CONT_SNO, 
+	        		         2, 
+	        		         1), 
+	        		         '-'), 
+	        		         SUBSTR(CONT_SNO, 
+	        		         3, 
+	        		         4)) AS CONT_RENBAN_NO, 
+	        		         CONT_SIZE, 
+	        		         DG_FLG, 
+	        		         VAN_DT, 
+	        		         INV_DATA_CAME, 
+	        		         IFNULL(INV_GEN_FLG, 
+	        		         'Not Yet') AS INV_GEN_FLG, 
+	        		         BOOKING_NO, 
+	        		         ISO_CONT_NO, 
+	        		         SEAL_NO, 
+	        		         CONT_GRP_CD        
+	        		     from 
+	        		         (SELECT 
+	        		             DISTINCT date_format(A.ETD_1, 
+	        		             '%d/%m/%Y') AS ETD_1, 
+	        		             A.CONT_SNO AS CONT_SNO, 
+	        		             A.CONT_SIZE AS CONT_SIZE, 
+	        		             case                      
+	        		                 when sum(NVIP_DG_FLG) > 0 then 'Y'                     
+	        		                 else 'N/A'                 
+	        		             end AS DG_FLG, 
+	        		             date_format(A.PLN_VAN_END_DT, 
+	        		             '%d/%m/%Y') AS VAN_DT, 
+	        		             case                    
+	        		                 when B.SNO IS NULL then 'No'                    
+	        		                 else 'Yes'                
+	        		             end AS INV_DATA_CAME, 
+	        		             B.INV_GEN_FLG, 
+	        		             A.PLN_VAN_END_DT AS PLN_VAN_END_DT, 
+	        		             C.BOOKING_NO AS BOOKING_NO, 
+	        		             C.ISO_CONT_NO AS ISO_CONT_NO, 
+	        		             A.SEAL_NO AS SEAL_NO, 
+	        		             A.CONT_GRP_CD AS CONT_GRP_CD             
+	        		         FROM 
+	        		             TB_R_DLY_VPR_CONTAINER A, 
+	        		             (SELECT 
+	        		                 DISTINCT NVIM.CONT_DST_CD AS DST_CD, 
+	        		                 NVIM.CONT_SNO AS SNO, 
+	        		                 NVIC.CONT_SIZE, 
+	        		                 (case                        
+	        		                     when DNG_PART_IMO IS NULL then (case                            
+	        		                         when DNG_PART_DST IS NULL then '0'                            
+	        		                         else '1'                        
+	        		                     end)                        
+	        		                     else '1'                    
+	        		                 end) AS NVIP_DG_FLG, 
+	        		                 case                         
+	        		                     when (sum(case                            
+	        		                         when(NVIM.INV_FLG = 'N'                            
+	        		                         OR NVIM.INV_FLG IS NULL) then 1                            
+	        		                         else 0                        
+	        		                     end) > 0                         
+	        		                     AND sum(case                            
+	        		                         when NVIM.INV_FLG = 'Y' then 1                            
+	        		                         else 0                        
+	        		                     end) > 0) then 'Partially'                         
+	        		                     when sum(case                            
+	        		                         when(NVIM.INV_FLG = 'N'                            
+	        		                         OR NVIM.INV_FLG IS NULL) then 1                            
+	        		                         else 0                        
+	        		                     end) > 0 then 'Not Yet'                         
+	        		                     else 'Completed'                     
+	        		                 end AS INV_GEN_FLG                 
+	        		             FROM 
+	        		                 TB_R_INV_VPR_CONTAINER NVIC, 
+	        		                 TB_R_INV_VPR_MODULE NVIM, 
+	        		                 TB_R_INV_VPR_PART NVIP                
+	        		             WHERE 
+	        		                 NVIC.CONT_DST_CD  = "900A"                     
+	        		                 AND ( 
+	        		                     ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN) >= ifnull("01/06/2023", ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN))                         
+	        		                     AND ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN)  <= ifnull("01/06/2023", ifnull(NVIC.ETD_FEEDER,NVIC.ETD_OCEAN))                    
+	        		                 )                     
+	        		                 AND NVIC.CONT_DST_CD                      = NVIM.CONT_DST_CD                     
+	        		                 AND NVIC.CONT_SNO                         = NVIM.CONT_SNO                     
+	        		                 AND NVIP.CONT_DST_CD                      = NVIM.CONT_DST_CD                     
+	        		                 AND NVIP.CONT_SNO                         = NVIM.CONT_SNO                     
+	        		                 AND NVIP.MOD_DST_CD                       = NVIM.MOD_DST_CD                     
+	        		                 AND NVIP.LOT_MOD_NO                       = NVIM.LOT_MOD_NO                     
+	        		                 AND NVIP.CASE_NO                          = NVIM.CASE_NO                     
+	        		                 AND NVIP.VAN_MTH                          = NVIM.VAN_MTH                 
+	        		             GROUP BY 
+	        		                 NVIM.CONT_DST_CD, 
+	        		                 NVIM.CONT_SNO, 
+	        		                 NVIC.CONT_SIZE, 
+	        		                 (case                        
+	        		                     when DNG_PART_IMO IS NULL then (case                            
+	        		                         when DNG_PART_DST IS NULL then '0'                            
+	        		                         else '1'                        
+	        		                     end)                        
+	        		                     else '1'                    
+	        		                 end)) B, 
+	        		             TB_M_ISO_CONTAINER C             
+	        		         WHERE 
+	        		             A.CONT_DST_CD = "900A"                
+	        		             AND A.ETD_1        >= ifnull("01/06/2023", A.ETD_1)                 
+	        		             AND A.ETD_1        <= ifnull("01/06/2023", A.ETD_1)                 
+	        		             AND ( 
+	        		                 "" = 'Y'                    
+	        		                 OR A.CONT_GRP_CD IN ( 
+	        		                     :renbanCodes                   
+	        		                 )               
+	        		             )                 
+	        		             AND C.BOOKING_NO   = ifnull("", C.BOOKING_NO)                 
+	        		             AND A.CONT_DST_CD  = B.DST_CD                
+	        		             AND A.CONT_SNO     = B.SNO                
+	        		             AND A.CONT_DST_CD  = C.CONT_DST_CD                 
+	        		             AND A.ETD_1       = C.ETD1                 
+	        		             AND A.CONT_SNO   = C.CONT_SNO            
+	        		         group by 
+	        		             date_format(A.ETD_1, 
+	        		             '%d/%m/%Y'), 
+	        		             A.CONT_SNO, 
+	        		             A.CONT_SIZE, 
+	        		             date_format(A.PLN_VAN_END_DT, 
+	        		             '%d/%m/%Y'), 
+	        		             case                    
+	        		                 when B.SNO IS NULL then 'No'                    
+	        		                 else 'Yes'                
+	        		             end, 
+	        		             B.INV_GEN_FLG, 
+	        		             A.PLN_VAN_END_DT, 
+	        		             C.BOOKING_NO, 
+	        		             C.ISO_CONT_NO, 
+	        		             A.SEAL_NO, 
+	        		             A.CONT_GRP_CD             
+	        		         ORDER BY 
+	        		             date_format(A.ETD_1, 
+	        		             '%d/%m/%Y'), 
+	        		             C.BOOKING_NO, 
+	        		             A.CONT_SNO) X;

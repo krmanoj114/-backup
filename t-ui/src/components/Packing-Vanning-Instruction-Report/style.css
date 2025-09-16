@@ -1,0 +1,23 @@
+.packing-vanning-ins h5 {
+    color: #253eae;
+    font-size: 14px;
+    font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    display: inline-block;
+    margin-right: 21px;
+}
+
+.packing-vanning-ins .radio-container .form-check {
+    padding-bottom: 5px;
+}
+
+.packing-vanning-ins .lot-num .col:first-child {
+    width: 16%;
+    flex: auto;
+}
+
+.packing-vanning-ins .radio-main-container{
+    min-height: 135px;
+}
+.customDatePicker .form-control:disabled {
+    background-color: #e9ecef !important;
+}

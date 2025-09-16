@@ -1,0 +1,92 @@
+[
+    {
+        "processId": "DA90020",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR22X00001",
+            "KR22100001",
+            "KR22100002",
+            "KR22100003",
+            "KR22100004"
+        ],
+        "userId": "ROEM"
+    },
+    {
+        "processId": "DA90030",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR32X00001",
+            "KR32100001",
+            "KR32100002",
+            "KR32100003",
+            "KR32100004"
+        ],
+        "userId": "ROEM"
+    },
+    {
+        "processId": "DA90040",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR42X00001",
+            "KR42100001",
+            "KR42100002",
+            "KR42100003",
+            "KR42100004"
+        ],
+        "userId": "ROEM"
+    },
+    {
+        "processId": "DA90050",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR52X00001",
+            "KR52100001",
+            "KR52100002",
+            "KR52100003",
+            "KR52100004"
+        ],
+        "userId": "ROEM"
+    },
+    {
+        "processId": "DA90020",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR22X00001",
+            "KR22100001",
+            "KR22100002",
+            "KR22100003",
+            "KR22100004"
+        ],
+        "userId": "NOEM"
+    },
+    {
+        "processId": "DA90030",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR32X00001",
+            "KR32100001",
+            "KR32100002",
+            "KR32100003",
+            "KR32100004"
+        ],
+        "userId": "NOEM"
+    },
+    {
+        "processId": "DA90040",
+        "processName": "Invoice data to IXOS",
+        "parameters": [
+            "KR42X00001",
+            "KR42100001",
+            "KR42100002",
+            "KR42100003",
+            "KR42100004"
+        ],
+        "userId": "NOEM"
+    },
+    {
+        "processId": "DA90060",
+        "processName": "Invoice data to IXOS no parameters",
+        "parameters": [],
+        "userId": "ROEM"
+    }
+]

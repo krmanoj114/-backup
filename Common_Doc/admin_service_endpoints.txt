@@ -1,0 +1,52 @@
+
+common-code-master-controller
+POST   ​/tpex-admin-service​/codeMaster​/codeMasterName
+POST   /tpex-admin-service​/codeMaster​/codeMasterNames
+POST   /tpex-admin-service​/codeMaster​/deleteCodeMaster
+GET    ​/tpex-admin-service​/codeMaster​/finalDestinationMaster
+POST   ​/tpex-admin-service​/codeMaster​/saveCodeMaster
+POST   ​/tpex-admin-service​/codeMaster​/updateCodeMaster
+
+common-process-control-controller
+GET	    ​/tpex-admin-service​/commonProcessControl​/downloadProcessLogs
+GET	    ​/tpex-admin-service​/commonProcessControl​/exportProcessLogs
+POST	​/tpex-admin-service​/commonProcessControl​/processLogs
+POST	​/tpex-admin-service​/commonProcessControl​/processName
+POST	​/tpex-admin-service​/commonProcessControl​/processNames
+POST	​/tpex-admin-service​/commonProcessControl​/processStatus
+POST	​/tpex-admin-service​/commonProcessControl​/submitProcess
+POST	​/tpex-admin-service​/commonProcessControl​/systemNames
+
+common-upload-and-download-controller
+GET		​/tpex-admin-service​/commonUploadDownload​/countrycodename
+GET		​/tpex-admin-service​/commonUploadDownload​/downlaodNatCalMaster
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadAddressMaster
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadAddressMasterTemplate
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadCarFamilyDestinationMaster
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadCarFmlyDestMasterReport
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadCountryofOriginMaster
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadCountryofOriginTemplate
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadLotPartPriceMstTemplate
+POST	​/tpex-admin-service​/commonUploadDownload​/downloadLotPartShortageReport
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadNatCalMasterTemplate
+GET		​/tpex-admin-service​/commonUploadDownload​/downloadPxpPartPriceTemplate
+GET		​/tpex-admin-service​/commonUploadDownload​/processDetails
+POST	​/tpex-admin-service​/commonUploadDownload​/processDetails
+POST	​/tpex-admin-service​/commonUploadDownload​/report
+POST	​/tpex-admin-service​/commonUploadDownload​/reportsAndprocessDetails
+POST	​/tpex-admin-service​/commonUploadDownload​/uplaodAddressMaster
+POST	​/tpex-admin-service​/commonUploadDownload​/uplaodCarFamilyDestinationMaster
+POST	​/tpex-admin-service​/commonUploadDownload​/uplaodLotPartPriceMaster
+POST	​/tpex-admin-service​/commonUploadDownload​/uplaodNatCalMaster
+POST	​/tpex-admin-service​/commonUploadDownload​/uplaodPxpPartPriceMaster
+POST	​/tpex-admin-service​/commonUploadDownload​/UploadcountryCodeOrigin
+POST	​/tpex-admin-service​/commonUploadDownload​/uploadWrkPlanMaster
+
+
+dropdown-controller
+GET		​/tpex-admin-service​/dropdown​/companyAndPlant
+
+ondemand-down-rpt-controller
+GET		​/tpex-admin-service​/onDemandDownload​/reportDownload
+GET		​/tpex-admin-service​/onDemandDownload​/reportNamesAndStatus
+POST	​/tpex-admin-service​/onDemandDownload​/reports

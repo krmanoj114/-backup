@@ -1,0 +1,10 @@
+
+	{
+		"batchJobId": "",
+		"batchJobName": "UpdatePartMaster",
+		"batchJobFileName": "",
+		"batchJobFixedLengthMappingFileName": "",
+		"batchJobInputFilePath": "classpath:",
+		"batchJobInputTargetType": "import com.tpex.entity.NatCalEntity",
+		"batchJobRowMapper": "com.tpex.batchjob.partmasterupload.PartMasterUploadRowMapper"
+	}

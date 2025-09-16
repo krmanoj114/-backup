@@ -1,0 +1,50 @@
+{
+	"columns": [
+		{
+			"id": "CF_CD",
+			"name": "Car Family",
+			"type": "string",
+			"max": "5",
+			"min": "4",
+			"required": true,
+			"editable": false,
+			"unique": true,
+			"link": false
+		},
+		{
+			"id": "CF_SRS_NM",
+			"name": "Series Name",
+			"type": "string",
+			"max": "15",
+			"min": "10",
+			"required": true,
+			"editable": true,
+			"unique": false,
+			"link": false
+		},
+		{
+			"id": "CF_REP",
+			"name": "Car Representative",
+			"type": "string",
+			"max": "1",
+			"min": "1",
+			"required": true,
+			"editable": false,
+			"unique": false,
+			"link": false
+		},
+		{
+			"id": "CF_TI_REP",
+			"name": "TI Representative",
+			"type": "string",
+			"max": "10",
+			"min": "10",
+			"required": false,
+			"editable": false,
+			"unique": false,
+			"link": false
+		}
+	],
+	"tableName": "OEM_CF_MST",
+	"primaryKey": "CF_CD"
+}

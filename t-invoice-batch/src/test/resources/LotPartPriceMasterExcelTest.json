@@ -1,0 +1,10 @@
+
+	{
+		"batchJobId": "123",
+		"batchJobName": "123",
+		"batchJobFileName": "",
+		"batchJobFixedLengthMappingFileName": "",
+		"batchJobInputFilePath": "classpath:",
+		"batchJobInputTargetType": "import com.tpex.entity.NatCalEntity",
+		"batchJobRowMapper": "com.tpex.batchjob.lotpartpriceupload.LotPartPriceUploadBatchRowMapper"
+	}

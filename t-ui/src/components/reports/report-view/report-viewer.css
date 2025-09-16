@@ -1,0 +1,10 @@
+.report-name-pdf {
+    color: #253eae; 
+    font-weight:300;  
+    font-size: 18px;
+    font-family: "LatoBold", Helvetica, Arial, Verdana, Tahoma, sans-serif;
+}
+
+embed#title {
+    display: none;
+}

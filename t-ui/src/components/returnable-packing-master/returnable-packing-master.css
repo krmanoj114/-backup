@@ -1,0 +1,31 @@
+/* // Add Css Here */
+.RETURNABLE_PACKING_MASTER .editTableRow td:not(:nth-of-type(1)):not(:nth-of-type(6)):not(:nth-of-type(8)),
+.RETURNABLE_PACKING_MASTER td.nonEdit,
+.RETURNABLE_PACKING_MASTER .tpexTable tbody tr:hover td.nonEdit{
+    background-color: #DBDBDB;
+    box-shadow: inset -2px 0 #B3B3B3;
+    border-bottom: 2px solid #B3B3B3;
+    cursor: default;
+}
+
+.RETURNABLE_PACKING_MASTER td[id^=sno], 
+.grid-table .RETURNABLE_PACKING_MASTER .tpexTable td.add-sno{
+    min-width: 25px;
+    width: 25px;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.grid-table .RETURNABLE_PACKING_MASTER .custom-multiSelect .css-1nmdiq5-menu {
+    position: relative;
+
+}
+
+.grid-table .RETURNABLE_PACKING_MASTER .custom-multiSelect .css-1n6sfyn-MenuList {
+    max-height: 150px;
+}
+.grid-table .RETURNABLE_PACKING_MASTER td {
+    white-space: normal;
+    line-height: 20px;
+    vertical-align: top;
+}
